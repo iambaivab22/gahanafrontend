@@ -1,0 +1,107 @@
+// open type - SF Pro Display
+// @font-face {
+//   font-family: SFPD-Italic;
+//   src: url(/assets/fonts/SFProDisplay/SFPD-Black-Italic.OTF) format('opentype');
+// }
+
+// @font-face {
+//   font-family: SFPD-Bold;
+//   src: url(/assets/fonts/SFProDisplay/SFPD-Bold.OTF) format('opentype');
+// }
+
+// @font-face {
+//   font-family: SFPD-HeavyItalic;
+//   src: url(/assets/fonts/SFProDisplay/SFPD-Heavy-Italic.OTF) format('opentype');
+// }
+
+// @font-face {
+//   font-family: SFPD-LightItalic;
+//   src: url(/assets/fonts/SFProDisplay/SFPD-Light-Italic.OTF) format('opentype');
+// }
+
+// @font-face {
+//   font-family: SFPD-Medium;
+//   src: url(/assets/fonts/SFProDisplay/SFPD-Medium.OTF) format('opentype');
+// }
+
+// @font-face {
+//   font-family: SFPD-Regular;
+//   src: url(/assets/fonts/SFProDisplay/SFPD-Regular.OTF) format('opentype');
+// }
+
+// @font-face {
+//   font-family: SFPD-SemiBoldItalic;
+//   src: url(/assets/fonts/SFProDisplay/SFPD-SemiBold-Italic.OTF)
+//     format('opentype');
+// }
+
+// // true type - SF Pro Text
+// @font-face {
+//   font-family: SFPT-Bold;
+//   src: url(/assets/fonts/SFProText/SFPT-Bold.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-BoldItalic;
+//   src: url(/assets/fonts/SFProText/SFPT-BoldItalic.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-Heavy;
+//   src: url(/assets/fonts/SFProText/SFPT-Heavy.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-HeavyItalic;
+//   src: url(/assets/fonts/SFProText/SFPT-HeavyItalic.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-Light;
+//   src: url(/assets/fonts/SFProText/SFPT-Light.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-LightItalic;
+//   src: url(/assets/fonts/SFProText/SFPT-LightItalic.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-Medium;
+//   src: url(/assets/fonts/SFProText/SFPT-Medium.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-MediumItalic;
+//   src: url(/assets/fonts/SFProText/SFPT-MediumItalic.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-Regular;
+//   src: url(/assets/fonts/SFProText/SFPT-Regular.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-RegularItalic;
+//   src: url(/assets/fonts/SFProText/SFPT-RegularItalic.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-SemiBold;
+//   src: url(/assets/fonts/SFProText/SFPT-Semibold.ttf) format('truetype');
+// }
+
+// @font-face {
+//   font-family: SFPT-SemiBoldItalic;
+//   src: url(/assets/fonts/SFProText/SFPT-SemiboldItalic.ttf) format('truetype');
+// }
+
+#root,
+body {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+textarea {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 14px;
+}

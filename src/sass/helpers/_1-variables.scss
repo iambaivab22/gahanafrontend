@@ -1,0 +1,182 @@
+$base: (
+  'surface': #f0f0f0,
+  'primary': #2c6ecb,
+  'secondary': #4b6c8b14,
+  'success': #00b286,
+  'critical': #d82c0d,
+  'warning': #ffc453,
+  'black': #111213
+);
+
+$text: (
+  'primary': #3b4b5a,
+  'secondary': #6d7175,
+  'disabled': #8c9196,
+  'inverted': #ffffff,
+  'base': #ea8969
+);
+
+$surface: (
+  'primary': #e4e5e7,
+  'highlight': #a4e8f2,
+  'success': #aee9d1,
+  'warning': #ffd79d,
+  'attention': #ffea8a,
+  'critical': #fed3d1
+);
+
+$border: (
+  'primary': #8c9196,
+  'secondary': #c9cccf,
+  'light': #e6e6e7
+);
+
+$action: (
+  'primary': (
+    'default': #2c6ecb,
+    'hovered': #1f5199,
+    'pressed': #113e7e
+  ),
+  'critical': (
+    'default': #d82c0d,
+    'hovered': #bc2200,
+    'pressed': #a21b00
+  ),
+  'success': (
+    'default': #00b286,
+    'hovered': #189576,
+    'pressed': #0f765c
+  ),
+  'inverted': (
+    'default': #ffffff,
+    'hovered': #f5f5f5,
+    'pressed': #e7e7e7
+  )
+);
+
+// Color pallete
+$white: #ffffff;
+$black: #000000;
+$teal: #3180a9;
+$orange: #ff8144;
+$green: #5b9540;
+$purple: #a259f4;
+$red: #d82c0d;
+$blue: #2c6ecb;
+
+// Black variants
+$black100: #13293d;
+$black200: #484451;
+
+// Grey variants
+$grey100: #a1a1a1;
+$grey200: #d1d1d1;
+$grey300: #efefef;
+$grey400: #f8f8f8;
+$graylite: #798692;
+
+// Primary variants
+$primary100: #2c6ecb;
+$primary200: #417cd0;
+$primary300: #568bd5;
+$primary400: #6b99da;
+$primary500: #80a8df;
+
+$defaultBorderColor: #e1e1e1;
+$lightBorderColor: #f1f1f1;
+$darkBorderColor: #a1a1a1;
+$backgroundColor: #f5f6fa;
+$defaultTextColor: #353535;
+$lightTextColor: #9ea7ca;
+$highlightColor: #ffb17a;
+
+// TEXT COLORS
+$defaulttextcolor: #555555;
+$lighttextcolor: #707070;
+$secondarytextcolor: #989898;
+
+// BORDER COLORS
+$defaultborder: #e1e1e1;
+
+// FONT SIZES
+$fontSizes: (
+  0: 0,
+  1: 10px,
+  2: 12px,
+  3: 14px,
+  4: 16px,
+  5: 18px,
+  6: 20px,
+  6_5: 22px,
+  7: 24px,
+  7_5: 26px,
+  8: 32px,
+  8_25: 36px,
+  8_5: 38px,
+  9: 48px,
+  10: 64px,
+  11: 72px
+);
+// Font sizes
+// $large_heading: 32px;
+// $heading_one: 24px; // Bold
+// $heading_two: 20px; // Bold
+// $text: 16px; // Medium for Links/Text/SubHeaing, Regular
+
+// FONT WEIGHTS
+$fontWeights: (
+  thin: 100,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900
+);
+
+// LINE HEIGHTS
+$lineHeights: (
+  compact: 1.2,
+  heading: 1.33,
+  default: 1.5,
+  cosy: 2
+);
+
+// SPACE
+$space: (
+  0: 0,
+  0_5: 2px,
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 20px,
+  6: 24px,
+  7: 28px,
+  8: 32px,
+  9: 36px,
+  10: 40px,
+  11: 44px,
+  12: 48px,
+  13: 52px,
+  14: 56px,
+  15: 60px,
+  16: 64px,
+  17: 128px
+);
+
+// BORDER RADIUS
+$radius: (
+  default: 4px,
+  circle: 50%
+);
+
+// DEFAULT WIDTH
+$default_width: 85%;
+
+// // Font sizes
+// $large_heading: 32px;
+// $heading_one: 24px; // Bold
+// $heading_two: 20px; // Bold
+// $text: 16px; // Medium for Links/Text/SubHeaing, Regular

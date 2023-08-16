@@ -1,0 +1,138 @@
+.businessDetail-container {
+  .businessDetail {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: map-get($space, 8);
+    // border: 1px solid map-get($border, "light");
+    overflow: hidden;
+    gap: map-get($space, 6);
+    &-topinfo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &-leftside {
+        display: flex;
+        gap: map-get($space, 9);
+        align-items: center;
+        &-logo {
+          height: 80px;
+          width: 110px;
+          border-radius: map-get($radius, 'default');
+          overflow: hidden;
+          position: relative;
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+        &-orgInfo {
+          display: flex;
+          flex-direction: column;
+          gap: map-get($space, 3);
+
+          &-title {
+            font-weight: map-get($fontWeights, bold);
+            color: map-get($text, primary);
+            p {
+              font-weight: map-get($fontWeights, bold);
+              color: map-get($text, primary);
+              font-size: map-get($fontSizes, 5);
+            }
+          }
+          &-location {
+            display: flex;
+            gap: map-get($space, 2);
+            font-size: map-get($space, 3);
+            align-items: center;
+            font-weight: map-get($fontWeights, bold);
+            color: map-get($text, secondary);
+            &-icon {
+              height: 25px;
+              width: 25px;
+              background: map-get($base, 'secondary');
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+            }
+          }
+        }
+
+        @include responsive-for(sm) {
+          gap: map-get($space, 4);
+        }
+      }
+      &-rightbtn {
+        @include responsive-for(sm) {
+          margin-top: map-get($space, -4);
+          align-self: flex-end;
+        }
+      }
+    }
+
+    &-slider {
+      // height: 40vh;
+      width: 50vw;
+      // border: 2px solid red;
+    }
+    &-about {
+      display: flex;
+      flex-direction: column;
+      gap: map-get($space, 2);
+      margin-top: map-get($space, 8);
+      &-header {
+        p {
+          font-weight: map-get($fontWeights, bold);
+          color: map-get($text, primary);
+          font-size: map-get($fontSizes, 5);
+        }
+      }
+      &-content {
+        font-size: map-get($fontSizes, 3);
+        color: map-get($text, 'secondary');
+      }
+
+      @include responsive-for(sm) {
+        margin-top: map-get($space, 5);
+      }
+    }
+    &-detail {
+      display: flex;
+      flex-direction: column;
+      gap: map-get($fontSizes, 2);
+      color: map-get($text, primary);
+
+      &-header {
+        p {
+          font-weight: map-get($fontWeights, bold);
+          color: map-get($text, primary);
+          font-size: map-get($fontSizes, 5);
+        }
+      }
+    }
+
+    &-chip {
+      display: flex;
+      align-self: flex-end;
+    }
+
+    // media queries
+
+    @include responsive-for(sm) {
+      gap: map-get($space, 0_5);
+      padding: map-get($space, 4);
+      &-topinfo {
+        display: flex;
+        flex-direction: column;
+        gap: map-get($space, 7);
+      }
+
+      &-detail {
+        margin-top: map-get($space, 5);
+      }
+    }
+  }
+}

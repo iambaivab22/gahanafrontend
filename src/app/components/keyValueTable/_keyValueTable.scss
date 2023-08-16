@@ -1,0 +1,37 @@
+.keyValueTable-container {
+  .keyValueTable {
+    display: grid;
+    background: map-get($base, 'secondary');
+    border-radius: map-get($radius, default);
+    width: 100%;
+
+    &-eachitem {
+      display: flex;
+      align-items: center;
+      position: relative;
+      font-size: map-get($fontSizes, 3);
+      color: map-get($text, 'primary');
+      padding: map-get($space, 3) map-get($space, 3);
+      border-bottom: 1px solid map-get($border, 'light');
+
+      .itemtitle {
+        text-transform: capitalize;
+      }
+
+      .common {
+        color: $graylite;
+        margin-left: map-get($space, 1);
+      }
+
+      .website {
+        a {
+          color: $graylite;
+        }
+        text-decoration: underline;
+        cursor: pointer;
+
+        margin-left: map-get($space, 1);
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.carouselContainers {
+  height: 100%;
+  width: 100%;
+  .image-container {
+    width: 100% !important;
+    height: 100% !important;
+
+    img {
+      object-fit: cover;
+    }
+  }
+}
+
+.image-container {
+  img {
+    height: 30vh !important;
+    width: 100% !important;
+  }
+}

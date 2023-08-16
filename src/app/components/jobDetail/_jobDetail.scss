@@ -1,0 +1,36 @@
+.jobDetail-container {
+  .jobDetail {
+    &-jobIntro {
+      border-bottom: 1px solid map-get($border, light);
+      padding: map-get($space, 3) map-get($space, 5);
+
+      color: $graylite;
+      font-size: map-get($fontSizes, 2);
+
+      .jobId {
+        color: map-get($text, secondary);
+        font-weight: map-get($fontWeights, normal);
+      }
+
+      &-typeTitle {
+        text-transform: capitalize;
+      }
+    }
+
+    &-detail {
+      padding: map-get($space, 5);
+    }
+
+    &-jobRequirement {
+      padding: 0 map-get($space, 5);
+      margin-bottom: map-get($space, 5);
+
+      &-text {
+        font-size: map-get($fontSizes, 3);
+        color: $graylite;
+        text-align: justify;
+        line-height: 1.3;
+      }
+    }
+  }
+}

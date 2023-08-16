@@ -1,0 +1,44 @@
+.productDetail-container {
+  height: auto;
+  width: 100%;
+
+  .productDetail {
+    &-detailTop {
+      padding: map-get($space, 4) map-get($space, 3);
+      &-topMost {
+        color: map-get($text, 'secondary');
+
+        @include responsive-for(sm) {
+          flex-direction: column;
+          row-gap: map-get($space, 3);
+        }
+      }
+      &-electronics {
+        &-catagory {
+          font-size: map-get($fontSizes, 3);
+          font-weight: map-get($fontWeights, bold);
+          color: map-get($base, 'primary');
+        }
+      }
+    }
+
+    &-detailBottom {
+      padding: map-get($space, 3);
+
+      border-top: 1px solid map-get($border, 'light');
+      &-description {
+        &-content {
+          font-size: map-get($fontSizes, 3);
+          color: $graylite;
+          line-height: 1.3;
+          text-align: justify;
+        }
+      }
+    }
+
+    video {
+      height: 20vh !important;
+      width: 30vw;
+    }
+  }
+}

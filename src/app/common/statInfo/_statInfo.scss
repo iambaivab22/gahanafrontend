@@ -1,0 +1,13 @@
+.statInfoContainer {
+    font-size: map-get($fontSizes, 3);
+    gap: map-get($space, 1);
+
+    &-icon {
+        color: map-get($text, secondary);
+        font-size: map-get($fontSizes, 4);
+    }
+
+    &-value {
+        color: map-get($text, secondary);
+    }
+}

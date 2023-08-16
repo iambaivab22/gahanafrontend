@@ -1,0 +1,5 @@
+[feat/news bb338d1] commonInputClone-
+ 24 files changed, 47 insertions(+), 47 deletions(-)
+ delete mode 100644 src/components/commonCategory/commonInputClone/index.ts
+ rename src/components/commonCategory/{commonInputClone/commonInputClone.component.tsx => formContainer/formContainer.component.tsx} (97%)
+ create mode 100644 src/components/commonCategory/formContainer/index.ts

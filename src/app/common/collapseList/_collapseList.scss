@@ -1,0 +1,40 @@
+.collapseContainer {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+
+  & .eachCollapse {
+    // overflow: hidden;
+
+    & .collapseTitle {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 16px;
+
+      .collapse-title-content {
+        flex: 1;
+        @include flex-stretch-start;
+        width: 100%;
+      }
+
+      & .iconContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    & .collapseContentContainer {
+      transition: 0.4s ease;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 14px;
+      // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+  }
+}
