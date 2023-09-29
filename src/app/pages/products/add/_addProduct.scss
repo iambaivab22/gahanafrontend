@@ -1,0 +1,18 @@
+.addProduct {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  //   border: 2px solid red;
+
+  &-input {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    // border: 2px solid blue;
+    flex: 1;
+
+    .css-vet36p-control {
+      width: 100% !important;
+    }
+  }
+}

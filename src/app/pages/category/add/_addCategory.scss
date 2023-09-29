@@ -1,0 +1,15 @@
+.addCategory-subCategory {
+  &-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 5px;
+
+    &-item {
+      padding: 5px 20px;
+      color: white;
+      border-radius: 20px;
+      background-color: purple;
+    }
+  }
+}

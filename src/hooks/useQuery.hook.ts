@@ -21,6 +21,7 @@ export function useParams(
   param?: string
 ): string | Readonly<Params<string>> | undefined {
   const params = useParamFromDom()
+  console.log(params[param], 'from hook')
 
   return param ? params[param] : params
 }

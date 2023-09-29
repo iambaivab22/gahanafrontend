@@ -11,6 +11,11 @@ const deleteProduct = async (productId: string) => {
   const response = await api<any>('delete')(`/product/${productId}`)
 }
 
+const deleteProductImages = async (productId: string, imageId: string) => {
+  console.log(productId, 'productId from service')
+  const response = await api<any>('delete')(`/product/${productId}/${imageId}`)
+}
+
 // MARK: - getProductDetail
 const getProductDetailById = async (productId: string) => {
   const response = await api<Api.Base<any>>('get')(`/product/${productId}`)
@@ -63,5 +68,6 @@ export const productService = {
   getProductDetailById,
   createProduct,
   getProductListByCategoryId,
-  updateProduct
+  updateProduct,
+  deleteProductImages
 }

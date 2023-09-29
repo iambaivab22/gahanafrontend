@@ -1,0 +1,85 @@
+.image-uploader {
+  position: relative;
+  width: 100%;
+  position: relative;
+  width: 100%;
+  border-radius: map-get($radius, 'default');
+  border: 1px solid map-get($base, 'surface');
+  outline: none;
+  display: flex;
+
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 20px;
+  padding: 8px 12px;
+  height: 120px;
+  position: relative;
+  // height: 140px;
+  background-color: map-get($base, 'surface');
+  label {
+    color: map-get($text, 'primary');
+    transition: border 0.1s, background 0.1s;
+    display: block;
+    cursor: pointer;
+
+    .afterUpload {
+      width: max-content;
+      position: absolute;
+      top: 20%;
+      right: 5%;
+    }
+
+    .imageUploader-placeholder {
+      display: flex;
+
+      // background-color: pink;
+
+      // height: 100%;
+      flex: 1;
+      flex-direction: column;
+
+      justify-content: center;
+      align-items: center;
+      column-gap: 20px;
+
+      font-size: 22px;
+
+      // height: 100%;
+    }
+  }
+
+  .image-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 1rem;
+    pointer-events: none !important;
+
+    // position: absolute;
+    // width: max-content;
+
+    &-item {
+      width: auto;
+      position: relative;
+      border-radius: 8px;
+      border: 2px solid #d9d5db;
+
+      &-button {
+        position: absolute;
+        top: 5%;
+        right: 5%;
+        border: none;
+        pointer-events: auto;
+      }
+      &-preview {
+        height: 80px;
+        width: 80px;
+
+        object-fit: contain;
+      }
+    }
+  }
+  .image-uploader-input {
+    display: none;
+  }
+}

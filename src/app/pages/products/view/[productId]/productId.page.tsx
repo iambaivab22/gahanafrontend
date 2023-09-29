@@ -3,7 +3,7 @@ import {Chip, HStack, StatInfo, Title, VStack} from 'src/app/common'
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'src/store'
 import {getProductDetailByIdAction} from '../../product.slice'
-import {useParams} from 'src/hooks'
+import {useParams} from 'react-router-dom'
 import {
   Button,
   InputField,
@@ -15,8 +15,10 @@ import {ProductSlider} from 'src/app/components'
 
 const ProductDetailsPage = () => {
   const dispatch = useDispatch()
-  const productId = useParams('productId')
-  console.log(productId)
+
+  let {productId} = useParams()
+
+  console.log(productId, 'productId')
   useEffect(() => {
     dispatch(getProductDetailByIdAction({productId: productId as string}))
   }, [])

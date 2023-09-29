@@ -45,6 +45,33 @@ const delteProductAction = createAsyncThunk(
   }
 )
 
+const delteProductImageAction = createAsyncThunk(
+  'productImage/delete',
+  async (
+    {
+      productId,
+      imageId,
+      onSuccess
+    }: {
+      productId: string
+      imageId: string
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      console.log('productIMages slice', productId)
+      const response = await productService.deleteProductImages(
+        productId,
+        imageId
+      )
+      onSuccess && onSuccess(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot delete product image!')
+    }
+  }
+)
 const createProductAction = createAsyncThunk(
   'product/create',
   async (
@@ -106,6 +133,7 @@ const getProductDetailByIdAction = createAsyncThunk(
     },
     thunkAPI
   ) => {
+    console.log('getproduct detail by id called')
     try {
       const response = await productService.getProductDetailById(productId)
       return response
@@ -203,6 +231,7 @@ const initialState: {
   productDetailLoading?: boolean
   createProductLoading?: boolean
   updateProductLoading?: boolean
+  deleteProductImageLoading?: boolean
   //   detailLoading: boolean
   //   detail: any
   //   detailSuccess: boolean
@@ -215,7 +244,9 @@ const initialState: {
   data: undefined,
   success: false,
   deleteProductLoading: false,
-  createProductLoading: false
+  createProductLoading: false,
+  updateProductLoading: false,
+  deleteProductImageLoading: false
 
   //   detailLoading: false,
   //   detail: undefined,
@@ -262,6 +293,16 @@ const productSlice = createSlice({
     })
     builder.addCase(delteProductAction.rejected, (state) => {
       state.deleteProductLoading = false
+    })
+
+    builder.addCase(delteProductImageAction.pending, (state) => {
+      state.deleteProductImageLoading = true
+    })
+    builder.addCase(delteProductImageAction.fulfilled, (state, action) => {
+      state.deleteProductImageLoading = false
+    })
+    builder.addCase(delteProductImageAction.rejected, (state) => {
+      state.deleteProductImageLoading = false
     })
 
     builder.addCase(updateProductAction.pending, (state) => {
@@ -312,6 +353,7 @@ export {
   getProductDetailByIdAction,
   createProductAction,
   updateProductAction,
-  getProductListByCategoryIdAction
+  getProductListByCategoryIdAction,
+  delteProductImageAction
 }
 export default productSlice.reducer

@@ -124,7 +124,7 @@ export const InputField = React.forwardRef<
           alCenter
           onClick={() =>
             setTypepassWord((prev) =>
-              prev === 'password' ? 'text' : 'password',
+              prev === 'password' ? 'text' : 'password'
             )
           }
         >
@@ -163,7 +163,7 @@ export const FormInput = ({
   label,
   newElement,
   required,
-  style,
+  style
 }: Com.FormInputProps) => {
   return (
     <Box flexBox vertical rg={4} style={style}>

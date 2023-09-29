@@ -22,6 +22,33 @@ const getCategoryListAction = createAsyncThunk(
   }
 )
 
+const updateCategoryAction = createAsyncThunk(
+  'category/udpate',
+  async (
+    {
+      categoryBody,
+      categoryId,
+      onSuccess
+    }: {
+      categoryBody: any
+      categoryId: string
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await categoryService.updateCategory(
+        categoryBody,
+        categoryId
+      )
+      onSuccess && onSuccess(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot update category!')
+    }
+  }
+)
+
 const getSubCategoryAction = createAsyncThunk(
   'subCategory/list',
   async (
@@ -42,152 +69,67 @@ const getSubCategoryAction = createAsyncThunk(
   }
 )
 
-// const delteProductAction = createAsyncThunk(
-//   'product/delete',
-//   async (
-//     {
-//       productId,
-//       onSuccess
-//     }: {
-//       productId: string
-//       onSuccess?: (data: any) => void
-//     },
-//     thunkAPI
-//   ) => {
-//     console.log(productId, 'productId slice')
-//     try {
-//       const response = await productService.deleteProduct(productId)
-//       onSuccess && onSuccess(response)
-//       return response
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue('Cannot get product!')
-//     }
-//   }
-// )
+const createCategoryAction = createAsyncThunk(
+  'product/create',
+  async (
+    {
+      categoryBody,
+      onSuccess
+    }: {
+      categoryBody: any
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await categoryService.createCategory(categoryBody)
+      onSuccess && onSuccess(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot create category!')
+    }
+  }
+)
 
-// const createProductAction = createAsyncThunk(
-//   'product/create',
-//   async (
-//     {
-//       productBody,
-//       onSuccess
-//     }: {
-//       productBody: any
-//       onSuccess?: (data: any) => void
-//     },
-//     thunkAPI
-//   ) => {
-//     try {
-//       const response = await productService.createProduct(productBody)
-//       onSuccess && onSuccess(response)
-//       return response
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue('Cannot create product!')
-//     }
-//   }
-// )
-
-// const getProductDetailByIdAction = createAsyncThunk(
-//   'product/detail',
-//   async (
-//     {
-//       productId
-//     }: {
-//       productId: string
-//     },
-//     thunkAPI
-//   ) => {
-//     try {
-//       const response = await productService.getProductDetailById(productId)
-//       return response
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue('Error fetching Product Detail!')
-//     }
-//   }
-// )
-
-// const updateBusinessStatusAction = createAsyncThunk(
-//   'business/updateStatus',
-//   async (
-//     {
-//       businessId,
-//       isBusinessApproved,
-//       callback
-//     }: {
-//       businessId: number
-//       isBusinessApproved: boolean
-//       callback?: () => void
-//     },
-//     thunkAPI
-//   ) => {
-//     try {
-//       const response = await businessService.updateBusinessStatus(
-//         businessId,
-//         isBusinessApproved
-//       )
-//       callback && callback()
-//       return response
-//     } catch (error) {
-//       const {message} = error.response.data.data
-//       toast.error(message)
-//       return thunkAPI.rejectWithValue('Error updating business status')
-//     }
-//   }
-// )
-
-// const updateBusinessTrustedAction = createAsyncThunk(
-//   'business/updateTrusted',
-//   async (
-//     {
-//       businessId,
-//       isBusinessTrusted,
-//       callback
-//     }: {
-//       businessId: number
-//       isBusinessTrusted: boolean
-//       callback?: () => void
-//     },
-//     thunkAPI
-//   ) => {
-//     try {
-//       const response = await businessService.updateBusinessTrusted(
-//         businessId,
-//         isBusinessTrusted
-//       )
-//       callback && callback()
-//       return response
-//     } catch (error) {
-//       const {message} = error.response.data.data
-//       toast.error(message)
-//       return thunkAPI.rejectWithValue('Error updating business status')
-//     }
-//   }
-// )
+const deleteCategoryAction = createAsyncThunk(
+  'category/delete',
+  async (
+    {
+      categoryId,
+      onSuccess
+    }: {
+      categoryId: string
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    console.log(categoryId, 'productId slice')
+    try {
+      const response = await categoryService.deleteCategory(categoryId)
+      onSuccess && onSuccess(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot get Category!')
+    }
+  }
+)
 
 const initialState: {
   categoryData?: any
   getCategoryLoading?: boolean
   subCategoryData?: any
   getSubCategoryLoading?: boolean
-  //   detailLoading: boolean
-  //   detail: any
-  //   detailSuccess: boolean
-
-  //   updateLoading: boolean
-
-  //   updateTrustLoading: boolean
+  deleteCategoryLoading?: boolean
+  createCategoryLoading?: boolean
+  updateCategoryLoading?: boolean
 } = {
   categoryData: undefined,
   getCategoryLoading: false,
   subCategoryData: undefined,
-  getSubCategoryLoading: false
-
-  //   detailLoading: false,
-  //   detail: undefined,
-  //   detailSuccess: false,
-
-  //   updateLoading: false,
-  //   updateTrustLoading: false
+  getSubCategoryLoading: false,
+  deleteCategoryLoading: false,
+  createCategoryLoading: false,
+  updateCategoryLoading: false
 }
 
 const productSlice = createSlice({
@@ -217,27 +159,37 @@ const productSlice = createSlice({
       state.getSubCategoryLoading = false
     })
 
-    // builder.addCase(updateBusinessStatusAction.pending, (state) => {
-    //   state.updateLoading = true
-    // })
-    // builder.addCase(updateBusinessStatusAction.fulfilled, (state) => {
-    //   state.updateLoading = false
-    // })
-    // builder.addCase(updateBusinessStatusAction.rejected, (state) => {
-    //   state.updateLoading = false
-    // })
+    builder.addCase(deleteCategoryAction.pending, (state) => {
+      state.deleteCategoryLoading = true
+    })
+    builder.addCase(deleteCategoryAction.fulfilled, (state, action) => {
+      state.deleteCategoryLoading = false
+    })
+    builder.addCase(deleteCategoryAction.rejected, (state) => {
+      state.deleteCategoryLoading = false
+    })
 
-    // builder.addCase(updateBusinessTrustedAction.pending, (state) => {
-    //   state.updateLoading = true
-    // })
-    // builder.addCase(updateBusinessTrustedAction.fulfilled, (state) => {
-    //   state.updateLoading = false
-    // })
-    // builder.addCase(updateBusinessTrustedAction.rejected, (state) => {
-    //   state.updateLoading = false
-    // })
+    builder.addCase(createCategoryAction.pending, (state) => {
+      state.createCategoryLoading = true
+    })
+    builder.addCase(createCategoryAction.fulfilled, (state, action) => {
+      state.createCategoryLoading = false
+    })
+    builder.addCase(createCategoryAction.rejected, (state) => {
+      state.createCategoryLoading = false
+    })
+
+    builder.addCase(updateCategoryAction.pending, (state) => {
+      state.updateCategoryLoading = true
+    })
+    builder.addCase(updateCategoryAction.fulfilled, (state, action) => {
+      state.updateCategoryLoading = false
+    })
+    builder.addCase(updateCategoryAction.rejected, (state) => {
+      state.updateCategoryLoading = false
+    })
   }
 })
 
-export {getCategoryListAction, getSubCategoryAction}
+export {getCategoryListAction, getSubCategoryAction, deleteCategoryAction}
 export default productSlice.reducer

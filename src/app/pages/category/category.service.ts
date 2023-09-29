@@ -12,33 +12,68 @@ const getSubCategory = async () => {
   return response.data
 }
 
-// MARK: - updateBusinessStatus
-// const updateBusinessStatus = async (
-//   businessId: number,
-//   isBusinessApproved: boolean
-// ) => {
-//   const response = await api<Api.Base<{}>>('patch')(
-//     `/users/${businessId}/approve`,
-//     undefined,
-//     {isBusinessApproved}
-//   )
-//   return response.data.data.data
-// }
+const deleteCategory = async (categoryId: string) => {
+  const response = await api<any>('delete')(`/category/${categoryId}`)
+}
 
-// MARK: - updateBusinessTrusted
-// const updateBusinessTrusted = async (
-//   businessId: number,
-//   isBusinessTrusted: boolean
-// ) => {
-//   const response = await api<Api.Base<{}>>('patch')(
-//     `/users/${businessId}/trusted`,
-//     undefined,
-//     {isTrusted: isBusinessTrusted}
-//   )
-//   return response.data.data.data
-// }
+const updateCategory = async (body: any, categoryId: string) => {
+  const response = await api<Api.Base<{}>>('patch')(
+    `/category/${categoryId}`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
+const createCategory = async (body: any) => {
+  const response = await api<Api.Base<{}>>('post')(
+    `/category/new`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
+const createSubCategory = async (body: any) => {
+  const response = await api<Api.Base<{}>>('post')(
+    `/subCategory/new`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
+const addSubCategorytoCategory = async (
+  body: any,
+  subCategoryId: string | number
+) => {
+  const response = await api<Api.Base<{}>>('post')(
+    `/subCategory/${subCategoryId}`
+  )
+  return response.data
+}
+
+const updateSubCategory = async (body: any, subCategoryId: string) => {
+  const response = await api<Api.Base<{}>>('patch')(
+    `/subCategory/${subCategoryId}`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
+const deleteSubCategory = async (subCategoryId: string) => {
+  const response = await api<any>('delete')(`/subCategory/${subCategoryId}`)
+}
 
 export const categoryService = {
   getCategoryList,
-  getSubCategory
+  getSubCategory,
+  deleteCategory,
+  updateCategory,
+  createCategory,
+  createSubCategory,
+  addSubCategorytoCategory,
+  updateSubCategory,
+  deleteSubCategory
 }

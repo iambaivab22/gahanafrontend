@@ -1,1 +1,1 @@
-export * from './[businessId]'
+export * from './[categoryId]'

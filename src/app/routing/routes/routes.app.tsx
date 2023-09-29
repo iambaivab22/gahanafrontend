@@ -6,6 +6,10 @@ import {ROLES} from '../roles'
 import {ProductListPage} from 'src/app/pages/products'
 import ProductDetailsPage from 'src/app/pages/products/view/[productId]/productId.page'
 import {AddProductPage} from 'src/app/pages/products/add/addProduct.page'
+// import {CategoryListPage} from 'src/app/pages/category/category.page'
+import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categoryId.page'
+import {CategoryListPage} from 'src/app/pages/category/category.page'
+import {AddCategoryPage} from 'src/app/pages/category'
 
 export const Router: RouteObject[] = [
   {
@@ -60,11 +64,29 @@ export const Router: RouteObject[] = [
     ]
   },
   {
-    path: '/classified-ads',
+    path: '/category',
 
     element: <ProtectedAuth />,
-    children: []
+    children: [
+      {
+        path: '',
+        element: <CategoryListPage />
+      },
+      {
+        path: 'add',
+        element: <AddCategoryPage />
+      },
+      {
+        path: 'update/:categoryId',
+        element: <AddCategoryPage />
+      },
+      {
+        path: 'view/:categoryId',
+        element: <CategoryDetailPage />
+      }
+    ]
   },
+
   {
     path: '/jobs',
 

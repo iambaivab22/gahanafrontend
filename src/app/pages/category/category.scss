@@ -1,1 +1,15 @@
-@import "./view/businessView";
+@import './view/categoryView';
+@import './add/addCategory';
+
+.subCategoryButton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 5px;
+  &-item {
+    padding: 6px 18px;
+    background-color: green;
+    color: white;
+    border-radius: 13px;
+  }
+}
