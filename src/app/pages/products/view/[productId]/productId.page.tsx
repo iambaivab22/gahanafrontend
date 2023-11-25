@@ -4,6 +4,8 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'src/store'
 import {getProductDetailByIdAction} from '../../product.slice'
 import {useParams} from 'react-router-dom'
+import ReactStarsRating from 'react-awesome-stars-rating'
+
 import {
   Button,
   InputField,
@@ -11,7 +13,8 @@ import {
   SelectField,
   ActivityIndicator
 } from 'src/app/common'
-import {ProductSlider} from 'src/app/components'
+import {CarouselSlider, ProductSlider} from 'src/app/components'
+import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlayer.component'
 
 const ProductDetailsPage = () => {
   const dispatch = useDispatch()
@@ -31,75 +34,84 @@ const ProductDetailsPage = () => {
   }, [productDetailData])
 
   const products = productDetailData?.image
+  const ratingChange = (value: number) => {
+    console.log(value, 'rating value')
+  }
 
   return (
     <ActivityIndicator animating={productDetailLoading}>
       <VStack className="productDetail-container">
         <VStack className="productDetail">
-          <VStack className="productDetail-detailTop" gap="$4">
-            <HStack
-              className="productDetail-detailTop-topMost"
-              justify="space-between"
-            >
-              <Title extrasmallheading>Name:{productDetailData?.name}</Title>
-              <HStack gap="$4">
-                {/* <StatInfo icon={<AiOutlineEye />} value={`${1234} views`} /> */}
+          <HStack style={{width: '100%', border: '2px solid red'}} gap="$3">
+            <div style={{width: '50%'}}>
+              <CarouselSlider>
+                {products?.map((data: any, index: any) => (
+                  <img
+                    src={data.url}
+                    alt="image"
+                    className="image"
+                    key={index}
+                  />
+                ))}
+              </CarouselSlider>
+            </div>
 
-                {/* <StatInfo
-                  icon={<BiTimeFive />}
-                  value={productDetails.time ?? ''}
-                /> */}
+            <VStack className="productDetail-detailTop" gap="$4">
+              <Title heading>{productDetailData?.name}</Title>
+              <HStack justify="flex-start" gap="$5">
+                <Title subheading>
+                  NPR.{productDetailData?.discountedPrice}
+                </Title>
+                <Title
+                  subheading
+                  style={{textDecoration: 'line-through', color: '#FB2E86'}}
+                >
+                  NPR.{productDetailData?.originalPrice}
+                </Title>
               </HStack>
-            </HStack>
+              <VStack className="productDetail-detailBottom" gap="$8">
+                <ReactStarsRating size={15} onChange={ratingChange} value={3} />
 
-            <VStack className="productDetail-detailTop-electronics" gap="$0_5">
-              <HStack>
-                <Title heading>Category</Title>
-                <Title smallheading>{productDetailData?.category.name}</Title>
-              </HStack>
+                <VStack
+                  className="productDetail-detailBottom-description"
+                  gap="$4"
+                >
+                  <HStack>
+                    <div
+                      className="productDetail-detailBottom-description-content"
+                      dangerouslySetInnerHTML={{
+                        __html: productDetailData?.details
+                      }}
+                    />
+                  </HStack>
+                  <Title subheading>{productDetailData?.category.name}</Title>
+                  <HStack
+                    style={{
+                      width: '70%'
+                    }}
+                  >
+                    {/* <ProductSlider backgroundImage={products} /> */}
+                  </HStack>
 
-              <HStack>
-                <Title heading>Name</Title>
-                <Title heading>{productDetailData?.name}</Title>
-              </HStack>
+                  <HStack
+                    style={{
+                      width: '40%'
+                    }}
+                  >
+                    {/* <Title heading>Video</Title> */}
+                    {/* <video controls width="640" height="360">
+                      <source src={productDetailData?.video} type="video/mp4" />
+                    </video> */}
+
+                    <CustomVideoPlayer
+                      videoUrl={productDetailData?.video}
+                      thumbnailUrl="https://cdn.kimkim.com/files/a/content_articles/featured_photos/050a89ea730f913b48cf7dea23719688bc3652fe/big-891ee83ca306656a3c388f949db9e72d.jpg"
+                    ></CustomVideoPlayer>
+                  </HStack>
+                </VStack>
+              </VStack>
             </VStack>
-
-            <Title primaryHeading>Rs.{productDetailData?.price}</Title>
-          </VStack>
-
-          <VStack className="productDetail-detailBottom" gap="$8">
-            <VStack className="productDetail-detailBottom-description" gap="$4">
-              <HStack>
-                <Title heading>Description</Title>
-
-                <div
-                  className="productDetail-detailBottom-description-content"
-                  dangerouslySetInnerHTML={{
-                    __html: productDetailData?.description
-                  }}
-                />
-              </HStack>
-              <HStack
-                style={{
-                  width: '40%'
-                }}
-              >
-                <Title heading>Images</Title>
-                <ProductSlider backgroundImage={products} />
-              </HStack>
-
-              <HStack
-                style={{
-                  width: '40%'
-                }}
-              >
-                <Title heading>Video</Title>
-                <video controls width="640" height="360">
-                  <source src={productDetailData?.video} type="video/mp4" />
-                </video>
-              </HStack>
-            </VStack>
-          </VStack>
+          </HStack>
         </VStack>
       </VStack>
     </ActivityIndicator>

@@ -29,17 +29,12 @@ export const CustomModal = ({
         </div>
       )}
 
-      <Modal
-        visible={visible}
-        width={width}
-        height={height}
-        {...props}
-      >
+      <Modal visible={visible} width={width} height={height} {...props}>
         <div
           style={{
             height: height,
             width: '100%',
-            overflowY: 'auto',
+            overflowY: 'auto'
           }}
         >
           {children({onCloseModalHandler})}

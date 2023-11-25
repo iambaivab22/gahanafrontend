@@ -6,9 +6,13 @@ const getProductListAction = createAsyncThunk(
   'product/list',
   async (
     {
-      onSuccess
+      onSuccess,
+      query
     }: {
       onSuccess?: (data: Api.BusinessList) => void
+      query?: {
+        search?: string
+      }
     },
     thunkAPI
   ) => {

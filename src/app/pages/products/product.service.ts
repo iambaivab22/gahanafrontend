@@ -2,7 +2,7 @@ import {api} from 'src/api'
 
 // MARK: - getProductlist
 const getProductList = async () => {
-  const response = await api<any>('get')('/product')
+  const response = await api<any>('get')(`/product`)
   return response.data
 }
 

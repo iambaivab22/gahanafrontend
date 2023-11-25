@@ -1,6 +1,8 @@
 .heading {
   color: map-get($text, primary);
-  font-size: map-get($fontSizes, 5);
+  color: #0d134e;
+
+  font-size: map-get($fontSizes, 7);
   font-weight: map-get($fontWeights, bold);
   text-transform: capitalize;
   line-height: map-get($space, 6);

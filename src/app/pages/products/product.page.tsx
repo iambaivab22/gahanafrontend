@@ -2,13 +2,22 @@ import React, {useEffect, useState, useCallback} from 'react'
 import {useDispatch} from 'src/store'
 import {delteProductAction, getProductListAction} from './product.slice'
 import {useSelector} from 'react-redux'
-import {Box, Button, HStack, SelectField, Table} from 'src/app/common'
+import {
+  Box,
+  Button,
+  HStack,
+  SearchField,
+  SelectField,
+  Table
+} from 'src/app/common'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-hot-toast'
 import {getCategoryListAction} from '../category/category.slice'
+import {useDebounceValue} from 'src/hooks'
 export const ProductListPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [searchTxt, setSearchTxt] = useState('')
 
   const {data}: any = useSelector((state: any) => state.product)
   const [category, setCategory] = useState<any>()
@@ -48,11 +57,21 @@ export const ProductListPage = () => {
     )
   }, [])
 
+  const handleSearch = (e: any) => {
+    console.log(e.target.value, 'searchValue')
+
+    // const debounceValue = useDebounceValue(e.target.value)
+  }
+
   return (
     <div>
       <Box>
-        <HStack justify="space-between" style={{margin: '20px 0'}}>
+        <HStack justify="space-between" gap={'$4'} style={{margin: '20px 0'}}>
           <Button title="Add Product" onClick={() => navigate('add')}></Button>
+          <SearchField
+            placeholder="Search Your Product"
+            onChange={handleSearch}
+          ></SearchField>
           <SelectField
             options={category}
             value={selectedCateory}

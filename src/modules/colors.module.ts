@@ -9,7 +9,7 @@ export const colors = {
   },
 
   text: {
-    primary: '#202223',
+    primary: '#0D134E',
     secondary: '#6D7175',
     disabled: '#8C9196',
     inverted: '#FFFFFF'

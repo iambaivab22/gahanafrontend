@@ -73,7 +73,7 @@ const Theme = {
     $tableRowBorder: 'transparent'
   },
   fonts: {
-    $body: 'Roboto,Helvetica,Arial,sans-serif'
+    $body: 'JosefinSans'
   },
   fontSizes: {
     $0: '0',

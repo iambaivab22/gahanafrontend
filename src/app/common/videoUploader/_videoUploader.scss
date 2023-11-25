@@ -75,3 +75,18 @@
 //     display: none;
 //   }
 // }
+
+// .videoUploader-label {
+//   height: 100%;
+//   width: 100%;
+// }
+
+.video-list-item-preview {
+  border: 2px solid red;
+  position: relative;
+  z-index: 2000;
+}
+
+.video-list {
+  pointer-events: unset !important;
+}

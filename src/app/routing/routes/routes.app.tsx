@@ -10,6 +10,8 @@ import {AddProductPage} from 'src/app/pages/products/add/addProduct.page'
 import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categoryId.page'
 import {CategoryListPage} from 'src/app/pages/category/category.page'
 import {AddCategoryPage} from 'src/app/pages/category'
+import {SubCategoryListPage} from 'src/app/pages'
+import {AddSubCategoryPage} from 'src/app/pages/subCategory/add'
 
 export const Router: RouteObject[] = [
   {
@@ -82,6 +84,30 @@ export const Router: RouteObject[] = [
       },
       {
         path: 'view/:categoryId',
+        element: <CategoryDetailPage />
+      }
+    ]
+  },
+
+  {
+    path: '/subCategory',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <SubCategoryListPage />
+      },
+      {
+        path: 'add',
+        element: <AddSubCategoryPage />
+      },
+      {
+        path: 'update/:subCategoryId',
+        element: <AddSubCategoryPage />
+      },
+      {
+        path: 'view/:subCategoryId',
         element: <CategoryDetailPage />
       }
     ]

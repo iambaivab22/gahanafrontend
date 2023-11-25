@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'src/store'
 
 import {useParams} from 'src/hooks'
@@ -20,6 +20,9 @@ import {toast} from 'react-hot-toast'
 import ImageUploader from 'src/app/common/imageUploader/imageUploader.common'
 import VideoUploader from 'src/app/common/videoUploader/videoUploader.common'
 import {useStepContext} from '@mui/material'
+import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlayer.component'
+import ReactPlayer from 'react-player'
+import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
 
 export const AddProductPage = () => {
   const navigate = useNavigate()
@@ -41,6 +44,7 @@ export const AddProductPage = () => {
   // console.log(!!productDetailData, 'product detail data boolean')
 
   // console.log('product id is available', productId)
+  const [image, setImage] = useState<any>([])
   const [data, setData] = useState<any>({
     name: '',
     originalPrice: '',
@@ -48,7 +52,7 @@ export const AddProductPage = () => {
     discountPercentage: '',
     category: '',
     subCategory: '',
-    images: '',
+    images: [],
     video: null,
     details: ''
   })
@@ -80,7 +84,7 @@ export const AddProductPage = () => {
 
         // images: !!productDetailData ? productDetailData.images?.[0] : '',
         // video: !!productDetailData ? productDetailData.video : null,
-        details: !!productDetailData ? productDetailData.details : ''
+        details: !!productDetailData ? productDetailData?.details : ''
       }))
     }
   }, [productDetailData])
@@ -141,13 +145,41 @@ export const AddProductPage = () => {
   }, [selectedCategory])
 
   const handleImage = (event: any) => {
-    // console.log(event.target.files, 'event target files')
-
     const selectedFiles = Array.from(event.target.files)
-    // console.log(event.target.files, 'event.target.files')
-    // console.log(selectedFiles, 'seelctedFiles')
-    console.log(selectedFiles, 'selectedFilesss addProduct')
-    setData((prev: any) => ({...prev, images: selectedFiles}))
+    console.log(selectedFiles, 'seelctedFiles+++++++++++++')
+    const myImages = [...image]
+    console.log(myImages, 'myimages before')
+    console.clear()
+    console.log([...image, ...selectedFiles], '++++++++++')
+
+    setImage((prev: any) => [...prev, ...selectedFiles])
+    // myImages.push(event.target.files)
+    // console.log(myImages, 'myiamgesssssssssssss after')
+
+    // const filesArray = Array.from(myImages).map((fileList) =>
+    //   Array.from(fileList)
+    // )
+
+    // setImage(selectedFiles)
+  }
+
+  const playerRef = useRef(null)
+  const [playing, setPlaying] = useState(false)
+  const [controls, setControls] = useState(true)
+  const [showThumbnail, setShowThumbnail] = useState(true)
+
+  const handlePlayClick = () => {
+    setPlaying(true)
+
+    // playerRef.current.wrapper.requestFullscreen()
+    // console.log(videoPlayer, 'video player')
+
+    // if (videoPlayer) {
+    //   if (videoPlayer[0].requestFullscreen) {
+    //     console.log(videoPlayer, 'video player hitted')
+    //     videoPlayer[0].requestFullscreen()
+    //   }
+    // }
   }
 
   useEffect(() => {
@@ -155,7 +187,7 @@ export const AddProductPage = () => {
   }, [data])
 
   useEffect(() => {
-    console.log(productDetailData, 'product detail datga changed')
+    console.log(productDetailData, '---------------------')
   }, [productDetailData])
 
   const handleAction = (imageId: string) => {
@@ -172,14 +204,14 @@ export const AddProductPage = () => {
   }
 
   const handleVideo = (event: any) => {
-    setData((prev) => ({...prev, video: event.target.files[0]}))
+    const selectedFile = event.target.files[0]
+    const videoUrl = URL.createObjectURL(selectedFile)
+    setData((prev: any) => ({...prev, video: videoUrl}))
   }
 
   const addProductHandler = (event: any) => {
     event.preventDefault()
-
     console.log('addProduct called')
-
     const formData = new FormData()
     formData.append('name', data.name)
     formData.append('category', selectedCategory.id)
@@ -187,10 +219,14 @@ export const AddProductPage = () => {
     formData.append('originalPrice', data.originalPrice)
     formData.append('discountedPrice', data.discountedPrice)
     formData.append('discountPercentage', data.discountPercentage)
+    formData.append('details', data.details)
+    console.log(data.images, 'data images')
 
-    data.images.forEach((file: any, index: string) => {
+    image.forEach((file: any, index: string) => {
       formData.append('image', file)
     })
+
+    console.log(data.video, 'video')
 
     formData.append('video', data.video)
 
@@ -217,7 +253,7 @@ export const AddProductPage = () => {
               onSuccess: () => {
                 dispatch(
                   getProductListAction({
-                    onSuccess: (data) => console.log('get hit')
+                    onSuccess: (data) => setData({})
                   })
                 )
                 navigate('/products')
@@ -375,9 +411,57 @@ export const AddProductPage = () => {
           ></InputField> */}
 
           <VideoUploader
+            defaultVideo={!!productDetailData ? productDetailData.video : ''}
             onVideoChange={handleVideo}
-            value={handleVideo}
+            // value={handleVideo}
+            actionHandler={(video: any) =>
+              setData((prev: any) => ({...prev, video: video}))
+            }
           ></VideoUploader>
+
+          {/* <ReactPlayer
+            url={data.video}
+            controls={controls}
+            playIcon={
+              <h1 style={{border: '2px solid red'}}>
+                <AiFillPlayCircle
+                  size={40}
+                  color="red"
+                  onClick={handlePlayClick}
+                />
+              </h1>
+            }
+            ref={playerRef}
+            playing={playing}
+            light={
+              showThumbnail &&
+              'https://cdn.kimkim.com/files/a/content_articles/featured_photos/050a89ea730f913b48cf7dea23719688bc3652fe/big-891ee83ca306656a3c388f949db9e72d.jpg'
+            }
+          /> */}
+          {/* 
+          <div
+            className="playCloseButton"
+            style={{
+              position: 'fixed',
+              zIndex: '300000000000000',
+              border: '2px solid red',
+              top: '20px',
+              right: '20px'
+            }}
+            onClick={() => {
+              setPlaying(false)
+              setControls(false)
+              document.getElementsByTagName('video')[0].style.border =
+                '4px solid green'
+              document.getElementsByTagName('video')[0].style.position =
+                'relative'
+              document.getElementsByTagName('video')[0].style.height = '100px'
+              document.getElementsByTagName('video')[0].style.width = '100px'
+              // setShowThumbnail(true)
+            }}
+          >
+            <AiOutlineClose size={20} color="red"></AiOutlineClose>
+          </div> */}
         </div>
 
         <Button

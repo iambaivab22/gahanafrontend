@@ -22,6 +22,26 @@ const getCategoryListAction = createAsyncThunk(
   }
 )
 
+const getCategoryDetailByIdAction = createAsyncThunk(
+  'category/detail',
+  async (
+    {
+      categoryId
+    }: {
+      categoryId: string
+    },
+    thunkAPI
+  ) => {
+    console.log('getCategory detail by id called')
+    try {
+      const response = await categoryService.getCategoryDetailById(categoryId)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Error fetching Product Detail!')
+    }
+  }
+)
+
 const updateCategoryAction = createAsyncThunk(
   'category/udpate',
   async (
@@ -55,13 +75,15 @@ const getSubCategoryAction = createAsyncThunk(
     {
       onSuccess
     }: {
-      onSuccess: (data: any) => void
+      onSuccess?: (data: any) => void
     },
     thunkAPI
   ) => {
     try {
-      const response = await categoryService.getSubCategory()
-      onSuccess(response)
+      console.log('+++++++++++++++++==')
+      const response = await categoryService.getSubCategoryList()
+      onSuccess && onSuccess(response)
+      console.log(response, 'reponse from slice')
       return response
     } catch (error) {
       return thunkAPI.rejectWithValue('Cannot get SubCategory!')
@@ -118,10 +140,12 @@ const initialState: {
   categoryData?: any
   getCategoryLoading?: boolean
   subCategoryData?: any
+  categoryDetailData?: any
   getSubCategoryLoading?: boolean
   deleteCategoryLoading?: boolean
   createCategoryLoading?: boolean
   updateCategoryLoading?: boolean
+  categoryDetailDataLoading?: boolean
 } = {
   categoryData: undefined,
   getCategoryLoading: false,
@@ -129,11 +153,13 @@ const initialState: {
   getSubCategoryLoading: false,
   deleteCategoryLoading: false,
   createCategoryLoading: false,
-  updateCategoryLoading: false
+  updateCategoryLoading: false,
+  categoryDetailData: undefined,
+  categoryDetailDataLoading: false
 }
 
-const productSlice = createSlice({
-  name: 'product',
+const categorySlice = createSlice({
+  name: 'category',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -179,6 +205,17 @@ const productSlice = createSlice({
       state.createCategoryLoading = false
     })
 
+    builder.addCase(getCategoryDetailByIdAction.pending, (state) => {
+      state.categoryDetailDataLoading = true
+    })
+    builder.addCase(getCategoryDetailByIdAction.fulfilled, (state, action) => {
+      state.categoryDetailDataLoading = false
+      state.categoryDetailData = action.payload.data
+    })
+    builder.addCase(getCategoryDetailByIdAction.rejected, (state) => {
+      state.categoryDetailDataLoading = false
+    })
+
     builder.addCase(updateCategoryAction.pending, (state) => {
       state.updateCategoryLoading = true
     })
@@ -191,5 +228,11 @@ const productSlice = createSlice({
   }
 })
 
-export {getCategoryListAction, getSubCategoryAction, deleteCategoryAction}
-export default productSlice.reducer
+export {
+  getCategoryListAction,
+  getSubCategoryAction,
+  deleteCategoryAction,
+  createCategoryAction,
+  getCategoryDetailByIdAction
+}
+export default categorySlice.reducer

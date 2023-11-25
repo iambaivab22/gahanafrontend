@@ -6,11 +6,19 @@ const getCategoryList = async () => {
   return response.data
 }
 
-// MARK: - getBusinessDetail
-const getSubCategory = async () => {
-  const response = await api<Api.Base<any>>('get')(`/subCategory`)
+const getCategoryDetailById = async (categoryId: string) => {
+  const response = await api<Api.Base<any>>('get')(`/category/${categoryId}`)
   return response.data
 }
+
+const getSubCategoryList = async () => {
+  console.log('response data from service')
+  const response = await api<Api.Base<any>>('get')('subCategory')
+
+  return response.data
+}
+
+// MARK: - getBusinessDetail
 
 const deleteCategory = async (categoryId: string) => {
   const response = await api<any>('delete')(`/category/${categoryId}`)
@@ -68,12 +76,13 @@ const deleteSubCategory = async (subCategoryId: string) => {
 
 export const categoryService = {
   getCategoryList,
-  getSubCategory,
   deleteCategory,
   updateCategory,
   createCategory,
   createSubCategory,
   addSubCategorytoCategory,
   updateSubCategory,
-  deleteSubCategory
+  deleteSubCategory,
+  getSubCategoryList,
+  getCategoryDetailById
 }

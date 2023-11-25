@@ -11,7 +11,7 @@ import {
   RiFolderTransferFill,
   FaUsers
 } from 'react-icons/all'
-import SystemTitle from '../../../assets/images/logo.png'
+import SystemTitle from '../../../assets/images/logo.jpg'
 
 import {Box, ToolTip} from 'src/app/common'
 // import {useMeasure} from 'src/hooks'
@@ -100,6 +100,11 @@ const SideNavComponent = React.memo(() => {
           {getNav('Category', '/category', () => (
             <MdWork size={18} />
           ))}
+
+          {getNav('SubCategory', '/subCategory', () => (
+            <MdWork size={18} />
+          ))}
+
           {getNav('New Arrivals', '/new-arrivals', () => (
             <MdReport size={18} />
           ))}
