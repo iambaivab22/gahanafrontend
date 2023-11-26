@@ -19,7 +19,7 @@ const CustomVideoPlayer = ({videoUrl, thumbnailUrl}) => {
         <div className="thumbnail" onClick={toggleFullScreen}>
           <img src={thumbnailUrl} alt="Video Thumbnail" />
           <div className="play-button" onClick={toggleFullScreen}>
-            <AiFillPlayCircle size={20} color="purple" stroke="white" />
+            <AiFillPlayCircle size={20} color="white" stroke="white" />
           </div>
         </div>
       ) : (

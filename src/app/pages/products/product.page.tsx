@@ -20,8 +20,8 @@ export const ProductListPage = () => {
   const [searchTxt, setSearchTxt] = useState('')
 
   const {data}: any = useSelector((state: any) => state.product)
-  const [category, setCategory] = useState<any>()
-  const [selectedCateory, setSelectedCategory] = useState<any>()
+  const [category, setCategory] = useState<any>([])
+  const [selectedCateory, setSelectedCategory] = useState<any>('')
   const {categoryData}: any = useSelector((state: any) => state.category)
 
   useEffect(() => {
@@ -45,7 +45,20 @@ export const ProductListPage = () => {
         subCategory: item.subCategories
       }
     })
-    console.log(mappedCategory, 'mapped category from products')
+
+    // const allCategory = [
+    //   {},
+    //   mappedCategory
+    // ]
+
+    // console.log(mappedCategory, 'mapped category from products')
+    mappedCategory?.unshift({
+      id: '',
+      label: 'All',
+      value: '',
+      subCategory: ''
+    })
+
     setCategory(mappedCategory)
   }, [categoryData])
 
@@ -58,10 +71,23 @@ export const ProductListPage = () => {
   }, [])
 
   const handleSearch = (e: any) => {
-    console.log(e.target.value, 'searchValue')
+    // console.log(e.target.value, 'searchValue')
+    setSearchTxt(e.target.value)
 
     // const debounceValue = useDebounceValue(e.target.value)
   }
+
+  useEffect(() => {
+    console.log(selectedCateory, 'selected category name')
+    dispatch(
+      getProductListAction({
+        onSuccess: () => {},
+        query: {search: searchTxt, categoryId: selectedCateory?.id}
+      })
+    )
+  }, [searchTxt, selectedCateory])
+
+  console.log(data?.length, 'data length')
 
   return (
     <div>
@@ -73,6 +99,7 @@ export const ProductListPage = () => {
             onChange={handleSearch}
           ></SearchField>
           <SelectField
+            // defaultValue={category?.[0]}
             options={category}
             value={selectedCateory}
             width="320px"
@@ -114,7 +141,7 @@ export const ProductListPage = () => {
                   {
                     <img
                       src={datas[0]?.url}
-                      style={{height: '70px', width: '140px'}}
+                      style={{height: '70px', width: '100px'}}
                     ></img>
                   }
                 </div>
@@ -151,8 +178,8 @@ export const ProductListPage = () => {
             }
           }}
           pagination={{
-            totalCount: Number(data?.total ?? 1)
-            // perPage: Number(import.meta.REACT_APP_TABLE_LIMIT || 10)
+            totalCount: Number(data?.length ?? 1),
+            perPage: Number(5)
           }}
         />
       </Box>

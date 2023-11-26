@@ -12,12 +12,13 @@ const getProductListAction = createAsyncThunk(
       onSuccess?: (data: Api.BusinessList) => void
       query?: {
         search?: string
+        categoryId?: string
       }
     },
     thunkAPI
   ) => {
     try {
-      const response = await productService.getProductList()
+      const response = await productService.getProductList(query)
       onSuccess?.(response)
       return response
     } catch (error) {

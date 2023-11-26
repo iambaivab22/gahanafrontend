@@ -1,8 +1,14 @@
 import {api} from 'src/api'
 
 // MARK: - getProductlist
-const getProductList = async () => {
-  const response = await api<any>('get')(`/product`)
+const getProductList = async (query?: {
+  search?: string
+  categoryId?: string
+}) => {
+  console.log(query && query.search, 'query search')
+  const response = await api<any>('get')(
+    `/product?search=${query.search ?? ''}&categoryId=${query.categoryId ?? ''}`
+  )
   return response.data
 }
 

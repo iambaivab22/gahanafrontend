@@ -243,7 +243,18 @@ export const AddProductPage = () => {
                   })
                 )
                 navigate('/products')
-                toast.success('Product Created SuccessFully')
+                toast.success('Product Updated SuccessFully')
+                setData({
+                  name: '',
+                  originalPrice: '',
+                  discountedPrice: '',
+                  discountPercentage: '',
+                  category: '',
+                  subCategory: '',
+                  images: [],
+                  video: null,
+                  details: ''
+                })
               }
             })
           )
@@ -257,7 +268,19 @@ export const AddProductPage = () => {
                   })
                 )
                 navigate('/products')
+
                 toast.success('Product Created SuccessFully')
+                setData({
+                  name: '',
+                  originalPrice: '',
+                  discountedPrice: '',
+                  discountPercentage: '',
+                  category: '',
+                  subCategory: '',
+                  images: [],
+                  video: null,
+                  details: ''
+                })
               }
             })
           )
@@ -393,7 +416,9 @@ export const AddProductPage = () => {
           ></InputField> */}
 
           <ImageUploader
-            defaultImage={!!productDetailData ? productDetailData.image : ''}
+            defaultImage={
+              productId && !!productDetailData ? productDetailData.image : ''
+            }
             onImageChange={handleImage}
             value={data.images}
             actionHandler={handleAction}
@@ -411,7 +436,9 @@ export const AddProductPage = () => {
           ></InputField> */}
 
           <VideoUploader
-            defaultVideo={!!productDetailData ? productDetailData.video : ''}
+            defaultVideo={
+              productId && !!productDetailData ? productDetailData.video : ''
+            }
             onVideoChange={handleVideo}
             // value={handleVideo}
             actionHandler={(video: any) =>

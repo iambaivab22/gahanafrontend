@@ -97,7 +97,7 @@ const VideoUploader = ({
         {selectedVideos && (
           <CustomVideoPlayer
             videoUrl={selectedVideos}
-            thumbnailUrl="https://cdn.kimkim.com/files/a/content_articles/featured_photos/050a89ea730f913b48cf7dea23719688bc3652fe/big-891ee83ca306656a3c388f949db9e72d.jpg"
+            thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
           ></CustomVideoPlayer>
         )}
 
