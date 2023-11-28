@@ -12,14 +12,16 @@ type UserRoles = {
 export const USER_ROLES: UserRoles = {
   ADMIN: {
     access: [
+      '/login',
       '/products/*',
       '/category/*',
       '/subCategory/*',
       '/new-arrivals/*',
-      '/best-selling/*'
+      '/best-selling/*',
+      '/sample'
     ]
   },
   USER: {
-    access: ['/home', '/sample', '/business/*']
+    access: ['/login', '/sample', '/business/*']
   }
 }
