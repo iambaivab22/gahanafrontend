@@ -9,6 +9,8 @@ import {AddProductPage} from 'src/app/pages/products/add/addProduct.page'
 // import {CategoryListPage} from 'src/app/pages/category/category.page'
 import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categoryId.page'
 import {CategoryListPage} from 'src/app/pages/category/category.page'
+// import {BestSellingPage} from 'src/app/pages/bestSelling'
+import {BestSellingPage, NewArrivalListPage} from 'src/app/pages'
 import {AddCategoryPage} from 'src/app/pages/category'
 import {Sample, SubCategoryListPage, LoginPage} from 'src/app/pages'
 import {AddSubCategoryPage} from 'src/app/pages/subCategory/add'
@@ -57,6 +59,30 @@ export const Router: RouteObject[] = [
       {
         path: 'view/:productId',
         element: <ProductDetailsPage />
+      }
+    ]
+  },
+
+  {
+    path: '/new-arrivals',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <NewArrivalListPage />
+      }
+    ]
+  },
+
+  {
+    path: '/best-selling',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <BestSellingPage />
       }
     ]
   },

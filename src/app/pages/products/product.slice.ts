@@ -13,12 +13,14 @@ const getProductListAction = createAsyncThunk(
       query?: {
         search?: string
         categoryId?: string
+        isNewArrivals?: boolean
+        isBestSelling?: boolean
       }
     },
     thunkAPI
   ) => {
     try {
-      const response = await productService.getProductList(query)
+      const response = await productService.getProductList(query && query)
       onSuccess?.(response)
       return response
     } catch (error) {
@@ -42,6 +44,7 @@ const delteProductAction = createAsyncThunk(
     console.log(productId, 'productId slice')
     try {
       const response = await productService.deleteProduct(productId)
+      console.log('on delete sucess called')
       onSuccess && onSuccess(response)
       return response
     } catch (error) {

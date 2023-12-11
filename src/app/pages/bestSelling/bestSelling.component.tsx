@@ -1,6 +1,10 @@
 import React, {useEffect, useState, useCallback} from 'react'
 import {useDispatch} from 'src/store'
-import {delteProductAction, getProductListAction} from './product.slice'
+
+import {
+  getProductListAction,
+  delteProductAction
+} from '../products/product.slice'
 import {useSelector} from 'react-redux'
 import {
   Box,
@@ -14,12 +18,14 @@ import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-hot-toast'
 import {getCategoryListAction} from '../category/category.slice'
 import {useDebounceValue} from 'src/hooks'
-export const ProductListPage = () => {
+export const BestSellingPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [searchTxt, setSearchTxt] = useState('')
+  const [bestSellingProducts, setBestSellingProducts] = useState([])
 
   const {data}: any = useSelector((state: any) => state.product)
+
   const [category, setCategory] = useState<any>([])
   const [selectedCateory, setSelectedCategory] = useState<any>('')
   const {categoryData}: any = useSelector((state: any) => state.category)
@@ -33,7 +39,20 @@ export const ProductListPage = () => {
   }, [])
 
   useEffect(() => {
+    console.log('all product', data)
+    const bestSellingProductsss = data?.filter((item: any, index: number) => {
+      return item.isBestSelling === true
+    })
+
+    setBestSellingProducts(bestSellingProductsss)
+  }, [data])
+
+  console.log(categoryData, 'category data called')
+
+  useEffect(() => {
+    console.log(categoryData, 'caetgory data called')
     const mappedCategory = categoryData?.map((item: any, index: number) => {
+      console.log(item, 'caetgory item')
       return {
         id: item.id,
         label: item.name,
@@ -59,11 +78,10 @@ export const ProductListPage = () => {
   }, [categoryData])
 
   useEffect(() => {
-    dispatch(
-      getProductListAction({
-        onSuccess: () => {}
-      })
-    )
+    getProductListAction({
+      onSuccess: () => {},
+      query: {isNewArrivals: true}
+    })
   }, [])
 
   const handleSearch = (e: any) => {
@@ -74,13 +92,17 @@ export const ProductListPage = () => {
   }
 
   useEffect(() => {
+    console.log(selectedCateory, 'selected category name')
+
     dispatch(
       getProductListAction({
         onSuccess: () => {},
-        query: {search: searchTxt, categoryId: selectedCateory?.id}
+        query: {isBestSelling: true}
       })
     )
   }, [searchTxt, selectedCateory])
+
+  console.log(data?.length, 'data length')
 
   return (
     <div>
@@ -111,7 +133,7 @@ export const ProductListPage = () => {
               }
             },
             {
-              field: 'discountedPrice',
+              field: 'originalPrice',
               name: 'Price',
               render: (datas) => <div>{datas}</div>
             },
@@ -120,11 +142,11 @@ export const ProductListPage = () => {
               name: 'Original Price',
               render: (datas) => <div>{datas}</div>
             },
-            // {
-            //   field: 'discountPercentage',
-            //   name: 'Discounted Price',
-            //   render: (datas) => <div>{datas}</div>
-            // },
+            {
+              field: 'discountPercentage',
+              name: 'Discounted Price',
+              render: (datas) => <div>{datas}</div>
+            },
             {
               field: 'image',
               name: 'Images',
@@ -140,7 +162,7 @@ export const ProductListPage = () => {
               )
             }
           ]}
-          data={data}
+          data={bestSellingProducts && bestSellingProducts}
           actions={{
             onView: (item: any) => {
               navigate(`view/${item.id}`)
@@ -150,22 +172,17 @@ export const ProductListPage = () => {
               navigate(`update/${item.id}`)
             },
             onDelete: (item: any, onCloseModalHandler) => {
+              //   console.log(item.id, 'item to be deleted')
+
               dispatch(
                 delteProductAction({
                   productId: item.id,
                   onSuccess: (data: any) => {
                     onCloseModalHandler()
-
-                    console.log('onSUccess called')
                     toast.success('Product deleted successfully')
-                    console.log('ad1')
                     dispatch(
                       getProductListAction({
-                        onSuccess: () => {},
-                        query: {
-                          search: searchTxt,
-                          categoryId: selectedCateory?.id
-                        }
+                        onSuccess: () => {}
                       })
                     )
                   }

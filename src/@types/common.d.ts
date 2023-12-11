@@ -64,10 +64,12 @@ declare namespace Com {
     name: string
     label?: string
     handleCheckboxChange: (
-      name: string,
-      e: React.ChangeEvent<HTMLInputElement>
+      isChecked: boolean,
+      e: React.ChangeEvent<HTMLInputElement>,
+      name: string
     ) => void
     check: boolean
+
     labelStyle?: React.CSSProperties
     type?: 'checkbox'
   }

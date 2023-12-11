@@ -4,11 +4,17 @@ import {api} from 'src/api'
 const getProductList = async (query?: {
   search?: string
   categoryId?: string
+  isNewArrivals?: boolean
+  isBestSelling?: boolean
 }) => {
-  console.log(query && query.search, 'query search')
   const response = await api<any>('get')(
-    `/product?search=${query.search ?? ''}&categoryId=${query.categoryId ?? ''}`
+    `/product?search=${query.search ?? ''}&categoryId=${
+      query.categoryId ?? ''
+    }&isNewArrivals=${query.isNewArrivals ?? ''}&isBestSelling=${
+      query.isBestSelling
+    }`
   )
+
   return response.data
 }
 

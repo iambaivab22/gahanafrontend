@@ -2,7 +2,15 @@ import React, {useCallback, useEffect, useState, useRef} from 'react'
 import {useDispatch, useSelector} from 'src/store'
 
 import {useParams} from 'src/hooks'
-import {Button, HStack, InputField, Label, SelectField} from 'src/app/common'
+import {
+  Button,
+  CheckBox,
+  HStack,
+  InputField,
+  Label,
+  SelectField,
+  VStack
+} from 'src/app/common'
 import {
   getCategoryListAction,
   getSubCategoryAction
@@ -57,6 +65,11 @@ export const AddProductPage = () => {
     details: ''
   })
 
+  const [isNewArrivalOrBestSelling, setIsNewArrivalOrBestSelling] = useState({
+    isNewArrival: false,
+    isBestSelling: false
+  })
+
   useEffect(() => {
     // console.log('product DetailData called')
 
@@ -85,6 +98,18 @@ export const AddProductPage = () => {
         // images: !!productDetailData ? productDetailData.images?.[0] : '',
         // video: !!productDetailData ? productDetailData.video : null,
         details: !!productDetailData ? productDetailData?.details : ''
+      }))
+
+      // setIsNewArrivalOrBestSelling((prev:any)=>({...prev,isBestSelling:!!productDetailData?productDetailData?.isBestSelling))
+      setIsNewArrivalOrBestSelling((prev: any) => ({
+        ...prev,
+
+        isBestSelling: !!productDetailData
+          ? productDetailData?.isBestSelling
+          : '',
+        isNewArrival: !!productDetailData
+          ? productDetailData?.isNewArrivals
+          : ''
       }))
     }
   }, [productDetailData])
@@ -209,9 +234,21 @@ export const AddProductPage = () => {
     setData((prev: any) => ({...prev, video: videoUrl}))
   }
 
+  const handlenewArrival = (item: any) => {
+    setIsNewArrivalOrBestSelling((prev: any) => ({...prev, isNewArrival: item}))
+  }
+
+  const handleBestSelling = (item: any) => {
+    setIsNewArrivalOrBestSelling((prev: any) => ({
+      ...prev,
+      isBestSelling: item
+    }))
+  }
+
   const addProductHandler = (event: any) => {
     event.preventDefault()
     console.log('addProduct called')
+    console.log(isNewArrivalOrBestSelling, 'is new arrival or best selling')
     const formData = new FormData()
     formData.append('name', data.name)
     formData.append('category', selectedCategory.id)
@@ -220,6 +257,15 @@ export const AddProductPage = () => {
     formData.append('discountedPrice', data.discountedPrice)
     formData.append('discountPercentage', data.discountPercentage)
     formData.append('details', data.details)
+    formData.append(
+      'isBestSelling',
+      JSON.stringify(isNewArrivalOrBestSelling.isBestSelling)
+    )
+
+    formData.append(
+      'isNewArrivals',
+      JSON.stringify(isNewArrivalOrBestSelling.isNewArrival)
+    )
     console.log(data.images, 'data images')
 
     image.forEach((file: any, index: string) => {
@@ -489,6 +535,40 @@ export const AddProductPage = () => {
           >
             <AiOutlineClose size={20} color="red"></AiOutlineClose>
           </div> */}
+
+          <div
+            className="addProduct-input"
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              columnGap: '20%',
+              flexDirection: 'row',
+              margin: '14px'
+            }}
+          >
+            <VStack gap="$3">
+              <Label required labelName="Is New Arrival"></Label>
+              <CheckBox
+                value="newArrival"
+                label="New Arrival"
+                name="newArrival"
+                check={isNewArrivalOrBestSelling.isNewArrival}
+                handleCheckboxChange={handlenewArrival}
+              />
+            </VStack>
+            <VStack gap="$3">
+              <Label required labelName="Is Best Selling?"></Label>
+
+              <CheckBox
+                value="best selling"
+                label="Best Selling"
+                name="bestselling"
+                check={isNewArrivalOrBestSelling.isBestSelling}
+                handleCheckboxChange={handleBestSelling}
+              />
+            </VStack>
+          </div>
         </div>
 
         <Button
