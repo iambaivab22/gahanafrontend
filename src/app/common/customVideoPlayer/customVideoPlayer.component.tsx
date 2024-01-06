@@ -19,27 +19,25 @@ const CustomVideoPlayer = ({videoUrl, thumbnailUrl}) => {
     <div className="custom-video-player">
       {!isFullScreen ? (
         <>
-          {isClosed && (
-            <div className="thumbnail">
-              <button className="close">
-                <IoCloseCircle
-                  size={20}
-                  color="white"
-                  onClick={() => {
-                    setIsClosed(true)
-                  }}
-                ></IoCloseCircle>
-              </button>
-              <img
-                src={thumbnailUrl}
-                alt="Video Thumbnail"
-                onClick={toggleFullScreen}
-              />
-              <div className="play-button" onClick={toggleFullScreen}>
-                <AiFillPlayCircle size={20} color="white" stroke="white" />
-              </div>
+          <div className="thumbnail">
+            <button className="close">
+              <IoCloseCircle
+                size={20}
+                color="white"
+                onClick={() => {
+                  setIsClosed(true)
+                }}
+              ></IoCloseCircle>
+            </button>
+            <img
+              src={thumbnailUrl}
+              alt="Video Thumbnail"
+              onClick={toggleFullScreen}
+            />
+            <div className="play-button" onClick={toggleFullScreen}>
+              <AiFillPlayCircle size={20} color="white" stroke="white" />
             </div>
-          )}
+          </div>
         </>
       ) : (
         <div className="video-container">
