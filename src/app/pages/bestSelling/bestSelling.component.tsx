@@ -50,7 +50,7 @@ export const BestSellingPage = () => {
   console.log(categoryData, 'category data called')
 
   useEffect(() => {
-    console.log(categoryData, 'caetgory data called')
+    // console.log(categoryData, 'caetgory data called')
     const mappedCategory = categoryData?.map((item: any, index: number) => {
       console.log(item, 'caetgory item')
       return {

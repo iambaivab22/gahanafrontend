@@ -1,0 +1,85 @@
+.productDetail-container {
+  // height: auto;
+  width: 100%;
+  padding: 2vw;
+  height: 85dvh;
+  border: 2px solid blue;
+  .productDetail {
+    height: 100%;
+
+    color: map-get($text, primary);
+    border: 2px solid red;
+
+    &-detailBottom-description-content {
+      color: map-get($text, gray);
+      border: 2px solid red;
+      font-size: 16px !important;
+    }
+
+    &-detailTop {
+      &-addToCart {
+        padding: map-get($space, 4);
+        width: max-content;
+        text-align: center;
+        border-radius: 8px;
+        cursor: pointer;
+
+        background-color: map-get($text, secondary);
+        color: white;
+        font-size: map-get($fontSizes, 4);
+        font-weight: map-get($fontWeights, bold);
+      }
+      &-name {
+        // text-transform: uppercase;
+        color: map-get($text, primary);
+        font-size: map-get($fontSizes, 5) !important;
+        line-height: 1.2;
+      }
+
+      .originalPrice {
+        font-size: map-get($fontSizes, 6) !important;
+        font-weight: 700;
+        color: map-get($text, secondary);
+      }
+
+      .discountedPrice {
+        font-size: map-get($fontSizes, 6) !important;
+        font-weight: 700;
+        text-decoration: line-through;
+        // font-size: map-get($fontSizes, 6) !important;
+      }
+      width: 50%;
+      padding: map-get($space, 4) map-get($space, 3);
+      &-topMost {
+        color: map-get($text, 'secondary');
+
+        @include responsive-for(sm) {
+          flex-direction: column;
+          row-gap: map-get($space, 3);
+        }
+      }
+      &-electronics {
+        &-catagory {
+          font-size: map-get($fontSizes, 3);
+          font-weight: map-get($fontWeights, bold);
+          color: map-get($base, 'primary');
+        }
+      }
+    }
+
+    &-detailBottom {
+      padding: unset !important;
+      border: none !important;
+
+      &-description {
+        &-content {
+          font-size: map-get($fontSizes, 3);
+          color: $graylite;
+          color: #a9acc6;
+          line-height: 1.3;
+          text-align: justify;
+        }
+      }
+    }
+  }
+}

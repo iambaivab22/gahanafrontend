@@ -57,17 +57,12 @@ const ProductDetailsPage = () => {
             </div>
 
             <VStack className="productDetail-detailTop" gap="$4">
-              <Title heading>{productDetailData?.name}</Title>
+              <Title heading>{productDetailData?.name} </Title>
               <HStack justify="flex-start" gap="$5">
                 <Title subheading>
                   NPR.{productDetailData?.discountedPrice}
                 </Title>
-                <Title
-                  subheading
-                  style={{textDecoration: 'line-through', color: '#FB2E86'}}
-                >
-                  NPR.{productDetailData?.originalPrice}
-                </Title>
+                <Title subheading>NPR.{productDetailData?.originalPrice}</Title>
               </HStack>
               <VStack className="productDetail-detailBottom" gap="$8">
                 <ReactStarsRating size={15} onChange={ratingChange} value={3} />

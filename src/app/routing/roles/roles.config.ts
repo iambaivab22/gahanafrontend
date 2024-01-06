@@ -18,7 +18,8 @@ export const USER_ROLES: UserRoles = {
       '/subCategory/*',
       '/new-arrivals/*',
       '/best-selling/*',
-      '/sample'
+      '/sample',
+      '/product/*'
     ]
   },
   USER: {

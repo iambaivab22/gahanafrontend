@@ -9,11 +9,11 @@ $base: (
 );
 
 $text: (
-  'primary': #3b4b5a,
-  'secondary': #6d7175,
+  'primary': hsl(0, 0%, 13%),
+  'secondary': hsl(353, 100%, 78%),
   'disabled': #8c9196,
   'inverted': #ffffff,
-  'base': #ea8969
+  'gray': hsl(0, 0%, 47%)
 );
 
 $surface: (

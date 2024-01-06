@@ -1,8 +1,8 @@
 .thumbnail {
   cursor: pointer;
   max-width: 100px;
-  width: 70px;
-  height: 100px;
+  width: 65px;
+  height: 105px;
   position: relative;
   top: 5%;
   left: 5%;
@@ -57,4 +57,16 @@ video {
   border: none;
   color: #fff;
   cursor: pointer;
+}
+
+.close {
+  // border: 2px solid blue;
+  position: absolute;
+  top: -5;
+  right: 0;
+  color: #fff;
+}
+
+button {
+  outline: none !important;
 }

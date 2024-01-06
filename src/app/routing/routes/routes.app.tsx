@@ -10,13 +10,41 @@ import {AddProductPage} from 'src/app/pages/products/add/addProduct.page'
 import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categoryId.page'
 import {CategoryListPage} from 'src/app/pages/category/category.page'
 // import {BestSellingPage} from 'src/app/pages/bestSelling'
-import {BestSellingPage, NewArrivalListPage} from 'src/app/pages'
+import {
+  BestSellingPage,
+  NewArrivalListPage
+  // ProductWebSample
+} from 'src/app/pages'
 import {AddCategoryPage} from 'src/app/pages/category'
 import {Sample, SubCategoryListPage, LoginPage} from 'src/app/pages'
 import {AddSubCategoryPage} from 'src/app/pages/subCategory/add'
+import {ProductWeb, ProductWebDetail} from 'src/app/pages/web'
 // import LoginPage from 'src/app/pages/login/login.page'
 
 export const Router: RouteObject[] = [
+  {
+    path: '/product',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <ProductWebDetail />
+      },
+      {
+        path: 'add',
+        element: <AddProductPage />
+      },
+      {
+        path: 'update/:productId',
+        element: <AddProductPage />
+      },
+      {
+        path: 'view/:productId',
+        element: <ProductWebDetail />
+      }
+    ]
+  },
   {
     path: '/login',
     element: <ProtectedAuth />,

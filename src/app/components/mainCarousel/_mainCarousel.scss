@@ -1,0 +1,46 @@
+.carouselContainers {
+  height: 70vh;
+
+  @include responsive-for(md) {
+    height: 9vh;
+  }
+
+  // border: 2px solid red;
+  width: 100%;
+
+  .slider {
+    height: 80vh !important;
+
+    .image-container {
+      position: relative;
+      height: 80vh !important;
+
+      // span > img {
+      //   height: 100% !important;
+      // }
+
+      @include responsive-for(md) {
+        height: 14.5vh;
+      }
+    }
+  }
+
+  .image-container img {
+    height: 70vh !important;
+    width: 100% !important;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+  .slick-dots {
+    display: none !important;
+  }
+  .slick-slide {
+    height: 100%;
+
+    span {
+    }
+  }
+}

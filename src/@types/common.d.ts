@@ -77,6 +77,7 @@ declare namespace Com {
   interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
     color?: string
     title: string
+    icon?: React.ReactNode
   }
 
   interface FilterChipProps extends ChipProps {

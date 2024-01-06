@@ -14,9 +14,11 @@ export const CompWrapper = ({
   return (
     <animated.div
       className="compwrapper-container"
-      style={{
-        paddingLeft: paddingLeft
-      }}
+      style={
+        {
+          // paddingLeft: paddingLeft
+        }
+      }
     >
       {/* <Header /> */}
       <div className="compwrapper" style={style} {...rest}>

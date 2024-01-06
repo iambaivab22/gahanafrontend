@@ -1,15 +1,15 @@
 .keyValue-container {
-    .keyValue {
-        gap: map-get($space, 1 );
-        &-key {
-            color: $black200;
-            font-size: map-get($fontSizes, 3);
-            font-weight: map-get($fontWeights, bold);
-        }
-        &-value {
-            padding-left: map-get($space, 1);
-            color: map-get($text, secondary);
-            font-size: map-get($fontSizes, 3);
-        }
+  .keyValue {
+    gap: map-get($space, 1);
+    &-key {
+      color: $black200;
+      font-size: map-get($fontSizes, 3);
+      font-weight: map-get($fontWeights, bold);
     }
+    &-value {
+      // padding-left: map-get($space, 1);
+      color: map-get($text, secondary);
+      font-size: map-get($fontSizes, 3);
+    }
+  }
 }

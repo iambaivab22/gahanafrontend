@@ -1,0 +1,77 @@
+.jobsSectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  gap: map-get($space, 8);
+  &-header {
+    width: 100%;
+    font-size: map-get($fontSizes, 5);
+    font-weight: bold;
+    text-align: center;
+    color: map-get($text, primary);
+    position: relative;
+    &-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      gap: map-get($space, 3);
+      // border: 1px solid red;
+
+      a {
+        text-decoration: none;
+        &:active {
+          text-decoration: none;
+          color: $primary100;
+        }
+      }
+
+      &-common {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        width: 30px;
+        background-color: $white;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgb(243, 243, 243);
+        }
+      }
+    }
+  }
+
+  &-seemore {
+    font-size: map-get($fontSizes, 4);
+    cursor: pointer;
+  }
+
+  &-items {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: map-get($space, 4);
+    row-gap: map-get($space, 6);
+
+    @include responsive-for(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include responsive-for(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include responsive-for(sm) {
+      align-self: center;
+      justify-content: center;
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
