@@ -6,15 +6,24 @@
     padding: map-get($space, 4);
     border-radius: map-get($radius, default);
     background: white;
-    border-radius: 8px;
+    border-radius: 6px;
+    // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: 1px solid $lightBorderColor;
     overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
     transition: 0.3s all ease-in-out;
+
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      // -webkit-box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
+      // box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.1);
+    }
 
     // border: 2px solid red;
 
     &-image {
-      height: 25vh;
+      height: 30vh;
       width: 100%;
       border-radius: 8px;
       overflow: hidden;
@@ -30,7 +39,7 @@
         height: 100%;
         object-position: top;
         width: 100%;
-        object-fit: cover;
+        object-fit: contain;
         display: block;
         perspective: 100px;
         transition: all 0.5s ease-in-out;
@@ -47,16 +56,16 @@
     &-titleDescription {
       &-price {
         font-weight: 600;
-        font-size: 20px;
-        background: rgb(254, 241, 230);
-        padding: map-get($space, 2) map-get($space, 3);
-        border-radius: 20px;
-        color: rgb(239, 95, 0);
+        font-size: 18px;
+        // background: rgb(254, 241, 230);
+        // padding: map-get($space, 2) map-get($space, 3);
+        // border-radius: 20px;
+        color: black;
         width: max-content;
       }
       &-title {
         // border: 2px solid blue;
-        font-size: 22px;
+        font-size: 16px;
         font-weight: bold;
       }
 

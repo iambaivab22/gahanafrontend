@@ -13,7 +13,12 @@ import {
   SelectField,
   ActivityIndicator
 } from 'src/app/common'
-import {CarouselSlider, ProductSlider, ZoomSlider} from 'src/app/components'
+import {
+  CarouselSlider,
+  ProductSection,
+  ProductSlider,
+  ZoomSlider
+} from 'src/app/components'
 import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlayer.component'
 
 export const ProductWebDetail = () => {
@@ -164,6 +169,11 @@ export const ProductWebDetail = () => {
           </HStack>
         </VStack>
       </VStack>
+
+      <ProductSection
+        header="Similar Products"
+        isProfilePage={true}
+      ></ProductSection>
 
       {/* <ZoomSlider></ZoomSlider> */}
     </ActivityIndicator>

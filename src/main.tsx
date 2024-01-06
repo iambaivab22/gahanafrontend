@@ -32,9 +32,8 @@ const MemoChild = () => {
   return (
     <AuthProvider>
       {/* <SideNav /> */}
-      <div style={{width: '100%'}}>
-        <App />
-      </div>
+      <App />
+      {/* </div> */}
     </AuthProvider>
   )
 }
@@ -55,17 +54,17 @@ const App = () => {
       <Header></Header>
       {useRoutes(Router)}
 
-      <MainCarousel></MainCarousel>
-      <CompWrapper>
+      {/* <MainCarousel></MainCarousel> */}
+      {/* <CompWrapper>
         <CategorryContainer></CategorryContainer>
-      </CompWrapper>
+      </CompWrapper> */}
 
-      <CompWrapper>
+      {/* <CompWrapper>
         <ProductSection
           header="Best Selling"
           isProfilePage={true}
         ></ProductSection>
-      </CompWrapper>
+      </CompWrapper> */}
       <Footer></Footer>
 
       <Toaster position="bottom-right" reverseOrder={false} />

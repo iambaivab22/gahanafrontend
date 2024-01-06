@@ -15,7 +15,7 @@ export const ProductSection = ({
   jobItems,
   header,
   itemOnGrid,
-  isProfilePage
+  isHomePage
 }: any) => {
   const media = useMedia()
 
@@ -50,13 +50,16 @@ export const ProductSection = ({
           gridTemplateColumns: media.md ? `repeat(${itemOnGrid}, 1fr)` : ''
         }}
       >
-        {[1, 2, 3, 4, 5].map((jobs: any, index: number) => {
+        {[1, 2, 3, 4].map((jobs: any, index: number) => {
           return <ProductCard />
         })}
       </div>
       {/* <Link to={'/profile/my-jobs'}>
         <a> */}
-      <div className="jobsSectionContainer-seemore">See more</div>
+
+      {isHomePage && (
+        <div className="jobsSectionContainer-seemore">See more</div>
+      )}
       {/* </a>
       </Link> */}
     </div>

@@ -19,6 +19,7 @@ import {AddCategoryPage} from 'src/app/pages/category'
 import {Sample, SubCategoryListPage, LoginPage} from 'src/app/pages'
 import {AddSubCategoryPage} from 'src/app/pages/subCategory/add'
 import {ProductWeb, ProductWebDetail} from 'src/app/pages/web'
+import {HomePage} from 'src/app/pages/web/home/home.component'
 // import LoginPage from 'src/app/pages/login/login.page'
 
 export const Router: RouteObject[] = [
@@ -44,6 +45,13 @@ export const Router: RouteObject[] = [
         element: <ProductWebDetail />
       }
     ]
+  },
+
+  {
+    path: '/home',
+    // element: <PublicAuth />,/
+
+    element: <HomePage />
   },
   {
     path: '/login',

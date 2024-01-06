@@ -4,9 +4,10 @@
   align-items: center;
 
   width: 100%;
-  gap: map-get($space, 8);
+  gap: map-get($space, 3s);
   &-header {
     width: 100%;
+    margin-bottom: map-get($space, 3);
     font-size: map-get($fontSizes, 5);
     font-weight: bold;
     text-align: center;
@@ -49,8 +50,11 @@
   }
 
   &-seemore {
-    font-size: map-get($fontSizes, 4);
+    // border: 2px solid red;
+    font-size: map-get($fontSizes, 5);
     cursor: pointer;
+    padding-top: map-get($space, 3);
+    // border: 2px solid red;
   }
 
   &-items {
