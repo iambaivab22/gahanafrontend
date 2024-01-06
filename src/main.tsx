@@ -47,7 +47,14 @@ const App = () => {
   ]
 
   return (
-    <div style={{position: 'absolute', right: '10px', width: '77vw'}}>
+    <div
+      style={{
+        position: 'absolute',
+        right: '10px',
+        width: '75vw',
+        marginTop: '40px'
+      }}
+    >
       {/* <CompWrapper> */}
       {/* <TopHeader></TopHeader> */}
       {/* </CompWrapper> */}
