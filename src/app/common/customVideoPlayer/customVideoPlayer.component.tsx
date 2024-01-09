@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
-import {FaWindowClose} from 'react-icons/fa'
+import {FaPlay, FaWindowClose} from 'react-icons/fa'
 import {IoClose, IoCloseCircle} from 'react-icons/io5'
 
 const CustomVideoPlayer = ({videoUrl, thumbnailUrl}) => {
@@ -18,27 +18,30 @@ const CustomVideoPlayer = ({videoUrl, thumbnailUrl}) => {
   return (
     <div className="custom-video-player">
       {!isFullScreen ? (
-        <>
-          <div className="thumbnail">
-            <button className="close">
-              <IoCloseCircle
-                size={20}
-                color="white"
-                onClick={() => {
-                  setIsClosed(true)
-                }}
-              ></IoCloseCircle>
-            </button>
-            <img
-              src={thumbnailUrl}
-              alt="Video Thumbnail"
-              onClick={toggleFullScreen}
-            />
-            <div className="play-button" onClick={toggleFullScreen}>
-              <AiFillPlayCircle size={20} color="white" stroke="white" />
-            </div>
+        <div className="thumbnail">
+          {/* <button className="close">
+            <IoCloseCircle
+              size={20}
+              color="red"
+              onClick={() => {
+                setIsClosed(true)
+              }}
+            ></IoCloseCircle>
+          </button> */}
+          {/* <img
+            src={thumbnailUrl}
+            alt="Video Thumbnail"
+            onClick={toggleFullScreen}
+          /> */}
+
+          <div className="videos">
+            <video src={videoUrl} muted autoPlay loop />
           </div>
-        </>
+
+          <div className="play-button" onClick={toggleFullScreen}>
+            <FaPlay size={30} color="white" stroke="white" />
+          </div>
+        </div>
       ) : (
         <div className="video-container">
           <button className="close-button" onClick={closeFullScreen}>
