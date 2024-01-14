@@ -14,8 +14,41 @@ import banner2 from 'src/assets/images/banner3.webp'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import {useDispatch, useSelector} from 'src/store'
+import {useCallback, useEffect, useState} from 'react'
+import {getBannerListAction} from 'src/app/pages/banners/banners.slice'
 
 export const MainCarousel = () => {
+  const dispatch = useDispatch()
+  const {bannerData}: any = useSelector((state: any) => state.banner)
+  const [bannerList, setBannerList] = useState<any>([])
+
+  useEffect(() => {
+    console.log(bannerData, 'bannerData hai ta')
+    const datas = bannerData?.[0]?.bannerImage?.map(
+      (item: any, index: number) => {
+        return item
+      }
+    )
+
+    console.log(datas, 'datas req hai ta')
+
+    setBannerList(datas)
+  }, [bannerData])
+
+  // const remappedBannerImage = useCallback(() => {
+  //   console.log(bannerData, 'bannerData from ')
+  //   const mydata = bannerData[0]?.bannerImage?.map(
+  //     (item: any, index: number) => {
+  //       return item
+  //     }
+  //   )
+
+  //   console.log(mydata, 'mydata')
+
+  //   setBannerList(mydata)
+  // }, [bannerData])
+
   const settings = {
     dots: true,
     infinite: true,
@@ -27,24 +60,37 @@ export const MainCarousel = () => {
 
   const backgroundImage = [banner1, banner2, banner3]
 
+  useEffect(() => {
+    dispatch(
+      getBannerListAction({
+        onSuccess: () => {}
+      })
+    )
+  }, [])
+
+  // useEffect(() => {
+  //   console.log(bannerList, 'bannerlist')
+  // }, [bannerData])
+
   return (
     <div className="carouselContainers">
       <Slider className="slider" adaptiveHeight {...settings}>
-        {backgroundImage.map((item: any, index: number) => {
-          return (
-            <div className="image-container" key={index}>
-              <img
-                src={item}
-                alt="image"
-                placeholder="blur"
-                // blurDataURL={item}
-                // objectFit="cover"
-                // objectPosition={'top center'}
-                // layout="fill"
-              ></img>
-            </div>
-          )
-        })}
+        {bannerList?.length > 0 &&
+          bannerList?.map((item: any, index: number) => {
+            return (
+              <div className="image-container" key={index}>
+                <img
+                  src={`http://localhost:8000/${item}`}
+                  alt="image"
+                  placeholder="blur"
+                  // blurDataURL={item}
+                  // objectFit="cover"
+                  // objectPosition={'top center'}
+                  // layout="fill"
+                ></img>
+              </div>
+            )
+          })}
       </Slider>
     </div>
   )

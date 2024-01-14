@@ -24,6 +24,7 @@ export const ProductCard = () => {
       <VStack className="productCard" gap="$3">
         <div className="productCard-image">
           <img src={productImages[activeImage]}></img>
+          {/* <img src="http://localhost:8000/1705164295377-htmlimage.jpg"></img> */}
         </div>
 
         <HStack className="productCard-tags" gap="$2">

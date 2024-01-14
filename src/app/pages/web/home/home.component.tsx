@@ -1,4 +1,6 @@
-import React from 'react'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
+import React, {useEffect, useRef} from 'react'
 import {CompWrapper, VStack} from 'src/app/common'
 import {
   CategorryContainer,
@@ -21,11 +23,12 @@ export const HomePage = () => {
             header="Best Selling"
             isHomePage={true}
           ></ProductSection>
-
-          <ProductSection
-            header="New Arrivals"
-            isHomePage={true}
-          ></ProductSection>
+          <div>
+            <ProductSection
+              header="New Arrivals"
+              isHomePage={true}
+            ></ProductSection>
+          </div>
 
           <TestimonailSection
             reviews={[

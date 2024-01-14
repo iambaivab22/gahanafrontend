@@ -75,7 +75,7 @@ const ProductDetailsPage = () => {
                     <div
                       className="productDetail-detailBottom-description-content"
                       dangerouslySetInnerHTML={{
-                        __html: productDetailData?.details
+                        __html: productDetailData?.description
                       }}
                     />
                   </HStack>

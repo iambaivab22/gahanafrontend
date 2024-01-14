@@ -20,6 +20,7 @@ import {
   ZoomSlider
 } from 'src/app/components'
 import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlayer.component'
+import html2canvas from 'html2canvas'
 
 export const ProductWebDetail = () => {
   const [position, setPosition] = useState({x: 1175, y: 450})
@@ -69,7 +70,7 @@ export const ProductWebDetail = () => {
 
   return (
     <ActivityIndicator animating={productDetailLoading}>
-      <VStack className="productDetail-container">
+      <div className="productDetail-container">
         <VStack className="productDetail">
           <HStack style={{width: '100%'}} gap="$3">
             <div style={{width: '50%'}}>
@@ -87,7 +88,11 @@ export const ProductWebDetail = () => {
               <ZoomSlider></ZoomSlider>
             </div>
 
-            <VStack className="productDetail-detailTop" gap="$4">
+            <VStack
+              className="productDetail-detailTop"
+              gap="$4"
+              id="productContainer"
+            >
               <ReactStarsRating size={15} onChange={ratingChange} value={3} />
               <Title heading className="productDetail-detailTop-name">
                 {productDetailData?.name}
@@ -168,7 +173,7 @@ export const ProductWebDetail = () => {
             </VStack>
           </HStack>
         </VStack>
-      </VStack>
+      </div>
 
       <ProductSection
         header="Similar Products"

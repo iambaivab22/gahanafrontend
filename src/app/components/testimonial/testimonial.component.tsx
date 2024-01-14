@@ -1,142 +1,103 @@
-import React from 'react'
-import {FaQuoteLeft, FaQuoteRight} from 'react-icons/fa'
+const reviews = [
+  {
+    id: 1,
+    name: 'susan smith',
+    job: 'web developer',
+    image:
+      'https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883334/person-1_rfzshl.jpg',
+    text: "I'm baby meggings twee health goth +1. Bicycle rights tumeric chartreuse before they sold out chambray pop-up. Shaman humblebrag pickled coloring book salvia hoodie, cold-pressed four dollar toast everyday carry"
+  },
+  {
+    id: 2,
+    name: 'anna johnson',
+    job: 'web designer',
+    image:
+      'https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883409/person-2_np9x5l.jpg',
+    text: 'Helvetica artisan kinfolk thundercats lumbersexual blue bottle. Disrupt glossier gastropub deep v vice franzen hell of brooklyn twee enamel pin fashion axe.photo booth jean shorts artisan narwhal.'
+  },
+  {
+    id: 3,
+    name: 'peter jones',
+    job: 'intern',
+    image:
+      'https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883417/person-3_ipa0mj.jpg',
+    text: 'Sriracha literally flexitarian irony, vape marfa unicorn. Glossier tattooed 8-bit, fixie waistcoat offal activated charcoal slow-carb marfa hell of pabst raclette post-ironic jianbing swag.'
+  },
+  {
+    id: 4,
+    name: 'bill anderson',
+    job: 'the boss',
+    image:
+      'https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883423/person-4_t9nxjt.jpg',
+    text: 'Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. '
+  }
+]
 
-export const TestimonailSection = ({reviews}: any) => {
-  return (
-    <div className="flex flex-col w-[100vw] h-[100vh] justify-center items-center bg-gray-200">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold">Our Reviews</h1>
+import React, {useState} from 'react'
 
-        <div className="bg-violet-400 h-[4px] w-1/5 mt-1 mx-auto"></div>
+import {FaChevronLeft, FaChevronRight, FaQuoteRight} from 'react-icons/fa'
+import {Text, Title} from 'src/app/common'
 
-        <Testimonials reviews={reviews} />
-      </div>
-    </div>
-  )
-}
-
-import {FiChevronLeft, FiChevronRight} from 'react-icons/fi'
-import {useState} from 'react'
-import {HStack, VStack} from 'src/app/common'
-
-export const Testimonials = (props) => {
-  let reviews = props.reviews
+export const TestimonailSection = () => {
   const [index, setIndex] = useState(0)
+  const {name, job, image, text} = reviews[index]
 
-  function leftShiftHandler() {
-    if (index - 1 < 0) {
-      setIndex(reviews.length - 1)
-    } else {
-      setIndex(index - 1)
+  const checkNumber = (number) => {
+    if (number > reviews.length - 1) {
+      return 0
+    } else if (number < 0) {
+      return reviews.length - 1
     }
+    return number
   }
 
-  function rightShiftHandler() {
-    if (index + 1 >= reviews.length) {
-      setIndex(0)
-    } else {
-      setIndex(index + 1)
-    }
+  const nextPerson = () => {
+    setIndex((index) => {
+      let newIndex = index + 1
+      return checkNumber(newIndex)
+    })
   }
 
-  function surpriseHandler() {
-    let randomIndex = Math.floor(Math.random() * reviews.length)
-    setIndex(randomIndex)
+  const prevPerson = () => {
+    setIndex((index) => {
+      let newIndex = index - 1
+      return checkNumber(newIndex)
+    })
+  }
+
+  const randomPerson = () => {
+    let randomNumber = Math.floor(Math.random() * reviews.length)
+    if (randomNumber === index) {
+      randomNumber = index + 1
+    }
+    setIndex(checkNumber(randomNumber))
   }
 
   return (
-    <div
-      className="w-[85vw] md:w-[700px] bg-white flex flex-col justify-center items-center
-    mt-10 p-10 transition-all duration-700 hover:shadow-xl rounded-md"
-    >
-      <Card review={reviews[index]}></Card>
-
-      <div className="flex text-3xl mt-10 gap-3 text-violet-400 font-bold mx-auto">
-        <button
-          onClick={leftShiftHandler}
-          className="cursor-pointer hover:text-violet-500 "
-        >
-          <FiChevronLeft />
-        </button>
-        <button
-          onClick={rightShiftHandler}
-          className="cursor-pointer hover:text-violet-500 "
-        >
-          <FiChevronRight />
-        </button>
-      </div>
-
-      <div className="mt-6">
-        <button
-          onClick={surpriseHandler}
-          className="bg-violet-400 hover:bg-violet-500 transition-all duration-200
-        cursor-pointer px-10 py-2 rounded-md font-bold text-white text-lg"
-        >
-          Surprise Me
-        </button>
-      </div>
-    </div>
-  )
-}
-
-export const Card = (props) => {
-  let review = props.review
-  return (
-    <VStack gap="$4">
-      <div
-        className="absolute top-[-7rem] z-[10] mx-auto"
-        style={{
-          position: 'absolute',
-          top: '-7rem',
-          zIndex: '10',
-          margin: 'auto'
-        }}
-      >
-        <img
-          alt=""
-          className="aspect-square rounded-full w-[140px] h-[140px] z-[25]"
-          style={{width: '140px', height: '140px', zIndex: '25'}}
-          src={review.image}
-        />
-        <div
-          className="w-[140px] h-[140px] bg-violet-500 rounded-full absolute
-         top-[-6px] z-[-10] left-[10px]"
-          style={{
-            width: '140px',
-            height: '140px',
-            left: '10px',
-            zIndex: 10,
-            top: '-6px',
-            position: 'absolute',
-            background: 'red'
-          }}
-        ></div>
-      </div>
-
-      <div className="text-center mt-7">
-        <p className="tracking-wider font-bold text-2xl capitalize">
-          {review.name}
-        </p>
-        <p className="text-violet-300 uppercase text-sm">{review.job}</p>
-      </div>
-
-      <div className="text-violet-400 mx-auto mt-5">
-        <FaQuoteLeft />
-      </div>
-
-      <div
-        className="text-center mt-4 text-slate-500"
-        style={{textAlign: 'center', marginTop: '10px', color: 'slate'}}
-      >
-        {review.text}
-      </div>
-
-      <div
-        className="text-violet-400 mx-auto mt-5"
-        style={{color: 'violet', margin: 'auto'}}
-      >
-        <FaQuoteRight />
-      </div>
-    </VStack>
+    <>
+      <div className="jobsSectionContainer-header">WHAT OUR CUSTOMER SAYS</div>
+      <article className="review">
+        <div className="img-container">
+          <img src={image} alt={name} className="person-img" />
+          <span className="quote-icon">
+            <FaQuoteRight />
+          </span>
+        </div>
+        <h4 className="author">{name}</h4>
+        <p className="jon">{job}</p>
+        <p className="info">{text}</p>
+        <div className="button-container">
+          <button className="prev-btn" onClick={prevPerson}>
+            <FaChevronLeft />
+          </button>
+          <button className="next-btn" onClick={nextPerson}>
+            <FaChevronRight />
+          </button>
+        </div>
+        {/* <button className="random-btn" onClick={randomPerson}>
+        Suprise Me!
+      </button> */}
+      </article>
+    </>
   )
 }

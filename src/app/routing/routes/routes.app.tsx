@@ -11,6 +11,7 @@ import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categor
 import {CategoryListPage} from 'src/app/pages/category/category.page'
 // import {BestSellingPage} from 'src/app/pages/bestSelling'
 import {
+  Banners,
   BestSellingPage,
   NewArrivalListPage
   // ProductWebSample
@@ -154,6 +155,29 @@ export const Router: RouteObject[] = [
       {
         path: '',
         element: <SubCategoryListPage />
+      },
+      {
+        path: 'add',
+        element: <AddSubCategoryPage />
+      },
+      {
+        path: 'update/:subCategoryId',
+        element: <AddSubCategoryPage />
+      },
+      {
+        path: 'view/:subCategoryId',
+        element: <CategoryDetailPage />
+      }
+    ]
+  },
+  {
+    path: '/banners',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <Banners />
       },
       {
         path: 'add',

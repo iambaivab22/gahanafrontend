@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useState, useCallback, useRef} from 'react'
 import {useDispatch} from 'src/store'
 import {delteProductAction, getProductListAction} from './product.slice'
 import {useSelector} from 'react-redux'
@@ -14,6 +14,8 @@ import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-hot-toast'
 import {getCategoryListAction} from '../category/category.slice'
 import {useDebounceValue} from 'src/hooks'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 export const ProductListPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -82,11 +84,51 @@ export const ProductListPage = () => {
     )
   }, [searchTxt, selectedCateory])
 
+  const proudctCardRef = useRef<HTMLDivElement | null>(null)
+  const handlePdfDownload = () => {
+    if (proudctCardRef.current) {
+      html2canvas(proudctCardRef.current, {scale: 2, useCORS: true}).then(
+        (canvas) => {
+          // var drawingCanvas = document.getElementById(
+          //   'canvas'
+          // ) as HTMLCanvasElement
+          console.log(canvas, 'canvas value')
+          const aspectRatio = canvas.width / canvas.height
+          var img = canvas.toDataURL('image/png')
+          console.log(img, 'required img')
+
+          var doc = new jsPDF({format: 'a4'})
+          doc.setFillColor(255, 255, 255)
+          doc.rect(
+            0,
+            0,
+            doc.internal.pageSize.width,
+            doc.internal.pageSize.height,
+            'F'
+          )
+
+          doc.addImage(
+            img,
+            'JPEG',
+            0,
+            0,
+            doc.internal.pageSize.width,
+            doc.internal.pageSize.width / aspectRatio
+          )
+          doc.save('productList.pdf')
+
+          // Get the 2D rendering context of the canvas
+        }
+      )
+    }
+  }
+
   return (
     <div>
       <Box>
         <HStack justify="space-between" gap={'$4'} style={{margin: '20px 0'}}>
           <Button title="Add Product" onClick={() => navigate('add')}></Button>
+          <Button title="Download Pdf" onClick={handlePdfDownload}></Button>
           <SearchField
             placeholder="Search Your Product"
             onChange={handleSearch}
@@ -100,84 +142,85 @@ export const ProductListPage = () => {
             placeholder={'Filter Product By Category'}
           />
         </HStack>
-
-        <Table
-          columns={[
-            {
-              field: 'name',
-              name: 'Name',
-              render: (datas) => {
-                return <div>{datas}</div>
+        <div ref={proudctCardRef}>
+          <Table
+            columns={[
+              {
+                field: 'name',
+                name: 'Name',
+                render: (datas) => {
+                  return <div>{datas}</div>
+                }
+              },
+              {
+                field: 'discountedPrice',
+                name: 'Price',
+                render: (datas) => <div>{datas}</div>
+              },
+              {
+                field: 'originalPrice',
+                name: 'Original Price',
+                render: (datas) => <div>{datas}</div>
+              },
+              // {
+              //   field: 'discountPercentage',
+              //   name: 'Discounted Price',
+              //   render: (datas) => <div>{datas}</div>
+              // },
+              {
+                field: 'image',
+                name: 'Images',
+                render: (datas) => (
+                  <div>
+                    {
+                      <img
+                        src={datas[0]?.url}
+                        style={{height: '70px', width: '100px'}}
+                      ></img>
+                    }
+                  </div>
+                )
               }
-            },
-            {
-              field: 'discountedPrice',
-              name: 'Price',
-              render: (datas) => <div>{datas}</div>
-            },
-            {
-              field: 'originalPrice',
-              name: 'Original Price',
-              render: (datas) => <div>{datas}</div>
-            },
-            // {
-            //   field: 'discountPercentage',
-            //   name: 'Discounted Price',
-            //   render: (datas) => <div>{datas}</div>
-            // },
-            {
-              field: 'image',
-              name: 'Images',
-              render: (datas) => (
-                <div>
-                  {
-                    <img
-                      src={datas[0]?.url}
-                      style={{height: '70px', width: '100px'}}
-                    ></img>
-                  }
-                </div>
-              )
-            }
-          ]}
-          data={data}
-          actions={{
-            onView: (item: any) => {
-              navigate(`view/${item.id}`)
-            },
+            ]}
+            data={data}
+            actions={{
+              onView: (item: any) => {
+                navigate(`view/${item.id}`)
+              },
 
-            onEdit: (item: any) => {
-              navigate(`update/${item.id}`)
-            },
-            onDelete: (item: any, onCloseModalHandler) => {
-              dispatch(
-                delteProductAction({
-                  productId: item.id,
-                  onSuccess: (data: any) => {
-                    onCloseModalHandler()
+              onEdit: (item: any) => {
+                navigate(`update/${item.id}`)
+              },
+              onDelete: (item: any, onCloseModalHandler) => {
+                dispatch(
+                  delteProductAction({
+                    productId: item.id,
+                    onSuccess: (data: any) => {
+                      onCloseModalHandler()
 
-                    console.log('onSUccess called')
-                    toast.success('Product deleted successfully')
-                    console.log('ad1')
-                    dispatch(
-                      getProductListAction({
-                        onSuccess: () => {},
-                        query: {
-                          search: searchTxt,
-                          categoryId: selectedCateory?.id
-                        }
-                      })
-                    )
-                  }
-                })
-              )
-            }
-          }}
-          pagination={{
-            totalCount: Number(data?.length ?? 1),
-            perPage: Number(5)
-          }}
-        />
+                      console.log('onSUccess called')
+                      toast.success('Product deleted successfully')
+                      console.log('ad1')
+                      dispatch(
+                        getProductListAction({
+                          onSuccess: () => {},
+                          query: {
+                            search: searchTxt,
+                            categoryId: selectedCateory?.id
+                          }
+                        })
+                      )
+                    }
+                  })
+                )
+              }
+            }}
+            pagination={{
+              totalCount: Number(data?.length ?? 1),
+              perPage: Number(50)
+            }}
+          />
+        </div>
       </Box>
     </div>
   )

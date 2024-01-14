@@ -18,12 +18,14 @@ export const USER_ROLES: UserRoles = {
       '/subCategory/*',
       '/new-arrivals/*',
       '/best-selling/*',
+      '/banners/*',
+
       '/sample',
       '/product/*',
       './home/*'
     ]
   },
   USER: {
-    access: ['/login', '/sample', '/business/*', '/home/*']
+    access: ['/login', '/sample', '/business/*', '/home/*', '/banners/*']
   }
 }

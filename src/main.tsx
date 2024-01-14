@@ -55,10 +55,9 @@ const App = () => {
         marginTop: '40px'
       }}
     >
-      {/* <CompWrapper> */}
-      {/* <TopHeader></TopHeader> */}
-      {/* </CompWrapper> */}
-      {/* <Header></Header> */}
+      {/* <TopHeader></TopHeader>
+
+      <Header></Header> */}
       {useRoutes(Router)}
 
       {/* <MainCarousel></MainCarousel> */}

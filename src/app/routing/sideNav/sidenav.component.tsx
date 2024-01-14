@@ -111,6 +111,10 @@ const SideNavComponent = React.memo(() => {
           {getNav('Best Sellings', '/best-selling', () => (
             <RiFolderTransferFill size={18} />
           ))}
+
+          {getNav('Banners', '/banners', () => (
+            <MdReport size={18} />
+          ))}
           {getNav('User List', '/user-management', () => (
             <FaUsers />
           ))}

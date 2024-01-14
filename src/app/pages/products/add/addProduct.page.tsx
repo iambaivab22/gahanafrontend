@@ -9,6 +9,7 @@ import {
   InputField,
   Label,
   SelectField,
+  TextEditor,
   VStack
 } from 'src/app/common'
 import {
@@ -53,6 +54,19 @@ export const AddProductPage = () => {
 
   // console.log('product id is available', productId)
   const [image, setImage] = useState<any>([])
+
+  const [colorCount, setColorCount] = useState(5)
+  const [colorImage, setColorImage] = useState({
+    color: '',
+    image: [null]
+  })
+
+  const [allColorVariant, setAllColorVariant] = useState([])
+
+  useEffect(() => {
+    console.log(colorCount, 'colorCount')
+    console.log(colorImage, 'color image')
+  }, [colorCount, colorImage])
   const [data, setData] = useState<any>({
     name: '',
     originalPrice: '',
@@ -62,7 +76,7 @@ export const AddProductPage = () => {
     subCategory: '',
     images: [],
     video: null,
-    details: ''
+    description: ''
   })
 
   const [isNewArrivalOrBestSelling, setIsNewArrivalOrBestSelling] = useState({
@@ -97,7 +111,7 @@ export const AddProductPage = () => {
 
         // images: !!productDetailData ? productDetailData.images?.[0] : '',
         // video: !!productDetailData ? productDetailData.video : null,
-        details: !!productDetailData ? productDetailData?.details : ''
+        description: !!productDetailData ? productDetailData?.description : ''
       }))
 
       // setIsNewArrivalOrBestSelling((prev:any)=>({...prev,isBestSelling:!!productDetailData?productDetailData?.isBestSelling))
@@ -256,7 +270,7 @@ export const AddProductPage = () => {
     formData.append('originalPrice', data.originalPrice)
     formData.append('discountedPrice', data.discountedPrice)
     formData.append('discountPercentage', data.discountPercentage)
-    formData.append('details', data.details)
+    formData.append('description', data.description)
     formData.append(
       'isBestSelling',
       JSON.stringify(isNewArrivalOrBestSelling.isBestSelling)
@@ -299,7 +313,7 @@ export const AddProductPage = () => {
                   subCategory: '',
                   images: [],
                   video: null,
-                  details: ''
+                  description: ''
                 })
               }
             })
@@ -325,7 +339,7 @@ export const AddProductPage = () => {
                   subCategory: '',
                   images: [],
                   video: null,
-                  details: ''
+                  description: ''
                 })
               }
             })
@@ -338,6 +352,14 @@ export const AddProductPage = () => {
   //   selectedCategory,
   //   'selected sub category value'
   // )
+
+  const handleColorVariant = () => {
+    setAllColorVariant((prev) => [...prev, colorImage])
+  }
+
+  useEffect(() => {
+    console.log(allColorVariant, 'allColorVariant')
+  }, [allColorVariant])
 
   return (
     <div className="addProductContainer">
@@ -438,16 +460,82 @@ export const AddProductPage = () => {
             value={data.discountedPrice}
           ></InputField>
         </div>
+
+        <div className="addProduct-input">
+          <Label required labelName="How many color variant"></Label>
+          <InputField
+            type="number"
+            placeholder="Enter Color variant bumber"
+            onChange={(e: any) => setColorCount(e.target.value)}
+            value={colorCount}
+          ></InputField>
+        </div>
+
+        {/* {Array(Number(colorCount))
+          .fill(10)
+          .map((item: any, index: number) => {
+            return (
+              <HStack key={index}>
+                <div>
+                  <ImageUploader
+                    defaultImage={
+                      productId && !!productDetailData
+                        ? productDetailData.image
+                        : ''
+                    }
+                    onImageChange={(event) => {
+                      const selectedFiles = Array.from(event.target.files)
+                      console.log(selectedFiles, 'seelctedFiles+++++++++++++')
+                      // setBannerImage((prev: any) => [...prev, ...selectedFiles])
+
+                      setColorImage((prev: any) => ({
+                        ...prev,
+                        image: [selectedFiles]
+                      }))
+                    }}
+                    value={colorImage.image}
+                    actionHandler={handleAction}
+                  ></ImageUploader>
+                </div>
+
+                <div>
+                  <input
+                    type="color"
+                    style={{width: '200px', height: '200px'}}
+                    onChange={(e: any) =>
+                      setColorImage((prev: any) => ({
+                        ...prev,
+                        color: e.target.value
+                      }))
+                    }
+                  ></input>
+
+                  <Button
+                    title="Add Color variant"
+                    onClick={handleColorVariant}
+                  ></Button>
+                </div>
+              </HStack>
+            )
+          })} */}
+
         <div className="addProduct-input">
           <Label required labelName="Product Detail"></Label>
-          <InputField
+          {/* <InputField
             type="text"
             placeholder="Enter Product Detail"
             onChange={(e: any) =>
               setData((prev: any) => ({...prev, details: e.target.value}))
             }
             value={data.details}
-          ></InputField>
+          ></InputField> */}
+
+          <TextEditor
+            descriptionBody={data.description}
+            onChange={(e: any) =>
+              setData((prev: any) => ({...prev, description: e}))
+            }
+          />
         </div>
 
         <div className="addProduct-input">
