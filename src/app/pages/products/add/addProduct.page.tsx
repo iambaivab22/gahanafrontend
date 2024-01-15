@@ -58,7 +58,7 @@ export const AddProductPage = () => {
   const [colorCount, setColorCount] = useState(5)
   const [colorImage, setColorImage] = useState({
     color: '',
-    image: [null]
+    image: []
   })
 
   const [allColorVariant, setAllColorVariant] = useState([])
@@ -95,7 +95,7 @@ export const AddProductPage = () => {
       })
       setSelectedSubCategory({
         id: productDetailData?.subCategory?.id,
-        label: productDetailData?.subCategory.name,
+        label: productDetailData?.subCategory.neame,
         value: productDetailData?.subCategory?.value
       })
       setData((prev: any) => ({
@@ -355,6 +355,11 @@ export const AddProductPage = () => {
 
   const handleColorVariant = () => {
     setAllColorVariant((prev) => [...prev, colorImage])
+
+    setColorImage((prev: any) => ({
+      image: [],
+      color: ''
+    }))
   }
 
   useEffect(() => {
@@ -471,29 +476,38 @@ export const AddProductPage = () => {
           ></InputField>
         </div>
 
-        {/* {Array(Number(colorCount))
+        {Array(Number(colorCount))
           .fill(10)
           .map((item: any, index: number) => {
+            console.log('index')
             return (
               <HStack key={index}>
                 <div>
                   <ImageUploader
-                    defaultImage={
-                      productId && !!productDetailData
-                        ? productDetailData.image
-                        : ''
-                    }
+                    key={index}
+                    uniqueKeys={index}
+                    // defaultImage={
+                    //   productId && !!productDetailData
+                    //     ? productDetailData.image
+                    //     : ''
+                    // }
                     onImageChange={(event) => {
                       const selectedFiles = Array.from(event.target.files)
+
+                      console.log(index, 'index')
                       console.log(selectedFiles, 'seelctedFiles+++++++++++++')
                       // setBannerImage((prev: any) => [...prev, ...selectedFiles])
 
-                      setColorImage((prev: any) => ({
-                        ...prev,
-                        image: [selectedFiles]
-                      }))
+                      // setColorImage((prev: any) => ({
+                      //   ...prev,
+
+                      //   [index]: [
+                      //     ...(prev.image[index] || []),
+                      //     ...selectedFiles
+                      //   ]
+                      // }))
                     }}
-                    value={colorImage.image}
+                    // value={allColorVariant[index].image}
                     actionHandler={handleAction}
                   ></ImageUploader>
                 </div>
@@ -517,7 +531,7 @@ export const AddProductPage = () => {
                 </div>
               </HStack>
             )
-          })} */}
+          })}
 
         <div className="addProduct-input">
           <Label required labelName="Product Detail"></Label>

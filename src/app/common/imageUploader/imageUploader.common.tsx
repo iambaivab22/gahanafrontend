@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {AiFillCamera, AiFillCloseCircle} from 'react-icons/ai'
 import {TbCameraPlus} from 'react-icons/tb'
+import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
 const ImageUploader = React.memo(
   ({
@@ -8,13 +9,15 @@ const ImageUploader = React.memo(
     value,
     defaultImage,
     actionHandler,
-    isBanner
+    isBanner,
+    uniqueKeys
   }: {
     onImageChange: (e: any) => void
     value?: any
     defaultImage?: any
     actionHandler: any
     isBanner?: boolean
+    uniqueKeys?: any
   }) => {
     // Add more URLs as needed
     const [selectedImages, setSelectedImages] = useState([])
@@ -34,6 +37,8 @@ const ImageUploader = React.memo(
 
     const handleImageUpload = (e: any) => {
       e.stopPropagation()
+
+      console.log('handleImagecalled', 'handleImagecalled')
 
       onImageChange && onImageChange(e)
 
@@ -70,6 +75,11 @@ const ImageUploader = React.memo(
 
     useEffect(() => {
       console.log(selectedImages, 'seelcted images from upload image component')
+
+      return () => {
+        // Cleanup logic, e.g., clear setImages
+        // setSelectedImages([])
+      }
     }, [selectedImages, files])
 
     return (
@@ -80,10 +90,12 @@ const ImageUploader = React.memo(
           multiple
           onChange={handleImageUpload}
           className="image-uploader-input"
-          id="imageUploader"
+          id={uniqueKeys}
           // value={value && value}
+
+          key={Math.random()}
         />
-        <label htmlFor="imageUploader">
+        <label htmlFor={uniqueKeys}>
           {selectedImages.length <= 0 ? (
             <div className="imageUploader-placeholder">
               <TbCameraPlus size={40}></TbCameraPlus>
@@ -96,7 +108,7 @@ const ImageUploader = React.memo(
           )}
         </label>
 
-        <div className="image-list">
+        <div className="image-list" key={Math.random()}>
           {selectedImages?.map((image, index) => (
             <span key={index} className="image-list-item">
               <img
