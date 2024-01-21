@@ -17,6 +17,14 @@
     }
 
     &-detailTop {
+      &-color {
+        &-item {
+          height: 30px;
+          width: 30px;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+      }
       &-addToCart {
         padding: map-get($space, 4);
         width: max-content;

@@ -22,6 +22,8 @@ export const ProductListPage = () => {
   const [searchTxt, setSearchTxt] = useState('')
 
   const {data}: any = useSelector((state: any) => state.product)
+
+  console.log(data, 'data')
   const [category, setCategory] = useState<any>([])
   const [selectedCateory, setSelectedCategory] = useState<any>('')
   const {categoryData}: any = useSelector((state: any) => state.category)
@@ -168,16 +170,20 @@ export const ProductListPage = () => {
               //   render: (datas) => <div>{datas}</div>
               // },
               {
-                field: 'image',
+                field: 'images',
                 name: 'Images',
                 render: (datas) => (
                   <div>
-                    {
-                      <img
-                        src={datas[0]?.url}
-                        style={{height: '70px', width: '100px'}}
-                      ></img>
-                    }
+                    <img
+                      //@ts-ignore
+                      // src={datas?[0]?.coloredImage[0]}
+
+                      // src=`http://localhost:8000/products${datas.}`
+
+                      src={`http://localhost:8000/products/${datas?.[0]?.coloredImage[0]}`}
+                      // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
+                      style={{height: '70px', width: '100px'}}
+                    ></img>
                   </div>
                 )
               }

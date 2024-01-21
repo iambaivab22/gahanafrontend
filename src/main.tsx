@@ -31,7 +31,7 @@ import {Footer} from './app/components/footer/footer.component'
 const MemoChild = () => {
   return (
     <AuthProvider>
-      <SideNav />
+      {/* <SideNav /> */}
       <App />
       {/* </div> */}
     </AuthProvider>
@@ -51,13 +51,13 @@ const App = () => {
       style={{
         position: 'absolute',
         right: '10px',
-        width: '75vw',
+        width: '100vw',
         marginTop: '40px'
       }}
     >
-      {/* <TopHeader></TopHeader>
+      <TopHeader></TopHeader>
 
-      <Header></Header> */}
+      <Header></Header>
       {useRoutes(Router)}
 
       {/* <MainCarousel></MainCarousel> */}
@@ -71,7 +71,7 @@ const App = () => {
           isProfilePage={true}
         ></ProductSection>
       </CompWrapper> */}
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
 
       <Toaster position="bottom-right" reverseOrder={false} />
     </div>

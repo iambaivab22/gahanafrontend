@@ -18,7 +18,9 @@ import {
 } from '../../category/category.slice'
 import {
   createProductAction,
+  createProductImageAction,
   delteProductImageAction,
+  getAllProductVariantImagesAction,
   getProductDetailByIdAction,
   getProductListAction,
   updateProductAction
@@ -55,7 +57,7 @@ export const AddProductPage = () => {
   // console.log('product id is available', productId)
   const [image, setImage] = useState<any>([])
 
-  const [colorCount, setColorCount] = useState(5)
+  const [colorCount, setColorCount] = useState(2)
   const [colorImage, setColorImage] = useState({
     color: '',
     image: []
@@ -140,9 +142,19 @@ export const AddProductPage = () => {
     getSubCategoryLoading
   }: any = useSelector((state: any) => state.category)
 
-  const {createProductLoading, updateProductLoading}: any = useSelector(
-    (state: any) => state.product
-  )
+  const {createProductLoading, updateProductLoading, productVariantList}: any =
+    useSelector((state: any) => state.product)
+
+  const [productVariantIdList, setProductVariantIdList] = useState([''])
+
+  useEffect(() => {
+    setProductVariantIdList(
+      productVariantList?.map((item: any, index: number) => {
+        return item._id
+      })
+    )
+    // console.log(productVariantList, 'productVariant list')
+  }, [productVariantList])
 
   useEffect(() => {
     dispatch(
@@ -271,6 +283,21 @@ export const AddProductPage = () => {
     formData.append('discountedPrice', data.discountedPrice)
     formData.append('discountPercentage', data.discountPercentage)
     formData.append('description', data.description)
+
+    // productVariantIdList.forEach((productId: any, index: string) => {
+    //   formData.append('productVariants', productId)
+    // })
+
+    console.log(productVariantIdList, 'product variant list')
+    console.log(productVariantIdList, 'product variant id list')
+    const minusCount = -colorCount
+    // console.log(minusCount, 'minusCount')
+    const productImageIds = productVariantIdList.slice(minusCount)
+    // console.log(productImageIds, 'minusCount')
+    productImageIds?.forEach((value, index) => {
+      formData.append('productVariants', value)
+    })
+
     formData.append(
       'isBestSelling',
       JSON.stringify(isNewArrivalOrBestSelling.isBestSelling)
@@ -280,15 +307,15 @@ export const AddProductPage = () => {
       'isNewArrivals',
       JSON.stringify(isNewArrivalOrBestSelling.isNewArrival)
     )
-    console.log(data.images, 'data images')
+    // console.log(data?.images, 'data images')
 
-    image.forEach((file: any, index: string) => {
-      formData.append('image', file)
-    })
+    // image.forEach((file: any, index: string) => {
+    //   formData.append('image', file)
+    // })
 
     console.log(data.video, 'video')
 
-    formData.append('video', data.video)
+    formData.append('video', data?.video)
 
     {
       productId
@@ -354,12 +381,46 @@ export const AddProductPage = () => {
   // )
 
   const handleColorVariant = () => {
-    setAllColorVariant((prev) => [...prev, colorImage])
+    // setAllColorVariant((prev) => [...prev, colorImage])
+    console.log(colorImage, 'colorIMage')
+    const formData = new FormData()
+    console.clear()
+    console.log(colorImage.image, 'image list')
 
-    setColorImage((prev: any) => ({
-      image: [],
-      color: ''
-    }))
+    colorImage.image.forEach((item: any, index: number) => {
+      formData.append('coloredImage', item)
+    })
+
+    formData.append('colorName', colorImage.color)
+
+    // createProductImageAction
+
+    dispatch(
+      createProductImageAction({
+        variantBody: formData,
+        onSuccess: () => {
+          toast.success('Product color variant added Successfully')
+
+          dispatch(
+            getAllProductVariantImagesAction({
+              onSuccess: () => {
+                console.log(data, 'data')
+              }
+            })
+          )
+
+          setColorImage((prev: any) => ({
+            image: [],
+            color: ''
+          }))
+        }
+      })
+    )
+
+    // setColorImage((prev: any) => ({
+    //   image: [],
+    //   color: ''
+    // }))
   }
 
   useEffect(() => {
@@ -496,16 +557,11 @@ export const AddProductPage = () => {
 
                       console.log(index, 'index')
                       console.log(selectedFiles, 'seelctedFiles+++++++++++++')
-                      // setBannerImage((prev: any) => [...prev, ...selectedFiles])
 
-                      // setColorImage((prev: any) => ({
-                      //   ...prev,
-
-                      //   [index]: [
-                      //     ...(prev.image[index] || []),
-                      //     ...selectedFiles
-                      //   ]
-                      // }))
+                      setColorImage((prev: any) => ({
+                        ...prev,
+                        image: [...prev.image, ...selectedFiles]
+                      }))
                     }}
                     // value={allColorVariant[index].image}
                     actionHandler={handleAction}
@@ -553,7 +609,7 @@ export const AddProductPage = () => {
         </div>
 
         <div className="addProduct-input">
-          <Label required labelName="Product Images"></Label>
+          {/* <Label required labelName="Product Images"></Label> */}
           {/* <InputField
             type="file"
             accept="image/*"
@@ -563,14 +619,14 @@ export const AddProductPage = () => {
             // value={data.images}
           ></InputField> */}
 
-          <ImageUploader
+          {/* <ImageUploader
             defaultImage={
               productId && !!productDetailData ? productDetailData.image : ''
             }
             onImageChange={handleImage}
             value={data.images}
             actionHandler={handleAction}
-          ></ImageUploader>
+          ></ImageUploader> */}
         </div>
 
         <div className="addProduct-input">

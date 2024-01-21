@@ -7,6 +7,10 @@ import {useMedia} from 'src/hooks'
 import {getImageUrl} from 'src/helpers/getImageUrl.helper'
 import {Link} from 'react-router-dom'
 import {ProductCard} from '../productCard'
+import {useSelector, useDispatch} from 'src/store'
+import {useEffect} from 'react'
+
+import {getProductListAction} from 'src/app/pages/products/product.slice'
 
 // import {IMAGES} from 'static'
 // import Link from 'react-router-dom'
@@ -18,7 +22,9 @@ export const ProductSection = ({
   isHomePage
 }: any) => {
   const media = useMedia()
+  // const dispatch = useDispatch()
 
+  const dispatch = useDispatch()
   // const createdTime = (createdTime: string) => {
   //   if (!createdTime) {
   //     return ''
@@ -28,6 +34,15 @@ export const ProductSection = ({
   //   const createdAt = moment.duration(duration).humanize()
   //   return String(createdAt)
   // }
+
+  useEffect(() => {
+    console.log('api hit')
+    dispatch(getProductListAction({}))
+  }, [])
+
+  const {data}: any = useSelector((state: any) => state.product)
+
+  console.log(data, 'data from ps')
 
   return (
     <div className="jobsSectionContainer">
@@ -50,8 +65,8 @@ export const ProductSection = ({
           gridTemplateColumns: media.md ? `repeat(${itemOnGrid}, 1fr)` : ''
         }}
       >
-        {[1, 2, 3, 4].map((jobs: any, index: number) => {
-          return <ProductCard />
+        {data?.map((item: any, index: number) => {
+          return <ProductCard data={item} key={item.id} />
         })}
       </div>
       {/* <Link to={'/profile/my-jobs'}>

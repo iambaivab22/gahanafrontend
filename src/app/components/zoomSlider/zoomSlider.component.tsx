@@ -2,14 +2,19 @@
 import {useState, useRef} from 'react'
 import ReactImageMagnify from 'react-image-magnify'
 
-const images = [
-  'src/assets/images/products/jewellery-1.jpg',
-  'src/assets/images/products/jewellery-2.jpg',
-  'src/assets/images/products/jewellery-3.jpg',
-  'src/assets/images/products/perfume.jpg'
-]
-export const ZoomSlider = () => {
-  const [img, setImg] = useState(images[0])
+export const ZoomSlider = ({data}: {data: any}) => {
+  // const images = [
+  //   'src/assets/images/products/jewellery-1.jpg',
+  //   'src/assets/images/products/jewellery-2.jpg',
+  //   'src/assets/images/products/jewellery-3.jpg',
+  //   'src/assets/images/products/perfume.jpg'
+  // ]
+
+  const images = data?.map((item: any, index: number) => {
+    return `http://localhost:8000/products/${item}`
+  })
+
+  const [img, setImg] = useState(images?.[0])
   const hoverHandler = (image, i) => {
     setImg(image)
     refs.current[i].classList.add('active')

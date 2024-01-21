@@ -1,6 +1,6 @@
 .productCard-container {
   width: 100%;
-  height: 100%;
+  // height: 40vh;
 
   .productCard {
     padding: map-get($space, 4);
@@ -23,7 +23,7 @@
     // border: 2px solid red;
 
     &-image {
-      height: 30vh;
+      height: 20vh;
       width: 100%;
       border-radius: 8px;
       overflow: hidden;
@@ -67,10 +67,27 @@
         // border: 2px solid blue;
         font-size: 16px;
         font-weight: bold;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        // line-height: 20px; /* Ensure line height matches the container height */
+        // border: 1px solid #ccc;
+        // padding: 5px;
+        height: 20px;
       }
 
       &-description {
         font-size: 16px;
+        // -o-text-overflow: ellipsis;
+        // text-overflow: ellipsis;
+        // height: 20%;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 20px; /* Ensure line height matches the container height */
+        border: 1px solid #ccc;
+        padding: 5px;
+        height: 60px;
       }
     }
 

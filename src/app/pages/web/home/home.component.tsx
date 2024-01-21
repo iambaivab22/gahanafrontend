@@ -30,7 +30,7 @@ export const HomePage = () => {
             ></ProductSection>
           </div>
 
-          <TestimonailSection
+          {/* <TestimonailSection
             reviews={[
               {
                 id: 1,
@@ -54,7 +54,8 @@ export const HomePage = () => {
                 text: 'lorem fjdslkfjdlskajflksdjflksdjflkdsajflkdsajflkdsjflksdjflksdjkldsjflksdfj'
               }
             ]}
-          ></TestimonailSection>
+            
+          ></TestimonailSection> */}
         </VStack>
       </CompWrapper>
     </>

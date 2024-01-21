@@ -7,13 +7,19 @@ const getProductList = async (query?: {
   isNewArrivals?: boolean
   isBestSelling?: boolean
 }) => {
-  const response = await api<any>('get')(
-    `/product?search=${query.search ?? ''}&categoryId=${
-      query.categoryId ?? ''
-    }&isNewArrivals=${query.isNewArrivals ?? ''}&isBestSelling=${
-      query.isBestSelling
-    }`
-  )
+  console.log('sh')
+
+  // const response = await api<any>('get')(
+  //   `/product?search=${query.search ?? ''}&categoryId=${
+  //     query.categoryId ?? ''
+  //   }&isNewArrivals=${query.isNewArrivals ?? ''}&isBestSelling=${
+  //     query.isBestSelling
+  //   }`
+  // )
+
+  const response = await api<any>('get')(`/product`)
+
+  console.log(response, 'datas response')
 
   return response.data
 }
@@ -74,6 +80,30 @@ const updateBusinessTrusted = async (
   return response.data.data.data
 }
 
+const deleteProductColorVariantImages = async (
+  variantId: string,
+  imageId: string
+) => {
+  // console.log(variantId, 'productId from service')
+  const response = await api<any>('delete')(
+    `/productColor/${variantId}/${imageId}`
+  )
+}
+
+const getAllProductVariantImages = async () => {
+  const response = await api<any>('get')(`/allColorVariant`)
+  return response.data
+}
+
+const CreateProductImage = async (body: any) => {
+  const response = await api<Api.Base<{}>>('post')(
+    `/productImage/new`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
 export const productService = {
   getProductList,
   deleteProduct,
@@ -81,5 +111,8 @@ export const productService = {
   createProduct,
   getProductListByCategoryId,
   updateProduct,
-  deleteProductImages
+  deleteProductImages,
+  deleteProductColorVariantImages,
+  getAllProductVariantImages,
+  CreateProductImage
 }

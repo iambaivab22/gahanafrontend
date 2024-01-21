@@ -97,9 +97,10 @@ const ProductDetailsPage = () => {
                     {/* <video controls width="640" height="360">
                       <source src={productDetailData?.video} type="video/mp4" />
                     </video> */}
-
+                    s
                     <CustomVideoPlayer
-                      videoUrl={productDetailData?.video}
+                      // videoUrl={productDetailData?.video}
+                      videoUrl={`http://localhost:8000/products/${productDetailData?.video}`}
                       thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
                     ></CustomVideoPlayer>
                   </HStack>

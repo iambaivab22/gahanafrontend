@@ -61,6 +61,7 @@ export const Banners = () => {
         defaultImage={bannerData?.[0].bannerImage}
         onImageChange={handleImage}
         // value={bannerImage}
+        uniqueKeys="bannersupload"
         actionHandler={(name: any) => {
           dispatch(
             deleteBannerImageAction({

@@ -59,13 +59,29 @@ export const ProductWebDetail = () => {
   const {productDetailData, productDetailLoading}: any = useSelector(
     (state: any) => state.product
   )
+
+  const [productImageList, setProductImageList] = useState(
+    productDetailData?.images[0].coloredImage
+  )
   useEffect(() => {
-    console.log(productDetailData, productDetailLoading, 'productDetail data')
+    console.log(productDetailData, productDetailLoading, 'hi')
   }, [productDetailData])
 
   const products = productDetailData?.image
   const ratingChange = (value: number) => {
     console.log(value, 'rating value')
+  }
+
+  const handleColorClicked = (id: string) => {
+    const requiredImageList = productDetailData.images.find(
+      (item: any, index: number) => {
+        return item._id === id
+      }
+    )
+
+    console.log(requiredImageList, 'heee')
+
+    setProductImageList(requiredImageList.coloredImage)
   }
 
   return (
@@ -85,7 +101,7 @@ export const ProductWebDetail = () => {
                 ))}
               </CarouselSlider> */}
 
-              <ZoomSlider></ZoomSlider>
+              <ZoomSlider data={productImageList}></ZoomSlider>
             </div>
 
             <VStack
@@ -115,6 +131,23 @@ export const ProductWebDetail = () => {
                   NPR.{productDetailData?.originalPrice}
                 </p>
               </HStack>
+
+              <VStack className="productDetail-detailTop-color">
+                <p>Color</p>
+                <HStack>
+                  {productDetailData?.images?.map(
+                    (item: any, index: number) => {
+                      return (
+                        <div
+                          style={{background: item.colorName}}
+                          className="productDetail-detailTop-color-item"
+                          onClick={() => handleColorClicked(item._id)}
+                        ></div>
+                      )
+                    }
+                  )}
+                </HStack>
+              </VStack>
 
               <div className="productDetail-detailTop-addToCart">
                 <p>ADD TO CART</p>

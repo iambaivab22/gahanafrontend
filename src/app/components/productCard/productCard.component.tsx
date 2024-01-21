@@ -5,26 +5,40 @@ import ReactStarsRating from 'react-awesome-stars-rating'
 import {useNavigate} from 'react-router-dom'
 
 const productImages = [
-  'src/assets/images/products/jewellery-1.jpg',
-  'src/assets/images/products/jewellery-2.jpg',
-  'src/assets/images/products/jewellery-3.jpg',
-  'src/assets/images/products/perfume.jpg'
+  // 'src/assets/images/products/jewellery-1.jpg',
+  // 'src/assets/images/products/jewellery-2.jpg',
+  // 'src/assets/images/products/jewellery-3.jpg',
+  // 'src/assets/images/products/perfume.jpg'
 ]
 
-export const ProductCard = () => {
+export const ProductCard = ({data}: {data: any}) => {
+  console.log(data, 'card')
   const [activeImage, setActiveImage] = useState(0)
   const navigate = useNavigate()
+
+  const ProductImages = data?.images[0]?.coloredImage?.map(
+    (item: any, index: number) => {
+      return item
+    }
+  )
+
+  // console.log(data?.images[2], 'product')
+
   return (
     <div
       className="productCard-container"
-      onClick={() => navigate('/product/view/65747fc7eb29c79464248062')}
+      onClick={() => navigate(`/product/view/${data?.id}`)}
       onMouseOver={() => setActiveImage(1)}
       onMouseLeave={() => setActiveImage(0)}
     >
       <VStack className="productCard" gap="$3">
         <div className="productCard-image">
-          <img src={productImages[activeImage]}></img>
+          {/* <img src={productImages[activeImage]}></img> */}
           {/* <img src="http://localhost:8000/1705164295377-htmlimage.jpg"></img> */}
+
+          <img
+            src={`http://localhost:8000/products/${ProductImages[activeImage]}`}
+          />
         </div>
 
         <HStack className="productCard-tags" gap="$2">
@@ -49,30 +63,37 @@ export const ProductCard = () => {
 
         <VStack className="productCard-titleDescription" gap="$2">
           <HStack justify="space-between">
-            <p className="productCard-titleDescription-title">Morning Set</p>
+            <p className="productCard-titleDescription-title">{data?.name}</p>
           </HStack>
           <div>
-            <ReactStarsRating
+            {/* <ReactStarsRating
               size={15}
               value={3}
               primaryColor="hsl(29, 90%, 65%)"
               isEdit={false}
 
               // secondaryColor="blue"
-            />
+            /> */}
           </div>
           <HStack align="center" gap="$3">
-            <div className="productCard-titleDescription-price">$500.00</div>
+            <div className="productCard-titleDescription-price">
+              {data?.discountedPrice}
+            </div>
             <div
               style={{color: 'hsl(0, 0%, 47%)', textDecoration: 'line-through'}}
             >
-              $800
+              {data?.originalPrice}
             </div>
           </HStack>
 
-          <p className="productCard-titleDescription-description">
-            Lorem ipsum dolor sit
-          </p>
+          <p
+            className="productCard-titleDescription-description"
+            // dangerouslySetInnerHTML={data?.description
+
+            dangerouslySetInnerHTML={{
+              __html: data?.description
+            }}
+          ></p>
         </VStack>
 
         <HStack

@@ -20,11 +20,36 @@ const getProductListAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
+      console.log('+++++')
       const response = await productService.getProductList(query && query)
       onSuccess?.(response)
+
+      // console.log(response, 'from product servei')
       return response
     } catch (error) {
       return thunkAPI.rejectWithValue('Cannot get product!')
+    }
+  }
+)
+
+const getAllProductVariantImagesAction = createAsyncThunk(
+  'colorVariant/list',
+  async (
+    {
+      onSuccess
+    }: {
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await productService.getAllProductVariantImages()
+      onSuccess?.(response)
+
+      console.log(response, 'ddd')
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot get product variant!')
     }
   }
 )
@@ -81,6 +106,33 @@ const delteProductImageAction = createAsyncThunk(
   }
 )
 
+const deleteProductColorVariantImagesAction = createAsyncThunk(
+  'colorVariantImage/delete',
+  async (
+    {
+      variantId,
+      imageId,
+      onSuccess
+    }: {
+      variantId: string
+      imageId: string
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      console.log('productIMages slice', variantId)
+      const response = await productService.deleteProductColorVariantImages(
+        variantId,
+        imageId
+      )
+      onSuccess && onSuccess(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot delete product image variant!')
+    }
+  }
+)
 
 const createProductAction = createAsyncThunk(
   'product/create',
@@ -101,6 +153,29 @@ const createProductAction = createAsyncThunk(
       return response
     } catch (error) {
       return thunkAPI.rejectWithValue('Cannot create product!')
+    }
+  }
+)
+
+const createProductImageAction = createAsyncThunk(
+  'productImage/create',
+  async (
+    {
+      variantBody,
+      onSuccess
+    }: {
+      variantBody: any
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      // console.log(variantBody, 'productBody create')
+      const response = await productService.CreateProductImage(variantBody)
+      onSuccess && onSuccess(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot create product variant!')
     }
   }
 )
@@ -242,6 +317,13 @@ const initialState: {
   createProductLoading?: boolean
   updateProductLoading?: boolean
   deleteProductImageLoading?: boolean
+
+  deleteProductVariantLoading?: boolean
+  getProductVariantListLoading?: boolean
+  productVariantList: any
+
+  createProductVariantLoading: boolean
+  createproductVariantList: any
   //   detailLoading: boolean
   //   detail: any
   //   detailSuccess: boolean
@@ -256,7 +338,15 @@ const initialState: {
   deleteProductLoading: false,
   createProductLoading: false,
   updateProductLoading: false,
-  deleteProductImageLoading: false
+  deleteProductImageLoading: false,
+
+  deleteProductVariantLoading: false,
+  getProductVariantListLoading: false,
+  productVariantList: undefined,
+
+  createProductVariantLoading: false,
+  createproductVariantList: undefined
+  //   detailLoading: boolean
 
   //   detailLoading: false,
   //   detail: undefined,
@@ -283,6 +373,22 @@ const productSlice = createSlice({
       state.loading = false
       state.success = false
     })
+
+    builder.addCase(getAllProductVariantImagesAction.pending, (state) => {
+      state.getProductVariantListLoading = true
+    })
+    builder.addCase(
+      getAllProductVariantImagesAction.fulfilled,
+      (state, action) => {
+        state.getProductVariantListLoading = false
+        state.productVariantList = action.payload.data
+      }
+    )
+    builder.addCase(getAllProductVariantImagesAction.rejected, (state) => {
+      state.getProductVariantListLoading = false
+    })
+
+    getAllProductVariantImagesAction
 
     builder.addCase(getProductDetailByIdAction.pending, (state) => {
       state.loading = true
@@ -315,6 +421,19 @@ const productSlice = createSlice({
       state.deleteProductImageLoading = false
     })
 
+    builder.addCase(deleteProductColorVariantImagesAction.pending, (state) => {
+      state.deleteProductVariantLoading = true
+    })
+    builder.addCase(
+      deleteProductColorVariantImagesAction.fulfilled,
+      (state, action) => {
+        state.deleteProductVariantLoading = false
+      }
+    )
+    builder.addCase(deleteProductColorVariantImagesAction.rejected, (state) => {
+      state.deleteProductVariantLoading = false
+    })
+
     builder.addCase(updateProductAction.pending, (state) => {
       state.updateProductLoading = true
     })
@@ -333,6 +452,26 @@ const productSlice = createSlice({
     })
     builder.addCase(createProductAction.rejected, (state) => {
       state.createProductLoading = false
+    })
+
+    // builder.addCase(createProductAction.pending, (state) => {
+    //   state.createProductLoading = true
+    // })
+    // builder.addCase(createProductAction.fulfilled, (state, action) => {
+    //   state.createProductLoading = false
+    // })
+    // builder.addCase(createProductAction.rejected, (state) => {
+    //   state.createProductLoading = false
+    // })
+
+    builder.addCase(createProductImageAction.pending, (state) => {
+      state.createProductVariantLoading = true
+    })
+    builder.addCase(createProductImageAction.fulfilled, (state, action) => {
+      state.createProductVariantLoading = false
+    })
+    builder.addCase(createProductImageAction.rejected, (state) => {
+      state.createProductVariantLoading = false
     })
 
     // builder.addCase(updateBusinessStatusAction.pending, (state) => {
@@ -363,7 +502,9 @@ export {
   getProductDetailByIdAction,
   createProductAction,
   updateProductAction,
+  createProductImageAction,
   getProductListByCategoryIdAction,
-  delteProductImageAction
+  delteProductImageAction,
+  getAllProductVariantImagesAction
 }
 export default productSlice.reducer
