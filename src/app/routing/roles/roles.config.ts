@@ -22,10 +22,18 @@ export const USER_ROLES: UserRoles = {
 
       '/sample',
       '/product/*',
-      './home/*'
+      './home/*',
+      '/testimonial/*'
     ]
   },
   USER: {
-    access: ['/login', '/sample', '/business/*', '/home/*', '/banners/*']
+    access: [
+      '/login',
+      '/sample',
+      '/business/*',
+      '/home/*',
+      '/banners/*',
+      '/testimonial/*'
+    ]
   }
 }

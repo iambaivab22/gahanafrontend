@@ -1,8 +1,10 @@
 // import './App.css'
-import {useState, useRef} from 'react'
+import {useStepContext} from '@mui/material'
+import {useState, useRef, useEffect} from 'react'
 import ReactImageMagnify from 'react-image-magnify'
 
 export const ZoomSlider = ({data}: {data: any}) => {
+  const [images, setImages] = useState([])
   // const images = [
   //   'src/assets/images/products/jewellery-1.jpg',
   //   'src/assets/images/products/jewellery-2.jpg',
@@ -10,11 +12,18 @@ export const ZoomSlider = ({data}: {data: any}) => {
   //   'src/assets/images/products/perfume.jpg'
   // ]
 
-  const images = data?.map((item: any, index: number) => {
-    return `http://localhost:8000/products/${item}`
-  })
+  useEffect(() => {
+    const images = data?.map((item: any, index: number) => {
+      return `http://localhost:8000/products/${item}`
+    })
+
+    setImages(images)
+
+    setImg(images?.[0])
+  }, [data])
 
   const [img, setImg] = useState(images?.[0])
+
   const hoverHandler = (image, i) => {
     setImg(image)
     refs.current[i].classList.add('active')
@@ -36,7 +45,7 @@ export const ZoomSlider = ({data}: {data: any}) => {
     <div className="container">
       <div className="left">
         <div className="left_1">
-          {images.map((image, i) => (
+          {images?.map((image, i) => (
             <div
               className={i == 0 ? 'img_wrap active' : 'img_wrap'}
               key={i}

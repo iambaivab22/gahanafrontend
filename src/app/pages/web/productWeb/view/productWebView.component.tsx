@@ -61,7 +61,7 @@ export const ProductWebDetail = () => {
   )
 
   const [productImageList, setProductImageList] = useState(
-    productDetailData?.images[0].coloredImage
+    productDetailData?.images[0]?.coloredImage
   )
   useEffect(() => {
     console.log(productDetailData, productDetailLoading, 'hi')
@@ -80,6 +80,7 @@ export const ProductWebDetail = () => {
     )
 
     console.log(requiredImageList, 'heee')
+    console.log(productDetailData.video, 'heee')
 
     setProductImageList(requiredImageList.coloredImage)
   }
@@ -114,6 +115,12 @@ export const ProductWebDetail = () => {
                 {productDetailData?.name}
               </Title>
 
+              <VStack
+                dangerouslySetInnerHTML={{
+                  __html: productDetailData?.description
+                }}
+              ></VStack>
+
               <HStack>
                 <div className="productDetail-detailBottom-description-content">
                   {productDetailData?.details}
@@ -134,7 +141,7 @@ export const ProductWebDetail = () => {
 
               <VStack className="productDetail-detailTop-color">
                 <p>Color</p>
-                <HStack>
+                <HStack gap="$3">
                   {productDetailData?.images?.map(
                     (item: any, index: number) => {
                       return (
@@ -196,7 +203,7 @@ export const ProductWebDetail = () => {
                       onMouseDown={handleMouseDown}
                     >
                       <CustomVideoPlayer
-                        videoUrl={productDetailData?.video}
+                        videoUrl={`http://localhost:8000/video/${productDetailData?.video}`}
                         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
                       ></CustomVideoPlayer>
                     </div>

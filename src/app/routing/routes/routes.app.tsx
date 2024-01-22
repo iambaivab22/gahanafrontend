@@ -13,7 +13,8 @@ import {CategoryListPage} from 'src/app/pages/category/category.page'
 import {
   Banners,
   BestSellingPage,
-  NewArrivalListPage
+  NewArrivalListPage,
+  Testimonial
   // ProductWebSample
 } from 'src/app/pages'
 import {AddCategoryPage} from 'src/app/pages/category'
@@ -178,6 +179,30 @@ export const Router: RouteObject[] = [
       {
         path: '',
         element: <Banners />
+      },
+      {
+        path: 'add',
+        element: <AddSubCategoryPage />
+      },
+      {
+        path: 'update/:subCategoryId',
+        element: <AddSubCategoryPage />
+      },
+      {
+        path: 'view/:subCategoryId',
+        element: <CategoryDetailPage />
+      }
+    ]
+  },
+
+  {
+    path: '/testimonial',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <Testimonial />
       },
       {
         path: 'add',

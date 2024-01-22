@@ -37,7 +37,7 @@ export const ProductCard = ({data}: {data: any}) => {
           {/* <img src="http://localhost:8000/1705164295377-htmlimage.jpg"></img> */}
 
           <img
-            src={`http://localhost:8000/products/${ProductImages[activeImage]}`}
+            src={`http://localhost:8000/products/${ProductImages?.[activeImage]}`}
           />
         </div>
 

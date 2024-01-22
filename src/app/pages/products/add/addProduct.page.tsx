@@ -283,6 +283,7 @@ export const AddProductPage = () => {
     formData.append('discountedPrice', data.discountedPrice)
     formData.append('discountPercentage', data.discountPercentage)
     formData.append('description', data.description)
+    formData.append('video', data.video)
 
     // productVariantIdList.forEach((productId: any, index: string) => {
     //   formData.append('productVariants', productId)
@@ -292,7 +293,7 @@ export const AddProductPage = () => {
     console.log(productVariantIdList, 'product variant id list')
     const minusCount = -colorCount
     // console.log(minusCount, 'minusCount')
-    const productImageIds = productVariantIdList.slice(minusCount)
+    const productImageIds = productVariantIdList?.slice(minusCount)
     // console.log(productImageIds, 'minusCount')
     productImageIds?.forEach((value, index) => {
       formData.append('productVariants', value)
@@ -314,8 +315,6 @@ export const AddProductPage = () => {
     // })
 
     console.log(data.video, 'video')
-
-    formData.append('video', data?.video)
 
     {
       productId
@@ -547,11 +546,11 @@ export const AddProductPage = () => {
                   <ImageUploader
                     key={index}
                     uniqueKeys={index}
-                    // defaultImage={
-                    //   productId && !!productDetailData
-                    //     ? productDetailData.image
-                    //     : ''
-                    // }
+                    defaultImage={
+                      productId && !!productDetailData
+                        ? productDetailData.images[index].coloredImage
+                        : ''
+                    }
                     onImageChange={(event) => {
                       const selectedFiles = Array.from(event.target.files)
 
@@ -578,6 +577,9 @@ export const AddProductPage = () => {
                         color: e.target.value
                       }))
                     }
+                    // value="#ae251e"
+                    // value={productId && colorImage?.color}
+                    value={productDetailData?.images?.[index]?.colorName}
                   ></input>
 
                   <Button
@@ -641,10 +643,12 @@ export const AddProductPage = () => {
 
           <VideoUploader
             defaultVideo={
-              productId && !!productDetailData ? productDetailData.video : ''
+              productId && !!productDetailData
+                ? `http://localhost:8000/video/${productDetailData?.video}`
+                : ''
             }
             onVideoChange={handleVideo}
-            // value={handleVideo}
+            value={handleVideo}
             actionHandler={(video: any) =>
               setData((prev: any) => ({...prev, video: video}))
             }

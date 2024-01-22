@@ -31,7 +31,7 @@ import {Footer} from './app/components/footer/footer.component'
 const MemoChild = () => {
   return (
     <AuthProvider>
-      {/* <SideNav /> */}
+      <SideNav />
       <App />
       {/* </div> */}
     </AuthProvider>
@@ -51,7 +51,7 @@ const App = () => {
       style={{
         position: 'absolute',
         right: '10px',
-        width: '100vw',
+        width: '75vw',
         marginTop: '40px'
       }}
     >
