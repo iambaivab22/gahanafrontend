@@ -49,43 +49,43 @@ const updateTestimonialAction = createAsyncThunk(
   }
 )
 
-// const getSubCategoryDetailByIdAction = createAsyncThunk(
-//   'subCategory/detail',
-//   async (
-//     {
-//       subCategoryId
-//     }: {
-//       subCategoryId: string
-//     },
-//     thunkAPI
-//   ) => {
-//     console.log('getproduct detail by id called')
-//     try {
-//       const response = await subCategoryService.getSubCategoryDetailById(
-//         subCategoryId
-//       )
-//       return response
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue('Error fetching Sub Category Detail!')
-//     }
-//   }
-// )
+const getTestimonialDetailByIdAction = createAsyncThunk(
+  'testimonial/detail',
+  async (
+    {
+      testimonialId
+    }: {
+      testimonialId: string
+    },
+    thunkAPI
+  ) => {
+    console.log('getproduct detail by id called')
+    try {
+      const response = await testimonialService.getTestimonialDetailById(
+        testimonialId
+      )
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Error fetching Testimonial Detail!')
+    }
+  }
+)
 
 const createTestimonialAction = createAsyncThunk(
   'testimonial/create',
   async (
     {
-      subCategoryBody,
+      testimonialBody,
       onSuccess
     }: {
-      subCategoryBody: any
+      testimonialBody: any
       onSuccess?: (data: any) => void
     },
     thunkAPI
   ) => {
     try {
       const response = await testimonialService.createTestimonial(
-        subCategoryBody
+        testimonialBody
       )
       onSuccess && onSuccess(response)
       return response
@@ -120,8 +120,8 @@ const deleteTestimonialAction = createAsyncThunk(
 const initialState: {
   getTestimonialLoading?: boolean
   testimonialData?: any
-  // subCategoryDetailData?: any
-  // subCategoryDetailDataLoading?: boolean
+  testimoniailDetailData?: any
+  testimonialDetailDataLoading?: boolean
 
   deleteTestimonialLoading?: boolean
   createTestimonialLoading?: boolean
@@ -129,7 +129,8 @@ const initialState: {
 } = {
   getTestimonialLoading: false,
   testimonialData: undefined,
-  // subCategoryDetailData: undefined,
+  testimoniailDetailData: undefined,
+  testimonialDetailDataLoading: false,
 
   deleteTestimonialLoading: false,
   createTestimonialLoading: false,
@@ -152,19 +153,19 @@ const testimonialSlice = createSlice({
       state.getTestimonialLoading = false
     })
 
-    // builder.addCase(getSubCategoryDetailByIdAction.pending, (state) => {
-    //   state.subCategoryDetailDataLoading = true
-    // })
-    // builder.addCase(
-    //   getSubCategoryDetailByIdAction.fulfilled,
-    //   (state, action) => {
-    //     state.subCategoryDetailDataLoading = false
-    //     state.subCategoryDetailData = action.payload.data
-    //   }
-    // )
-    // builder.addCase(getSubCategoryDetailByIdAction.rejected, (state) => {
-    //   state.subCategoryDetailDataLoading = false
-    // })
+    builder.addCase(getTestimonialDetailByIdAction.pending, (state) => {
+      state.testimonialDetailDataLoading = true
+    })
+    builder.addCase(
+      getTestimonialDetailByIdAction.fulfilled,
+      (state, action) => {
+        state.testimonialDetailDataLoading = false
+        state.testimonialData = action.payload.data
+      }
+    )
+    builder.addCase(getTestimonialDetailByIdAction.rejected, (state) => {
+      state.testimonialDetailDataLoading = false
+    })
 
     builder.addCase(deleteTestimonialAction.pending, (state) => {
       state.deleteTestimonialLoading = true
@@ -202,7 +203,7 @@ export {
   getTestimonialListAction,
   deleteTestimonialAction,
   updateTestimonialAction,
-  createTestimonialAction
-  // getSubCategoryDetailByIdAction
+  createTestimonialAction,
+  getTestimonialDetailByIdAction
 }
 export default testimonialSlice.reducer

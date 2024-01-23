@@ -78,7 +78,8 @@ export const AddProductPage = () => {
     subCategory: '',
     images: [],
     video: null,
-    description: ''
+    description: '',
+    stockQuantity: ''
   })
 
   const [isNewArrivalOrBestSelling, setIsNewArrivalOrBestSelling] = useState({
@@ -284,6 +285,7 @@ export const AddProductPage = () => {
     formData.append('discountPercentage', data.discountPercentage)
     formData.append('description', data.description)
     formData.append('video', data.video)
+    formData.append('stockQuantity', data.stockQuantity)
 
     // productVariantIdList.forEach((productId: any, index: string) => {
     //   formData.append('productVariants', productId)
@@ -523,6 +525,21 @@ export const AddProductPage = () => {
               }))
             }
             value={data.discountedPrice}
+          ></InputField>
+        </div>
+
+        <div className="addProduct-input">
+          <Label required labelName="Stock Quantity"></Label>
+          <InputField
+            type="number"
+            placeholder="Enter Stock Quantity"
+            onChange={(e: any) =>
+              setData((prev: any) => ({
+                ...prev,
+                stockQuantity: e.target.value
+              }))
+            }
+            value={data.stockQuantity}
           ></InputField>
         </div>
 
