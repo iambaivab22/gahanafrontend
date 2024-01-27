@@ -1,0 +1,10 @@
+.shopByBudgetWeb-container {
+  .shopByBudgetWeb {
+    border: 6px solid red;
+    padding: map-get($space, 7) map-get($space, 8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

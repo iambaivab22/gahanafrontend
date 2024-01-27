@@ -9,13 +9,17 @@ import {
   deleteCategoryAction,
   getCategoryListAction
 } from '../category/category.slice'
+import {
+  deleteTestimonialAction,
+  getTestimonialListAction
+} from './testimonial.slice'
 export const Testimonial = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [category, setCategory] = useState<any>()
   const [selectedCateory, setSelectedCategory] = useState<any>()
-  const {categoryData}: any = useSelector((state: any) => state.category)
+  const {testimonialData}: any = useSelector((state: any) => state.testimonial)
 
   useEffect(() => {
     dispatch(
@@ -25,26 +29,26 @@ export const Testimonial = () => {
     )
   }, [])
 
-  console.log(categoryData, 'category data called')
+  // console.log(categoryData, 'category data called')
 
-  useEffect(() => {
-    console.log(categoryData, 'caetgory data called')
-    const mappedCategory = categoryData?.map((item: any, index: number) => {
-      console.log(item, 'caetgory item')
-      return {
-        id: item.id,
-        label: item.name,
-        value: item.name,
-        subCategory: item.subCategories
-      }
-    })
-    console.log(mappedCategory, 'mapped category from products')
-    setCategory(mappedCategory)
-  }, [categoryData])
+  // useEffect(() => {
+  //   // console.log(categoryData, 'caetgory data called')
+  //   const mappedCategory = categoryData?.map((item: any, index: number) => {
+  //     console.log(item, 'caetgory item')
+  //     return {
+  //       id: item.id,
+  //       label: item.name,
+  //       value: item.name,
+  //       subCategory: item.subCategories
+  //     }
+  //   })
+  //   console.log(mappedCategory, 'mapped category from products')
+  //   setCategory(mappedCategory)
+  // }, [categoryData])
 
   useEffect(() => {
     dispatch(
-      getCategoryListAction({
+      getTestimonialListAction({
         onSuccess: () => {}
       })
     )
@@ -54,32 +58,54 @@ export const Testimonial = () => {
     <div>
       <Box>
         <HStack justify="space-between" style={{margin: '20px 0'}}>
-          <Button title="Add Category" onClick={() => navigate('add')}></Button>
+          <Button
+            title="Add Testimonial"
+            onClick={() => navigate('add')}
+          ></Button>
         </HStack>
 
         <Table
           columns={[
             {
-              field: 'name',
-              name: 'Name',
+              field: 'testimonialDescription',
+              name: 'Description',
               render: (datas) => {
                 console.log(datas, 'datasssssssssss')
                 return <div>{datas}</div>
               }
             },
             {
-              field: 'subCategories',
-              name: 'SubCategory',
+              field: 'testimonialImage',
+              name: 'Images',
               render: (datas) => (
-                <div className="subCategoryButton">
-                  {datas?.map((item: any, index: number) => {
-                    return <p className="subCategoryButton-item">{item.name}</p>
-                  })}
+                <div>
+                  <img
+                    //@ts-ignore
+                    // src={datas?[0]?.coloredImage[0]}
+
+                    // src=`http://localhost:8000/products${datas.}`
+
+                    src={`http://localhost:8000/testimonial/${datas}`}
+                    // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
+                    style={{height: '70px', width: '100px'}}
+                  ></img>
                 </div>
               )
             }
+
+            // {
+            //   field: 'subCategories',
+            //   name: 'SubCategory',
+            //   render: (datas) => (
+            //     <div className="subCategoryButton">
+            //       {datas?.map((item: any, index: number) => {
+            //         return <p className="subCategoryButton-item">{item.name}</p>
+            //       })}
+            //     </div>
+            //   )
+            // }
           ]}
-          data={categoryData}
+          data={testimonialData}
           actions={{
             onView: (item: any) => {
               navigate(`view/${item.id}`)
@@ -87,19 +113,19 @@ export const Testimonial = () => {
 
             onEdit: (item: any) => {
               console.log(item.id, 'item id to delete')
-              navigate(`update/${item.id}`)
+              navigate(`update/${item._id}`)
             },
             onDelete: (item: any, onCloseModalHandler) => {
               console.log(item.id, 'item to be deleted')
 
               dispatch(
-                deleteCategoryAction({
-                  categoryId: item.id,
+                deleteTestimonialAction({
+                  testimonialId: item._id,
                   onSuccess: (data: any) => {
                     onCloseModalHandler()
-                    toast.success('Product deleted successfully')
+                    toast.success('Testimonial deleted successfully')
                     dispatch(
-                      getCategoryListAction({
+                      getTestimonialListAction({
                         onSuccess: () => {}
                       })
                     )
@@ -109,7 +135,7 @@ export const Testimonial = () => {
             }
           }}
           pagination={{
-            totalCount: Number(categoryData?.length ?? 1)
+            totalCount: Number(testimonialData?.length ?? 1)
             // perPage: Number(import.meta.REACT_APP_TABLE_LIMIT || 10)
           }}
         />

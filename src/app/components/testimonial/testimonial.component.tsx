@@ -38,9 +38,14 @@ import React, {useState} from 'react'
 import {FaChevronLeft, FaChevronRight, FaQuoteRight} from 'react-icons/fa'
 import {Text, Title} from 'src/app/common'
 
-export const TestimonailSection = () => {
+export const TestimonailSection = ({reviews}) => {
   const [index, setIndex] = useState(0)
-  const {name, job, image, text} = reviews[index]
+  const {description, image} = reviews[index]
+  console.log(reviews[index], 'index')
+
+  console.log(reviews, 'reviews')
+  // console.log(re, 'image')
+  // console.log(image, 'image')
 
   const checkNumber = (number) => {
     if (number > reviews.length - 1) {
@@ -78,14 +83,17 @@ export const TestimonailSection = () => {
       <div className="jobsSectionContainer-header">WHAT OUR CUSTOMER SAYS</div>
       <article className="review">
         <div className="img-container">
-          <img src={image} alt={name} className="person-img" />
+          <img
+            src={`http://localhost:8000/testimonial/${image?.[0]}`}
+            className="person-img"
+          />
           <span className="quote-icon">
             <FaQuoteRight />
           </span>
         </div>
-        <h4 className="author">{name}</h4>
-        <p className="jon">{job}</p>
-        <p className="info">{text}</p>
+        {/* <h4 className="author">{name}</h4> */}
+        {/* <p className="jon">{job}</p> */}
+        <p className="info">{reviews[index].description}</p>
         <div className="button-container">
           <button className="prev-btn" onClick={prevPerson}>
             <FaChevronLeft />

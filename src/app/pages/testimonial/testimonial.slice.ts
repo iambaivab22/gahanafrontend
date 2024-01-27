@@ -55,7 +55,7 @@ const getTestimonialDetailByIdAction = createAsyncThunk(
     {
       testimonialId
     }: {
-      testimonialId: string
+      testimonialId: any
     },
     thunkAPI
   ) => {
@@ -120,7 +120,7 @@ const deleteTestimonialAction = createAsyncThunk(
 const initialState: {
   getTestimonialLoading?: boolean
   testimonialData?: any
-  testimoniailDetailData?: any
+  testimonialDetailData: any
   testimonialDetailDataLoading?: boolean
 
   deleteTestimonialLoading?: boolean
@@ -129,7 +129,7 @@ const initialState: {
 } = {
   getTestimonialLoading: false,
   testimonialData: undefined,
-  testimoniailDetailData: undefined,
+  testimonialDetailData: undefined,
   testimonialDetailDataLoading: false,
 
   deleteTestimonialLoading: false,
@@ -160,7 +160,7 @@ const testimonialSlice = createSlice({
       getTestimonialDetailByIdAction.fulfilled,
       (state, action) => {
         state.testimonialDetailDataLoading = false
-        state.testimonialData = action.payload.data
+        state.testimonialDetailData = action.payload.data
       }
     )
     builder.addCase(getTestimonialDetailByIdAction.rejected, (state) => {

@@ -120,6 +120,10 @@ const SideNavComponent = React.memo(() => {
             <MdReport size={18} />
           ))}
 
+          {getNav('Shop By Budget', '/shopByBudget', () => (
+            <MdReport size={18} />
+          ))}
+
           {getNav('User List', '/user-management', () => (
             <FaUsers />
           ))}

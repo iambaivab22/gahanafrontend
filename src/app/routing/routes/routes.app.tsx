@@ -22,6 +22,9 @@ import {Sample, SubCategoryListPage, LoginPage} from 'src/app/pages'
 import {AddSubCategoryPage} from 'src/app/pages/subCategory/add'
 import {ProductWeb, ProductWebDetail} from 'src/app/pages/web'
 import {HomePage} from 'src/app/pages/web/home/home.component'
+import {AddTestimonialPage} from 'src/app/pages/testimonial/add/addTestimonial.component'
+import {ShopByBudget} from 'src/app/pages/shopByBudget/shopByBudget.component'
+import {AddShopByBudget} from 'src/app/pages/shopByBudget/add/addShopByBudget.component'
 // import LoginPage from 'src/app/pages/login/login.page'
 
 export const Router: RouteObject[] = [
@@ -206,7 +209,31 @@ export const Router: RouteObject[] = [
       },
       {
         path: 'add',
-        element: <AddSubCategoryPage />
+        element: <AddTestimonialPage />
+      },
+      {
+        path: 'update/:testimonialId',
+        element: <AddTestimonialPage />
+      },
+      {
+        path: 'view/:subCategoryId',
+        element: <CategoryDetailPage />
+      }
+    ]
+  },
+
+  {
+    path: '/shopByBudget',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <ShopByBudget />
+      },
+      {
+        path: 'add',
+        element: <AddShopByBudget />
       },
       {
         path: 'update/:subCategoryId',

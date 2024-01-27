@@ -54,7 +54,7 @@ export const ProductWebDetail = () => {
   // console.log(productId, 'productId')
   useEffect(() => {
     dispatch(getProductDetailByIdAction({productId: productId as string}))
-  }, [])
+  }, [productId])
 
   const {productDetailData, productDetailLoading}: any = useSelector(
     (state: any) => state.product
@@ -64,7 +64,9 @@ export const ProductWebDetail = () => {
     productDetailData?.images[0]?.coloredImage
   )
   useEffect(() => {
-    console.log(productDetailData, productDetailLoading, 'hi')
+    console.log(productDetailData, productDetailLoading, 'hiii')
+
+    setProductImageList(productDetailData?.images[0]?.coloredImage)
   }, [productDetailData])
 
   const products = productDetailData?.image
@@ -110,7 +112,7 @@ export const ProductWebDetail = () => {
               gap="$4"
               id="productContainer"
             >
-              <ReactStarsRating size={15} onChange={ratingChange} value={3} />
+              {/* <ReactStarsRating size={15} onChange={ratingChange} value={3} /> */}
               <Title heading className="productDetail-detailTop-name">
                 {productDetailData?.name}
               </Title>

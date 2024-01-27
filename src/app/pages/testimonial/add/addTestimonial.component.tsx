@@ -9,50 +9,57 @@ import {
 } from '../testimonial.slice'
 import toast from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
+import ImageUploader from 'src/app/common/imageUploader/imageUploader.common'
 
-export const AddSubCategoryPage = () => {
+export const AddTestimonialPage = () => {
   const {
     updateTestimonialLoading,
     createTestimonialLoading,
     testimonialDetailLoading,
+
+    // testimoniailDetailData
     testimonialDetailData
-  } = useSelector((state: any) => state.subCategory)
+  } = useSelector((state: any) => state.testimonial)
   const navigate = useNavigate()
 
   const testimonialId = useParams('testimonialId')
   const [data, setData] = useState<any>({
-    name: ''
+    description: '',
+    image: []
   })
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log(testimonialId, 'subCategorydI')
-    dispatch(
-      getTestimonialDetailByIdAction({testimonialId: testimonialId as string})
-    )
+    console.log(testimonialId, 'tid')
+    dispatch(getTestimonialDetailByIdAction({testimonialId: testimonialId}))
   }, [testimonialId])
 
   useEffect(() => {
-    console.log(testimonialDetailData, 'subCategoryDetailData')
+    console.log(testimonialDetailData, 'dd')
     setData((prev: any) => ({
-      ...prev,
-      name: testimonialDetailData?.description
+      image: testimonialDetailData?.testimonialImage,
+      description: testimonialDetailData?.testimonialDescription
     }))
+
+    console.log(testimonialDetailData, 'testimonial detail data')
   }, [testimonialDetailData])
 
   const addTestimonialHandler = () => {
+    const formData = new FormData()
 
+    data?.image?.forEach((file: any, index: string) => {
+      formData.append('testimonialImage', file)
+    })
 
+    formData.append('testimonialDescription', data.description)
 
-
-    
     !testimonialId
       ? dispatch(
           createTestimonialAction({
-            testimonialBody: {name: data.name},
+            testimonialBody: formData,
             onSuccess: (data: any) => {
-              navigate('/subCategory')
-              toast.success('Sub Category Created')
+              navigate('/testimonial')
+              toast.success('Testimonial Created')
             }
           })
         )
@@ -71,19 +78,47 @@ export const AddSubCategoryPage = () => {
   return (
     <VStack gap="$3">
       <VStack gap="$2">
-        <Label required labelName="Sub Category Name"></Label>
+        <div>
+          <Label required labelName="Testimonial Name"></Label>
 
-        <InputField
-          type="text"
-          placeholder="Enter Testimonial Description"
-          onChange={(e: any) =>
-            setData((prev: any) => ({
-              ...prev,
-              name: e.target.value
-            }))
-          }
-          value={data.name}
-        ></InputField>
+          <InputField
+            type="text"
+            placeholder="Enter Testimonial Description"
+            onChange={(e: any) =>
+              setData((prev: any) => ({
+                ...prev,
+                description: e.target.value
+              }))
+            }
+            value={data.description}
+          ></InputField>
+        </div>
+
+        <VStack>
+          <Label required labelName="Testimonial Name"></Label>
+
+          <ImageUploader
+            defaultImage={data.image}
+            onImageChange={(e: any) => {
+              const selectedFiles = Array.from(event.target.files)
+              console.log(selectedFiles, 'seelctedFiles+++++++++++++')
+
+              setData((prev: any) => ({...prev, image: selectedFiles}))
+            }}
+            // value={bannerImage}
+            uniqueKeys="testimonialImages"
+            actionHandler={(name: any) => {
+              // dispatch(
+              //   deleteBannerImageAction({
+              //     bannerName: name,
+              //     onSuccess: (data: any) =>
+              //       toast.success('banner image deleted successfully')
+              //   })
+              // )
+            }}
+            isBanner={true}
+          ></ImageUploader>
+        </VStack>
       </VStack>
 
       <Button

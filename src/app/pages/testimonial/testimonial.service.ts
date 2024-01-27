@@ -10,6 +10,8 @@ const getTestimonialDetailById = async (testimonialId: string) => {
   const response = await api<Api.Base<any>>('get')(
     `testimonial/${testimonialId}`
   )
+
+  console.log('response hai', response)
   return response.data
 }
 
