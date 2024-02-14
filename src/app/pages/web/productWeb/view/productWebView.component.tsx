@@ -75,7 +75,7 @@ export const ProductWebDetail = () => {
   }
 
   const handleColorClicked = (id: string) => {
-    const requiredImageList = productDetailData.images.find(
+    const requiredImageList = productDetailData?.images?.find(
       (item: any, index: number) => {
         return item._id === id
       }
@@ -84,7 +84,7 @@ export const ProductWebDetail = () => {
     console.log(requiredImageList, 'heee')
     console.log(productDetailData.video, 'heee')
 
-    setProductImageList(requiredImageList.coloredImage)
+    setProductImageList(requiredImageList?.coloredImage)
   }
 
   return (
@@ -161,6 +161,25 @@ export const ProductWebDetail = () => {
               <div className="productDetail-detailTop-addToCart">
                 <p>ADD TO CART</p>
               </div>
+
+              <HStack
+                className="productDetail-inStock"
+                justify="flex-start"
+                align="center"
+                gap="$4"
+              >
+                <Title> In Stock:</Title>
+                <Chip
+                  title={`${productDetailData?.stockQuantity} pics`}
+                  // color="rgb(241 233 214)"
+                  color="rgb(219 247 241)"
+                  // style={{width: 'max-content'}}
+
+                  // icon={<FaCartArrowDown size={12} fill="black" />}
+
+                  // style={{color: 'black'}}
+                ></Chip>
+              </HStack>
               <VStack className="productDetail-detailBottom" gap="$8">
                 <VStack
                   className="productDetail-detailBottom-description"
@@ -178,6 +197,7 @@ export const ProductWebDetail = () => {
 
                     // style={{color: 'black'}}
                   ></Chip>
+
                   <HStack
                     style={{
                       width: '70%'

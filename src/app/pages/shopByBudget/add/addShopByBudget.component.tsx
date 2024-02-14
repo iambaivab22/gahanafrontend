@@ -55,7 +55,7 @@ export const AddShopByBudget = () => {
         type="text"
         placeholder="Enter Shop By Budget Price"
         onChange={(e: any) => setShopByBudget(e.target.value)}
-        value={shopByBudget}
+        // value={shopByBudget}
       ></InputField>
 
       <Button

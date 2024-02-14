@@ -35,7 +35,7 @@ export const AddTestimonialPage = () => {
   }, [testimonialId])
 
   useEffect(() => {
-    console.log(testimonialDetailData, 'dd')
+    // console.log(testimonialDetailData, 'dd')
     setData((prev: any) => ({
       image: testimonialDetailData?.testimonialImage,
       description: testimonialDetailData?.testimonialDescription

@@ -5,6 +5,7 @@ import {useDispatch} from 'src/store'
 import {LoginAction} from './login.slice'
 import toast from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
+import {setCookie} from 'src/helpers'
 export const LoginPage = () => {
   const dispatch = useDispatch()
 
@@ -18,7 +19,9 @@ export const LoginPage = () => {
         LoginAction({
           loginBody: {email: loginData.email, password: loginData.password},
           onSuccess: (data: any) => {
+            console.log(data?.user?._id, 'success login')
             toast.success('Logged In successfully')
+            setCookie('userId', data?.user?._id)
             navigate('/products')
           }
         })

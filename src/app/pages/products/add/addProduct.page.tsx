@@ -84,7 +84,8 @@ export const AddProductPage = () => {
 
   const [isNewArrivalOrBestSelling, setIsNewArrivalOrBestSelling] = useState({
     isNewArrival: false,
-    isBestSelling: false
+    isBestSelling: false,
+    isWatchAndShop: false
   })
 
   useEffect(() => {
@@ -272,6 +273,13 @@ export const AddProductPage = () => {
     }))
   }
 
+  const handleWatchAndShopping = (item: any) => {
+    setIsNewArrivalOrBestSelling((prev: any) => ({
+      ...prev,
+      isWatchAndShop: item
+    }))
+  }
+
   const addProductHandler = (event: any) => {
     event.preventDefault()
     console.log('addProduct called')
@@ -309,6 +317,11 @@ export const AddProductPage = () => {
     formData.append(
       'isNewArrivals',
       JSON.stringify(isNewArrivalOrBestSelling.isNewArrival)
+    )
+
+    formData.append(
+      'isWatchAndShop',
+      JSON.stringify(isNewArrivalOrBestSelling.isWatchAndShop)
     )
     // console.log(data?.images, 'data images')
 
@@ -745,6 +758,18 @@ export const AddProductPage = () => {
                 name="bestselling"
                 check={isNewArrivalOrBestSelling.isBestSelling}
                 handleCheckboxChange={handleBestSelling}
+              />
+            </VStack>
+
+            <VStack gap="$3">
+              <Label required labelName="Is Watch And Shopping?"></Label>
+
+              <CheckBox
+                value="isWatchAndShop"
+                label="Watch And Shop"
+                name="isWatchAndShop"
+                check={isNewArrivalOrBestSelling.isWatchAndShop}
+                handleCheckboxChange={handleWatchAndShopping}
               />
             </VStack>
           </div>

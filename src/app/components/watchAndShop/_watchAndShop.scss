@@ -1,0 +1,148 @@
+.watchAndShopCardContainer {
+  .custom-video-players {
+    height: 350px;
+    width: 250px;
+    margin-bottom: 30px;
+    // border: 2px solid red;
+
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    &-productDetail {
+      background: white;
+
+      color: white !important;
+      padding: map-get($space, 2);
+
+      .productImage {
+        // border: 2px solid pink;
+        height: 60px;
+        width: 60px;
+        color: black;
+        img {
+          display: block;
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      .productDescription {
+        color: black;
+        .productTitle {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .productPrice {
+        }
+      }
+    }
+  }
+
+  .thumbnail {
+    // cursor: pointer;
+    // max-width: 100px;
+    // width: 65px;
+    // height: 105px;
+    position: relative;
+    // top: 5%;
+    // left: 5%;
+
+    // overflow: hidden;
+    border-radius: 10px;
+    // padding-left: 1px;
+    // padding-right: 1px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+  }
+
+  // .thumbnail img {
+  //   width: 100%;
+  //   height: 100%;
+  // }
+
+  .play-button {
+    // border: 4px solid green;
+    position: absolute;
+    z-index: 40;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 5000003;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+  }
+
+  .close-button {
+    position: fixed;
+    z-index: 4000000000000;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    // background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: red;
+
+    cursor: pointer;
+  }
+
+  .close {
+    // border: 2px solid blue;
+    position: absolute;
+    top: -5;
+    right: 0;
+    color: #fff;
+    z-index: 600000000000000;
+  }
+
+  button {
+    outline: none !important;
+  }
+
+  .videos {
+    // border: 4px solid red;
+    // height: 200px !important;
+    // width: 200px !important;
+    box-shadow: unset;
+    // box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    //   rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    //   rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    width: 250px !important;
+    height: 300px !important;
+    // border: 2px solid red;
+    border-radius: 20px;
+    overflow: hidden;
+
+    video {
+      width: 250px !important;
+      height: 300px !important;
+      // border: 2px solid brown;
+      // border: 2px solid blue;
+      // box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+      //   rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+      //   rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      box-shadow: unset;
+      position: absolute;
+      background: transparent !important;
+      top: 0;
+      left: 0;
+      z-index: 4999;
+    }
+  }
+}

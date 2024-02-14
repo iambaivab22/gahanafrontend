@@ -3,6 +3,11 @@ import {FaCartArrowDown} from 'react-icons/fa'
 import {Chip, HStack, VStack} from 'src/app/common'
 import ReactStarsRating from 'react-awesome-stars-rating'
 import {useNavigate} from 'react-router-dom'
+import {useDispatch} from 'src/store'
+import {createCartByUserId} from 'src/app/pages/web/cart/cart.service'
+import {createCartByUserIdAction} from 'src/app/pages/web/cart/cart.slice'
+import {getCookie} from 'src/helpers'
+import toast from 'react-hot-toast'
 
 const productImages = [
   // 'src/assets/images/products/jewellery-1.jpg',
@@ -15,12 +20,38 @@ export const ProductCard = ({data}: {data: any}) => {
   console.log(data, 'card')
   const [activeImage, setActiveImage] = useState(0)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const ProductImages = data?.images[0]?.coloredImage?.map(
     (item: any, index: number) => {
       return item
     }
   )
+
+  const handleAddToCart = (data: any) => {
+    const userId = getCookie('userId')
+
+    const cartData = {
+      userId,
+      products: [
+        {
+          productId: data?.id,
+          quantity: 1,
+          price: data?.discountedPrice
+        }
+      ]
+    }
+
+    dispatch(
+      createCartByUserIdAction({
+        userId: userId,
+        data: cartData,
+        onSuccess: () => {
+          toast.error('Product added to cart Successfully!')
+        }
+      })
+    )
+  }
 
   // console.log(data?.images[2], 'product')
 
@@ -105,7 +136,12 @@ export const ProductCard = ({data}: {data: any}) => {
           <div>
             <FaCartArrowDown size={20} fill="white" />
           </div>
-          <div className="productCard-footer-right">Add to cart</div>
+          <div
+            className="productCard-footer-right"
+            onClick={() => handleAddToCart(data)}
+          >
+            Add to cart
+          </div>
         </HStack>
       </VStack>
     </div>

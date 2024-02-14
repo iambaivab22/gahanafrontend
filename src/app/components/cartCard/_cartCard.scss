@@ -1,0 +1,79 @@
+.cartCard-container {
+  width: 100%;
+  margin: 0 auto;
+  .cartCard {
+    width: 100%;
+    // border: 2px solid red;
+
+    // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    padding: map-get($space, 2) map-get($space, 3);
+
+    &-left {
+      flex: 1;
+
+      &-image {
+        height: 10vh;
+        width: 10vh;
+        border-radius: 10px;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &-detail {
+        &-name {
+          font-size: map-get($space, 5);
+          font-weight: 800;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100px;
+        }
+
+        &-color {
+          span {
+            color: map-get($text, secondary);
+            color: gray;
+            font-weight: 600;
+          }
+          font-size: map-get($space, 4);
+        }
+      }
+    }
+
+    &-right {
+      flex: 2;
+      &-price {
+        .originalPrice {
+          color: gray;
+          text-decoration: line-through;
+        }
+
+        .totalltemPrice {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 2px solid red;
+        }
+        .discountedPrice {
+          color: black;
+          font-weight: 700;
+        }
+      }
+
+      &-quantity {
+        width: 120px;
+      }
+
+      &-cancel {
+        color: gray;
+        cursor: pointer;
+      }
+    }
+  }
+}

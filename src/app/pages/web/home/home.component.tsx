@@ -6,18 +6,21 @@ import {
   CategorryContainer,
   MainCarousel,
   ProductSection,
-  ShopByBudgetWeb
+  ShopByBudgetWeb,
+  WatchAndShopSection
 } from 'src/app/components'
 import {TestimonailSection} from 'src/app/components/testimonial/testimonial.component'
 import {useDispatch, useSelector} from 'src/store'
 import {getTestimonialListAction} from '../../testimonial/testimonial.slice'
 import {getShopByBudgetListAction} from '../../shopByBudget/shopByBudget.slice'
+import {getProductListAction} from '../../products/product.slice'
 
 export const HomePage = () => {
   const dispatch = useDispatch()
 
   const {testimonialData} = useSelector((state: any) => state.testimonial)
   const {shopByBudgetData} = useSelector((state: any) => state.shopByBudget)
+  const {data}: any = useSelector((state: any) => state.product)
 
   const [testimonialList, setTestimonialList] = useState([])
 
@@ -52,6 +55,10 @@ export const HomePage = () => {
     setTestimonialList(remappedTestimonialData)
   }, [testimonialData])
 
+  const {data: watchandshopdata}: any = useSelector(
+    (state: any) => state.product
+  )
+
   useEffect(() => {
     dispatch(
       getTestimonialListAction({
@@ -66,6 +73,8 @@ export const HomePage = () => {
         }
       })
     )
+
+    dispatch(getProductListAction({}))
   }, [])
   return (
     <>
@@ -89,14 +98,23 @@ export const HomePage = () => {
           {testimonialList?.length > 0 && (
             <TestimonailSection reviews={testimonialList}></TestimonailSection>
           )}
-          <VStack gap="$3">
-            <div className="jobsSectionContainer-header">SHOP BY BUDGET</div>
-
-            <HStack justify="center" gap="$5" style={{width: '100%'}}>
-              {shopByBudgetData?.map((item, index) => {
-                return <ShopByBudgetWeb data={item}></ShopByBudgetWeb>
+          <VStack gap="$8">
+            <div className="jobsSectionContainer-header">WATCH AND SHOP</div>
+            <WatchAndShopSection
+              data={watchandshopdata?.filter((item: any, index: number) => {
+                return item.isWatchAndShop === true
               })}
-            </HStack>
+            ></WatchAndShopSection>
+
+            <VStack gap="$3">
+              <div className="jobsSectionContainer-header">SHOP BY BUDGET</div>
+
+              <HStack justify="center" gap="$5" style={{width: '100%'}}>
+                {shopByBudgetData?.map((item, index) => {
+                  return <ShopByBudgetWeb data={item}></ShopByBudgetWeb>
+                })}
+              </HStack>
+            </VStack>
           </VStack>
         </VStack>
       </CompWrapper>

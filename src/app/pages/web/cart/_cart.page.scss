@@ -1,0 +1,28 @@
+.cartPage {
+  border: 2px solid red;
+  padding: 40px;
+
+  &-orderSummary {
+    width: 100%;
+    padding: map-get($space, 3);
+    // border: 2px solid blue;
+    background: #f2f3f5;
+    border-radius: map-get($radius, default);
+
+    &-itemCount {
+      color: gray;
+    }
+
+    &-title {
+      font-weight: 700;
+    }
+  }
+  &-checkout {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: map-get($space, 2);
+    background: black;
+    cursor: pointer;
+  }
+}

@@ -9,6 +9,7 @@ import {AddProductPage} from 'src/app/pages/products/add/addProduct.page'
 // import {CategoryListPage} from 'src/app/pages/category/category.page'
 import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categoryId.page'
 import {CategoryListPage} from 'src/app/pages/category/category.page'
+import {CartPage, cartPage} from 'src/app/pages/web'
 // import {BestSellingPage} from 'src/app/pages/bestSelling'
 import {
   Banners,
@@ -25,6 +26,7 @@ import {HomePage} from 'src/app/pages/web/home/home.component'
 import {AddTestimonialPage} from 'src/app/pages/testimonial/add/addTestimonial.component'
 import {ShopByBudget} from 'src/app/pages/shopByBudget/shopByBudget.component'
 import {AddShopByBudget} from 'src/app/pages/shopByBudget/add/addShopByBudget.component'
+import {CartCard} from 'src/app/components'
 // import LoginPage from 'src/app/pages/login/login.page'
 
 export const Router: RouteObject[] = [
@@ -245,10 +247,20 @@ export const Router: RouteObject[] = [
       }
     ]
   },
+  {
+    path: '/cart',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <CartPage />
+      }
+    ]
+  },
 
   {
     path: '/jobs',
-
     element: <ProtectedAuth />,
     children: []
   },
