@@ -5,6 +5,12 @@ const getCartListByUserId = async ({userId}: {userId: string}) => {
   console.log('from cart service', response.data)
   return response.data
 }
+
+const getOrderList = async () => {
+  const response = await api<Api.Base<any>>('get')(`/order`)
+  console.log('from cart service', response.data)
+  return response.data
+}
 export const createCartByUserId = async (body: any, userId: string) => {
   console.log(body, 'b')
   const response = await api<Api.Base<{}>>('post')(
@@ -36,5 +42,6 @@ export const CartService = {
   createCartByUserId,
   deleteCartByProductId,
   getCartListByUserId,
-  createOrderByUserId
+  createOrderByUserId,
+  getOrderList
 }

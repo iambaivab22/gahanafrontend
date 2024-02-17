@@ -15,6 +15,7 @@ import {
   Banners,
   BestSellingPage,
   NewArrivalListPage,
+  OrderListPage,
   Testimonial
   // ProductWebSample
 } from 'src/app/pages'
@@ -27,6 +28,7 @@ import {AddTestimonialPage} from 'src/app/pages/testimonial/add/addTestimonial.c
 import {ShopByBudget} from 'src/app/pages/shopByBudget/shopByBudget.component'
 import {AddShopByBudget} from 'src/app/pages/shopByBudget/add/addShopByBudget.component'
 import {CartCard} from 'src/app/components'
+
 // import LoginPage from 'src/app/pages/login/login.page'
 
 export const Router: RouteObject[] = [
@@ -255,6 +257,18 @@ export const Router: RouteObject[] = [
       {
         path: '',
         element: <CartPage />
+      }
+    ]
+  },
+
+  {
+    path: '/orders',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <OrderListPage />
       }
     ]
   },

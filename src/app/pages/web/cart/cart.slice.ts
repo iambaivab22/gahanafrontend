@@ -229,6 +229,27 @@ const getCartlistAction = createAsyncThunk(
   }
 )
 
+const getOrderListAction = createAsyncThunk(
+  'order/list',
+  async (
+    {
+      onSuccess
+    }: {
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await CartService.getOrderList()
+      console.log('from slice')
+      onSuccess?.(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot get Order List!')
+    }
+  }
+)
+
 const delteProductFromCartAction = createAsyncThunk(
   'product/delete',
   async (
@@ -382,6 +403,8 @@ const createOrderByUserIdAction = createAsyncThunk(
 const initialState: {
   cartData?: any
   cartLoading?: boolean
+  orderData?: any
+  orderDataLoading: boolean
   subCategoryData?: any
   createOrderByUserIdData?: any
   createOrderByUserIdLoading?: boolean
@@ -394,6 +417,8 @@ const initialState: {
 } = {
   cartData: undefined,
   cartLoading: false,
+  orderDataLoading: false,
+  orderData: undefined,
   subCategoryData: undefined,
   getSubCategoryLoading: false,
   createOrderByUserIdData: undefined,
@@ -422,16 +447,16 @@ const cartSlice = createSlice({
       state.cartLoading = false
     })
 
-    // builder.addCase(getSubCategoryAction.pending, (state) => {
-    //   state.getSubCategoryLoading = true
-    // })
-    // builder.addCase(getSubCategoryAction.fulfilled, (state, action) => {
-    //   state.getSubCategoryLoading = false
-    //   state.subCategoryData = action.payload.data
-    // })
-    // builder.addCase(getSubCategoryAction.rejected, (state) => {
-    //   state.getSubCategoryLoading = false
-    // })
+    builder.addCase(getOrderListAction.pending, (state) => {
+      state.orderDataLoading = true
+    })
+    builder.addCase(getOrderListAction.fulfilled, (state, action) => {
+      state.orderDataLoading = false
+      state.orderData = action.payload.data
+    })
+    builder.addCase(getOrderListAction.rejected, (state) => {
+      state.orderDataLoading = false
+    })
 
     builder.addCase(delteProductFromCartAction.pending, (state) => {
       state.deleteProductFromCartLoading = true
@@ -485,6 +510,7 @@ export {
   delteProductFromCartAction,
   getCartlistAction,
   createCartByUserIdAction,
-  createOrderByUserIdAction
+  createOrderByUserIdAction,
+  getOrderListAction
 }
 export default cartSlice.reducer

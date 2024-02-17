@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'src/store'
 import {getCookie} from 'src/helpers'
 import {CartCard} from 'src/app/components'
 import {createOrderByUserIdAction, getCartlistAction} from './cart.slice'
-import {HStack, SelectField, VStack} from 'src/app/common'
+import {HStack, InputField, SelectField, VStack} from 'src/app/common'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
 import toast from 'react-hot-toast'
 export const CartPage = () => {
@@ -18,6 +18,7 @@ export const CartPage = () => {
 
   const [cartProductList, setCartProductList] = useState<any>([])
   const [shoppingCost, setShoppingCost] = useState(10)
+  const [shippingLocation, setShippingLocation] = useState('')
   useEffect(() => {
     const userId = getCookie('userId')
     userId && dispatch(getCartlistAction({userId: userId}))
@@ -69,8 +70,9 @@ export const CartPage = () => {
               }
             }),
 
-            isInsideValley: isInsideValley,
-            orderedAt: Date.now().toLocaleString()
+            isInsideValley: JSON.stringify(isInsideValley),
+            orderedAt: Date.now().toLocaleString(),
+            shippingLocation: shippingLocation
           },
           onSuccess: () => {
             toast.success('Checkout successfully done')
@@ -144,7 +146,14 @@ export const CartPage = () => {
               placeholder={'Where from'}
             />
           </HStack>
+          <HStack justify="space-between" align="center">
+            <p>Shipping Location</p>
 
+            <InputField
+              onChange={(e) => setShippingLocation(e.target.value)}
+              placeholder="Enter full address"
+            ></InputField>
+          </HStack>
           <HStack
             style={{width: '100%'}}
             justify="space-between"

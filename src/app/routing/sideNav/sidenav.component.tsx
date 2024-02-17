@@ -124,8 +124,8 @@ const SideNavComponent = React.memo(() => {
             <MdReport size={18} />
           ))}
 
-          {getNav('User List', '/user-management', () => (
-            <FaUsers />
+          {getNav('Order List', '/orders', () => (
+            <MdReport size={18} />
           ))}
         </Box>
       </animated.div>
