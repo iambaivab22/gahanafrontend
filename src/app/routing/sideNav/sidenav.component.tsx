@@ -93,7 +93,7 @@ const SideNavComponent = React.memo(() => {
           {/* {getNav('Sample', '/sample', () => (
             <ImSearch />
           ))} */}
-          {getNav('Products', '/products', () => (
+          {getNav('Products', '/dash-product', () => (
             <MdBusiness size={18} />
           ))}
 

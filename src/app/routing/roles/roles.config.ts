@@ -19,14 +19,15 @@ export const USER_ROLES: UserRoles = {
       '/new-arrivals/*',
       '/best-selling/*',
       '/banners/*',
-
+      '/dash-product/*',
       '/sample',
       '/product/*',
       './home/*',
       '/testimonial/*',
       '/shopByBudget/*',
       '/cart/*',
-      '/orders/*'
+      '/orders/*',
+      '/product/*'
     ]
   },
   USER: {
@@ -39,7 +40,9 @@ export const USER_ROLES: UserRoles = {
       '/testimonial/*',
       '/shopByBudget/*',
       '/cart/*',
-      '/orders/*'
+      '/orders/*',
+      '/dash-product/*',
+      '/product/*'
     ]
   }
 }

@@ -28,30 +28,7 @@ export const ProductCard = ({data}: {data: any}) => {
     }
   )
 
-  const handleAddToCart = (data: any) => {
-    const userId = getCookie('userId')
-
-    const cartData = {
-      userId,
-      products: [
-        {
-          productId: data?.id,
-          quantity: 1,
-          price: data?.discountedPrice
-        }
-      ]
-    }
-
-    dispatch(
-      createCartByUserIdAction({
-        userId: userId,
-        data: cartData,
-        onSuccess: () => {
-          toast.error('Product added to cart Successfully!')
-        }
-      })
-    )
-  }
+ 
 
   // console.log(data?.images[2], 'product')
 
@@ -138,9 +115,9 @@ export const ProductCard = ({data}: {data: any}) => {
           </div>
           <div
             className="productCard-footer-right"
-            onClick={() => handleAddToCart(data)}
+     
           >
-            Add to cart
+            View Details
           </div>
         </HStack>
       </VStack>

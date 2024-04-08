@@ -21,6 +21,9 @@ import {
 } from 'src/app/components'
 import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlayer.component'
 import html2canvas from 'html2canvas'
+import {createCartByUserIdAction} from '../../cart/cart.slice'
+import toast from 'react-hot-toast'
+import {getCookie} from 'src/helpers'
 
 export const ProductWebDetail = () => {
   const [position, setPosition] = useState({x: 1175, y: 450})
@@ -85,6 +88,31 @@ export const ProductWebDetail = () => {
     console.log(productDetailData.video, 'heee')
 
     setProductImageList(requiredImageList?.coloredImage)
+  }
+
+  const handleAddToCart = (data: any) => {
+    const userId = getCookie('userId')
+
+    const cartData = {
+      userId,
+      products: [
+        {
+          productId: data?.id,
+          quantity: 1,
+          price: data?.discountedPrice
+        }
+      ]
+    }
+
+    dispatch(
+      createCartByUserIdAction({
+        userId: userId,
+        data: cartData,
+        onSuccess: () => {
+          toast.success('Product added to cart Successfully!')
+        }
+      })
+    )
   }
 
   return (
@@ -158,7 +186,10 @@ export const ProductWebDetail = () => {
                 </HStack>
               </VStack>
 
-              <div className="productDetail-detailTop-addToCart">
+              <div
+                className="productDetail-detailTop-addToCart"
+                onClick={() => handleAddToCart(productDetailData)}
+              >
                 <p>ADD TO CART</p>
               </div>
 
@@ -168,9 +199,9 @@ export const ProductWebDetail = () => {
                 align="center"
                 gap="$4"
               >
-                <Title> In Stock:</Title>
+                <Title subheading> In Stock:</Title>
                 <Chip
-                  title={`${productDetailData?.stockQuantity} pics`}
+                  title={`${productDetailData?.stockQuantity ?? 0} pics`}
                   // color="rgb(241 233 214)"
                   color="rgb(219 247 241)"
                   // style={{width: 'max-content'}}

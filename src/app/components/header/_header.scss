@@ -65,6 +65,10 @@
       justify-content: flex-start;
       align-items: center;
       gap: map-get($space, 4);
+
+      &-cart {
+        position: relative;
+      }
     }
   }
 }

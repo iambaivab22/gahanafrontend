@@ -606,6 +606,10 @@ import {useMedia} from 'src/hooks'
 import {Sidebar} from '../headerDrawer/headerDrawer.component'
 import {AiFillAccountBook, AiOutlineAccountBook} from 'react-icons/ai'
 import {RiArrowDropDownLine} from 'react-icons/ri'
+import {useDispatch, useSelector} from 'src/store'
+import {useEffect} from 'react'
+import {getCookie} from 'src/helpers'
+import {getCartlistAction} from 'src/app/pages/web/cart/cart.slice'
 
 export const DesktopHeader = () => {
   const menus = [
@@ -1084,6 +1088,14 @@ export const DesktopHeader = () => {
 }
 
 export const TopHeader = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const userId = getCookie('userId')
+    userId && dispatch(getCartlistAction({userId: userId}))
+  }, [])
+  const datas = useSelector((state: any) => state.cart)
+  console.log(datas, 'datas')
+
   return (
     <>
       <div className="header-top">
@@ -1160,6 +1172,26 @@ export const TopHeader = () => {
 
           <div className="topHeader-cartProfile">
             <div className="topHeader-cartProfile-cart">
+              <HStack
+                justify="center"
+                align="center"
+                style={{
+                  // padding: '20px',
+                  height: 16,
+                  width: 16,
+                  borderRadius: '50%',
+                  background: 'red',
+                  color: 'white',
+                  position: 'absolute',
+                  top: -10,
+                  right: -6,
+                  backgroundColor:
+                    'hsl(0, 82.48847926267283%, 57.45098039215687%)'
+                }}
+              >
+                {datas.cartData?.length}
+              </HStack>
+              {/* <p>1</p> */}
               <FaCartArrowDown size={20} />
             </div>
 

@@ -9,7 +9,7 @@ import {AddProductPage} from 'src/app/pages/products/add/addProduct.page'
 // import {CategoryListPage} from 'src/app/pages/category/category.page'
 import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categoryId.page'
 import {CategoryListPage} from 'src/app/pages/category/category.page'
-import {CartPage, cartPage} from 'src/app/pages/web'
+import {CartPage, ProductListForWeb, cartPage} from 'src/app/pages/web'
 // import {BestSellingPage} from 'src/app/pages/bestSelling'
 import {
   Banners,
@@ -86,6 +86,18 @@ export const Router: RouteObject[] = [
 
   {
     path: '/products',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <ProductListForWeb />
+      }
+    ]
+  },
+
+  {
+    path: '/dash-product',
 
     element: <ProtectedAuth />,
     children: [
