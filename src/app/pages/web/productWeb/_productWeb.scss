@@ -1,1 +1,27 @@
 @import './view/productWebView';
+
+.sortMainContainer {
+  position: relative;
+}
+
+.sortModalContainer {
+  background-color: white;
+  padding: map-get($space, 3);
+  border-radius: map-get($radius, default);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  width: auto;
+  transition: scale 0.5s ease-in-out;
+  transform-origin: top right;
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  width: max-content;
+}
+
+.filterItem {
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: #fcedeb;
+  }
+}

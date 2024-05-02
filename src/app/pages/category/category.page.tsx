@@ -25,6 +25,8 @@ export const CategoryListPage = () => {
     )
   }, [])
 
+  
+
   console.log(categoryData, 'category data called')
 
   useEffect(() => {

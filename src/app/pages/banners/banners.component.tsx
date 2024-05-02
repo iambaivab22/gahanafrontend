@@ -58,7 +58,7 @@ export const Banners = () => {
   return (
     <VStack gap="$5">
       <ImageUploader
-        defaultImage={bannerData?.[0].bannerImage}
+        defaultImage={bannerData?.[0]?.bannerImage}
         onImageChange={handleImage}
         // value={bannerImage}
         uniqueKeys="bannersupload"

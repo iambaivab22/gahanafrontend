@@ -51,7 +51,7 @@ const App = () => {
       style={{
         position: 'absolute',
         right: '10px',
-        width: '98vw',
+        width: '100vw',
         marginTop: '40px'
       }}
     >

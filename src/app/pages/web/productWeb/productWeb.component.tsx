@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {AiOutlineSortAscending} from 'react-icons/ai'
 import {
   CustomModal,
@@ -12,49 +12,75 @@ import {getNprPrice} from 'src/helpers/nprPrice.helper'
 
 export const ProductListForWeb = () => {
   const [sortVisible, setSortVisible] = useState(false)
+  const sortRef = useRef<HTMLDivElement | null>(null)
+  const modalButtonRef = useRef<any>(null)
+  const handleOutSideClick = (event) => {
+    if (
+      sortRef.current &&
+      !sortRef.current.contains(event.target) &&
+      event.target !== document.getElementById('openModalButton')
+    ) {
+      setSortVisible(false)
+    } else {
+      console.log(sortVisible, 'called')
+      // !!sortVisible && setSortVisible(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutSideClick)
+
+    return () => {
+      document.removeEventListener('click', handleOutSideClick)
+    }
+  }, [])
   return (
-    <HStack justify="space-between">
+    <HStack justify="space-between" style={{width: '100%'}}>
       <VStack style={{width: '30%'}}>
         <ProductListSideComp></ProductListSideComp>
         <VStack>
-          <HStack>
-            <VStack>
-              <CustomModal
-                displayElement={
-                  <p style={{border: '2px solid red', position: 'relative'}}>
-                    Sort
-                  </p>
-                }
-              >
-                {(onCloseModalHandler) => {
-                  return (
-                    <VStack>
-                      <HStack align="center" gap="$3">
-                        <AiOutlineSortAscending></AiOutlineSortAscending>
-                        <p>Asc (price low to high)</p>
-                      </HStack>
-                      <HStack align="center" gap="$3">
-                        <AiOutlineSortAscending></AiOutlineSortAscending>
-                        <p>Desc (price hight to low)</p>
-                      </HStack>
-                      <HStack align="center" gap="$3">
-                        <AiOutlineSortAscending></AiOutlineSortAscending>
-                        <p>Asc (Product Name A to Z)</p>
-                      </HStack>
-                      <HStack align="center" gap="$3">
-                        <AiOutlineSortAscending></AiOutlineSortAscending>
-                        <p>Desc (Product Name A to Z)</p>
-                      </HStack>
-                    </VStack>
-                  )
-                }}
-              </CustomModal>
-            </VStack>
-          </HStack>
+          <HStack></HStack>
           <VStack></VStack>
         </VStack>
       </VStack>
-      <VStack style={{width: '50%'}}></VStack>
+      <HStack style={{flex: 1}} justify="space-between" align="center">
+        <VStack>Products</VStack>
+        <div>
+          <VStack className="sortMainContainer">
+            <div
+              id="openModalButton"
+              onClick={() => setSortVisible((prev) => !prev)}
+            >
+              Sort
+            </div>
+
+            <div
+              className="sortModalContainer"
+              style={{scale: sortVisible ? '1' : '0'}}
+              ref={sortRef}
+            >
+              <VStack>
+                <HStack align="center" gap="$3" className="filterItem">
+                  <AiOutlineSortAscending></AiOutlineSortAscending>
+                  <p>Asc (price low to high)</p>
+                </HStack>
+                <HStack align="center" gap="$3" className="filterItem">
+                  <AiOutlineSortAscending></AiOutlineSortAscending>
+                  <p>Desc (price hight to low)</p>
+                </HStack>
+                <HStack align="center" gap="$3" className="filterItem">
+                  <AiOutlineSortAscending></AiOutlineSortAscending>
+                  <p>Asc (Product Name A to Z)</p>
+                </HStack>
+                <HStack align="center" gap="$3" className="filterItem">
+                  <AiOutlineSortAscending></AiOutlineSortAscending>
+                  <p>Desc (Product Name A to Z)</p>
+                </HStack>
+              </VStack>
+            </div>
+          </VStack>
+        </div>
+      </HStack>
     </HStack>
   )
 }
@@ -62,9 +88,15 @@ export const ProductListForWeb = () => {
 export const ProductListSideComp = () => {
   const [minMaxPrice, setMinMaxPrice] = useState({minPrice: 0, maxPrice: 20000})
   return (
-    <>
-      <ProductPriceSlider />
-      <HStack style={{width: '100%'}} gap="$3" align="center">
+    <HStack align="center" justify="space-between" style={{width: '100%'}}>
+      {/* <ProductPriceSlider /> */}
+      <HStack
+        style={{width: '90%'}}
+        gap="$3"
+        align="center"
+        justify="center
+      "
+      >
         <VStack gap="$2">
           <Title subheading>FROM</Title>
           <InputField
@@ -101,7 +133,7 @@ export const ProductListSideComp = () => {
           ></InputField>
         </VStack>
       </HStack>
-    </>
+    </HStack>
   )
 }
 

@@ -1,366 +1,52 @@
-import React from 'react'
-import {AiOutlineAim} from 'react-icons/ai'
-import {BsInstagram, BsLinkedin} from 'react-icons/bs'
-import {FaFacebook, FaTwitter} from 'react-icons/fa'
-import {MdCall, MdEmail} from 'react-icons/md'
+import {useNavigate} from 'react-router-dom'
 
 export const Footer = () => {
+  const navigate = useNavigate()
+
   return (
-    <>
-      <footer>
-        <div className="footer-category">
-          <div className="container">
-            <h2 className="footer-category-title">Brand directory</h2>
+    <div className="footer-container">
+      <div className="footer">
+        <div className="footer-left">
+          <div className="footer-left-subTitle">Care</div>
+          <div className="footer-left-linkList">
+            <p
+              className="footer-left-linkList-each"
+              onClick={() => {
+                navigate('shipping-policy')
+              }}
+            >
+              Shipping Policy
+            </p>
+            <p className="footer-left-linkList-each">Terms and Condition</p>
+            <p
+              className="footer-left-linkList-each"
+              onClick={() => {
+                navigate('return-policy')
+              }}
+            >
+              Return Policy
+            </p>
+            <p className="footer-left-linkList-each">Privacy Policy</p>
+          </div>
+        </div>
+        <div className="footer-middle">
+          <div className="footer-middle-subTitle">About Us</div>
 
-            <div className="footer-category-box">
-              <h3 className="category-box-title">Fashion :</h3>
-
-              <a href="#" className="footer-category-link">
-                T-shirt
-              </a>
-              <a href="#" className="footer-category-link">
-                Shirts
-              </a>
-              <a href="#" className="footer-category-link">
-                shorts & jeans
-              </a>
-              <a href="#" className="footer-category-link">
-                jacket
-              </a>
-              <a href="#" className="footer-category-link">
-                dress & frock
-              </a>
-              <a href="#" className="footer-category-link">
-                innerwear
-              </a>
-              <a href="#" className="footer-category-link">
-                hosiery
-              </a>
-            </div>
-
-            <div className="footer-category-box">
-              <h3 className="category-box-title">footwear :</h3>
-
-              <a href="#" className="footer-category-link">
-                sport
-              </a>
-              <a href="#" className="footer-category-link">
-                formal
-              </a>
-              <a href="#" className="footer-category-link">
-                Boots
-              </a>
-              <a href="#" className="footer-category-link">
-                casual
-              </a>
-              <a href="#" className="footer-category-link">
-                cowboy shoes
-              </a>
-              <a href="#" className="footer-category-link">
-                safety shoes
-              </a>
-              <a href="#" className="footer-category-link">
-                Party wear shoes
-              </a>
-              <a href="#" className="footer-category-link">
-                Branded
-              </a>
-              <a href="#" className="footer-category-link">
-                Firstcopy
-              </a>
-              <a href="#" className="footer-category-link">
-                Long shoes
-              </a>
-            </div>
-
-            <div className="footer-category-box">
-              <h3 className="category-box-title">jewellery :</h3>
-
-              <a href="#" className="footer-category-link">
-                Necklace
-              </a>
-              <a href="#" className="footer-category-link">
-                Earrings
-              </a>
-              <a href="#" className="footer-category-link">
-                Couple rings
-              </a>
-              <a href="#" className="footer-category-link">
-                Pendants
-              </a>
-              <a href="#" className="footer-category-link">
-                Crystal
-              </a>
-              <a href="#" className="footer-category-link">
-                Bangles
-              </a>
-              <a href="#" className="footer-category-link">
-                bracelets
-              </a>
-              <a href="#" className="footer-category-link">
-                nosepin
-              </a>
-              <a href="#" className="footer-category-link">
-                chain
-              </a>
-              <a href="#" className="footer-category-link">
-                Earrings
-              </a>
-              <a href="#" className="footer-category-link">
-                Couple rings
-              </a>
-            </div>
-
-            <div className="footer-category-box">
-              <h3 className="category-box-title">cosmetics :</h3>
-
-              <a href="#" className="footer-category-link">
-                Shampoo
-              </a>
-              <a href="#" className="footer-category-link">
-                Bodywash
-              </a>
-              <a href="#" className="footer-category-link">
-                Facewash
-              </a>
-              <a href="#" className="footer-category-link">
-                makeup kit
-              </a>
-              <a href="#" className="footer-category-link">
-                liner
-              </a>
-              <a href="#" className="footer-category-link">
-                lipstick
-              </a>
-              <a href="#" className="footer-category-link">
-                prefume
-              </a>
-              <a href="#" className="footer-category-link">
-                Body soap
-              </a>
-              <a href="#" className="footer-category-link">
-                scrub
-              </a>
-              <a href="#" className="footer-category-link">
-                hair gel
-              </a>
-              <a href="#" className="footer-category-link">
-                hair colors
-              </a>
-              <a href="#" className="footer-category-link">
-                hair dye
-              </a>
-              <a href="#" className="footer-category-link">
-                sunscreen
-              </a>
-              <a href="#" className="footer-category-link">
-                skin loson
-              </a>
-              <a href="#" className="footer-category-link">
-                liner
-              </a>
-              <a href="#" className="footer-category-link">
-                lipstick
-              </a>
-            </div>
+          <div className="footer-middle-linkList">
+            <p className="footer-middle-linkList-each">Contact Us</p>
+            <p className="footer-middle-linkList-each">Styling Guide</p>
           </div>
         </div>
 
-        <div className="footer-nav">
-          <div className="container">
-            <ul className="footer-nav-list">
-              <li className="footer-nav-item">
-                <h2 className="nav-title">Popular Categories</h2>
-              </li>
+        <div className="footer-right">
+          <div className="footer-right-subTitle">About Us</div>
 
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Earrings
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Bracelets
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Bangles
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Necklace
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Watches
-                </a>
-              </li>
-            </ul>
-
-            <ul className="footer-nav-list">
-              <li className="footer-nav-item">
-                <h2 className="nav-title">Products</h2>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  New Arrivals
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Best salling
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Contact us
-                </a>
-              </li>
-            </ul>
-
-            <ul className="footer-nav-list">
-              <li className="footer-nav-item">
-                <h2 className="nav-title">Our Company</h2>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Terms and conditions
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  About us
-                </a>
-              </li>
-            </ul>
-
-            <ul className="footer-nav-list">
-              <li className="footer-nav-item">
-                <h2 className="nav-title">Services</h2>
-              </li>
-
-              {/* <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Prices drop
-                </a>
-              </li> */}
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  New products
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Best sales
-                </a>
-              </li>
-
-              <li className="footer-nav-item">
-                <a href="#" className="footer-nav-link">
-                  Contact us
-                </a>
-              </li>
-            </ul>
-
-            <ul className="footer-nav-list">
-              <li className="footer-nav-item">
-                <h2 className="nav-title">Contact</h2>
-              </li>
-
-              <li className="footer-nav-item flex">
-                <div className="icon-box">
-                  {/* <ion-icon name="location-outline"></ion-icon> */}
-                  <AiOutlineAim></AiOutlineAim>
-                </div>
-
-                <address className="content">New road Kathmandu, Nepal</address>
-              </li>
-
-              <li className="footer-nav-item flex">
-                <div className="icon-box">
-                  {/* <ion-icon name="call-outline"></ion-icon> */}
-                  <MdCall></MdCall>
-                </div>
-
-                <a href="tel:+607936-8058" className="footer-nav-link">
-                  +977-984354543543
-                </a>
-              </li>
-
-              <li className="footer-nav-item flex">
-                <div className="icon-box">
-                  {/* <ion-icon name="mail-outline"></ion-icon> */}
-                  <MdEmail></MdEmail>
-                </div>
-
-                <a href="mailto:example@gmail.com" className="footer-nav-link">
-                  aabhushanjewelers@gmail.com
-                </a>
-              </li>
-            </ul>
-
-            <ul className="footer-nav-list">
-              <li className="footer-nav-item">
-                <h2 className="nav-title">Follow Us</h2>
-              </li>
-
-              <li>
-                <ul className="social-link">
-                  <li className="footer-nav-item">
-                    <a href="#" className="footer-nav-link">
-                      {/* <ion-icon name="logo-facebook"></ion-icon> */}
-                      <FaFacebook></FaFacebook>
-                    </a>
-                  </li>
-
-                  <li className="footer-nav-item">
-                    <a href="#" className="footer-nav-link">
-                      {/* <ion-icon name="logo-twitter"></ion-icon> */}
-                      <FaTwitter></FaTwitter>
-                    </a>
-                  </li>
-
-                  <li className="footer-nav-item">
-                    <a href="#" className="footer-nav-link">
-                      {/* <ion-icon name="logo-linkedin"></ion-icon> */}
-                      <BsLinkedin></BsLinkedin>
-                    </a>
-                  </li>
-
-                  <li className="footer-nav-item">
-                    <a href="#" className="footer-nav-link">
-                      <BsInstagram></BsInstagram>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+          <div className="footer-right-linkList">
+            <p className="footer-right-linkList-each">Contact Us</p>
+            <p className="footer-right-linkList-each">Styling Guide</p>
           </div>
         </div>
-
-        <div className="footer-bottom">
-          {/* <div className="container"> */}
-          <p className="copyright">
-            Copyright &copy; <a href="#">Aabhushan jewelers</a> all rights
-            reserved.
-          </p>
-          {/* </div> */}
-        </div>
-      </footer>
-    </>
+      </div>
+    </div>
   )
 }

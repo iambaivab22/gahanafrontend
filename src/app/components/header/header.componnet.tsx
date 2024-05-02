@@ -607,11 +607,59 @@ import {Sidebar} from '../headerDrawer/headerDrawer.component'
 import {AiFillAccountBook, AiOutlineAccountBook} from 'react-icons/ai'
 import {RiArrowDropDownLine} from 'react-icons/ri'
 import {useDispatch, useSelector} from 'src/store'
-import {useEffect} from 'react'
+import {Children, useEffect, useState} from 'react'
 import {getCookie} from 'src/helpers'
 import {getCartlistAction} from 'src/app/pages/web/cart/cart.slice'
+import {getCategoryListAction} from 'src/app/pages/category/category.slice'
+import {HiSearchCircle} from 'react-icons/hi'
 
 export const DesktopHeader = () => {
+  const [category, setCategory] = useState<any>()
+  const {categoryData}: any = useSelector((state: any) => state.category)
+  const [menyList, setMenuList] = useState<any>()
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(
+      getCategoryListAction({
+        onSuccess: () => console.log('categoryList fetch Successfully')
+      })
+    )
+  }, [])
+
+  console.log(categoryData, 'categorydata')
+
+  useEffect(() => {
+    const mappedCategoryWeb = categoryData?.map((item: any, index: number) => {
+      console.log(item, 'caetgory item')
+
+      if (item?.subCategories?.length > 0) {
+        return {
+          key: index,
+          name: item.name,
+          link: item.name,
+          type: 'page',
+          hasChildren: true,
+          children: item.subCategories?.map((itemSub, indexSub) => {
+            return {
+              key: indexSub + index,
+              name: itemSub.name,
+              link: item.name / itemSub.name,
+              type: 'page'
+            }
+          })
+        }
+      } else {
+        return {
+          name: item.name,
+          link: item.name,
+          type: 'page'
+        }
+      }
+    })
+
+    setCategory(mappedCategoryWeb)
+  }, [categoryData])
+
   const menus = [
     {
       name: 'NECKLACE',
@@ -751,7 +799,7 @@ export const DesktopHeader = () => {
   return (
     <div className="navmenuList">
       <div className="navmenuContainer">
-        {menus.map((menu) => (
+        {category?.map((menu) => (
           <Dropdown
             title={
               <HStack gap="$3" align="center">
@@ -763,7 +811,7 @@ export const DesktopHeader = () => {
             // menuclassName="text-14 py-8 px-5 my-0 mx-16 border-b-1 border-solid border-blue hover:border-black flex "
           >
             {menu.children &&
-              menu.children.map((item) => (
+              menu.children?.map((item) => (
                 <>
                   <Dropdown.Item>
                     <HStack gap="$3" align="center">
@@ -776,11 +824,11 @@ export const DesktopHeader = () => {
                     </HStack>
 
                     {item.children &&
-                      item.children.map((submenu) => (
+                      item?.children?.map((submenu) => (
                         <Dropdown.Submenu position="right">
                           <Dropdown.Item>{submenu.name}</Dropdown.Item>
                           {item.children &&
-                            item.children.map((submenu) => (
+                            item?.children?.map((submenu) => (
                               <Dropdown.Submenu position="right">
                                 <Dropdown.Item className="menuText">
                                   {submenu.name}

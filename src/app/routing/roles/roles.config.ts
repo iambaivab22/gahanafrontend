@@ -27,7 +27,9 @@ export const USER_ROLES: UserRoles = {
       '/shopByBudget/*',
       '/cart/*',
       '/orders/*',
-      '/product/*'
+      '/product/*',
+      '/return-policy',
+      '/shipping-policy'
     ]
   },
   USER: {
@@ -42,7 +44,9 @@ export const USER_ROLES: UserRoles = {
       '/cart/*',
       '/orders/*',
       '/dash-product/*',
-      '/product/*'
+      '/product/*',
+      '/return-policy',
+      '/shipping-policy'
     ]
   }
 }

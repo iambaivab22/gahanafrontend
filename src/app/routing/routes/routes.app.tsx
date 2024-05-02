@@ -16,6 +16,8 @@ import {
   BestSellingPage,
   NewArrivalListPage,
   OrderListPage,
+  ReturnPolicy,
+  ShippingPolicy,
   Testimonial
   // ProductWebSample
 } from 'src/app/pages'
@@ -83,7 +85,29 @@ export const Router: RouteObject[] = [
       }
     ]
   },
+  {
+    path: '/return-policy',
+    // element: <Sample />
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <ReturnPolicy />
+      }
+    ]
+  },
 
+  {
+    path: '/shipping-policy',
+    // element: <Sample />
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <ShippingPolicy />
+      }
+    ]
+  },
   {
     path: '/products',
 
