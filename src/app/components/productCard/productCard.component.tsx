@@ -17,7 +17,6 @@ const productImages = [
 ]
 
 export const ProductCard = ({data}: {data: any}) => {
-  console.log(data, 'card')
   const [activeImage, setActiveImage] = useState(0)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -27,8 +26,6 @@ export const ProductCard = ({data}: {data: any}) => {
       return item
     }
   )
-
- 
 
   // console.log(data?.images[2], 'product')
 
@@ -113,12 +110,7 @@ export const ProductCard = ({data}: {data: any}) => {
           <div>
             <FaCartArrowDown size={20} fill="white" />
           </div>
-          <div
-            className="productCard-footer-right"
-     
-          >
-            View Details
-          </div>
+          <div className="productCard-footer-right">View Details</div>
         </HStack>
       </VStack>
     </div>

@@ -6,8 +6,10 @@ const getProductList = async (query?: {
   categoryId?: string
   isNewArrivals?: boolean
   isBestSelling?: boolean
-  sort: string
-  order: string
+  sort?: string
+  order?: string
+  minPrice?: number
+  maxPrice?: number
 }) => {
   console.log('sh')
 
@@ -18,7 +20,9 @@ const getProductList = async (query?: {
     search: query.search ?? '',
     categoryId: query.categoryId ?? '',
     sort: query.sort ?? '',
-    order: query.order ?? ''
+    order: query.order ?? '',
+    minPrice: query.minPrice ?? 0,
+    maxPrice: query.maxPrice ?? 20000
   })
 
   // const response = await api<any>('get')(`/product`)

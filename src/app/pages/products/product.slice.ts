@@ -15,14 +15,16 @@ const getProductListAction = createAsyncThunk(
         categoryId?: string
         isNewArrivals?: boolean
         isBestSelling?: boolean
-        sort:string,
-        order:string
+        sort?: string
+        order?: string
+        minPrice?: number
+        maxPrice?: number
       }
     },
     thunkAPI
   ) => {
     try {
-      console.log('+++++')
+      console.log('minPrice', query.minPrice, query.maxPrice)
       const response = await productService.getProductList(query && query)
       onSuccess?.(response)
 

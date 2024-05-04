@@ -602,7 +602,7 @@ import {
 } from 'react-icons/fa'
 import Dropdown from 'react-multilevel-dropdown'
 import {HStack, SearchField} from 'src/app/common'
-import {useMedia} from 'src/hooks'
+import {useDebounceValue, useMedia} from 'src/hooks'
 import {Sidebar} from '../headerDrawer/headerDrawer.component'
 import {AiFillAccountBook, AiOutlineAccountBook} from 'react-icons/ai'
 import {RiArrowDropDownLine} from 'react-icons/ri'
@@ -612,6 +612,7 @@ import {getCookie} from 'src/helpers'
 import {getCartlistAction} from 'src/app/pages/web/cart/cart.slice'
 import {getCategoryListAction} from 'src/app/pages/category/category.slice'
 import {HiSearchCircle} from 'react-icons/hi'
+import {getProductListAction} from 'src/app/pages/products/product.slice'
 
 export const DesktopHeader = () => {
   const [category, setCategory] = useState<any>()
@@ -1144,6 +1145,20 @@ export const TopHeader = () => {
   const datas = useSelector((state: any) => state.cart)
   console.log(datas, 'datas')
 
+  const [searchValue, setSearchValue] = useState<string>('')
+  const debouncedSearchvalue = useDebounceValue(searchValue)
+
+  useEffect(() => {
+    dispatch(
+      getProductListAction({
+        onSuccess: () => {},
+        query: {
+          search: debouncedSearchvalue
+        }
+      })
+    )
+  }, [debouncedSearchvalue])
+
   return (
     <>
       <div className="header-top">
@@ -1214,7 +1229,9 @@ export const TopHeader = () => {
           <div className="topHeader-search">
             <SearchField
               placeholder="Search Your Product"
-              onChange={() => console.log('search called')}
+              onChange={(e) => {
+                setSearchValue(e.target.value)
+              }}
             ></SearchField>
           </div>
 

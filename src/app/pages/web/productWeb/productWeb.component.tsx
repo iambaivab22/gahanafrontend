@@ -13,7 +13,7 @@ import {getNprPrice} from 'src/helpers/nprPrice.helper'
 import {useDispatch, useSelector} from 'src/store'
 import {getCategoryListAction} from '../../category/category.slice'
 import {getProductListAction} from '../../products/product.slice'
-import {ProductCard} from 'src/app/components'
+import {Loader, ProductCard} from 'src/app/components'
 import toast from 'react-hot-toast'
 
 export const ProductListForWeb = () => {
@@ -24,10 +24,7 @@ export const ProductListForWeb = () => {
     parameter: '',
     order: ''
   })
-  const [minMaxRange, setMinMaxRange] = useState({
-    minPrice: '',
-    maxPrice: ''
-  })
+  const [minMaxPrice, setMinMaxPrice] = useState({minPrice: 0, maxPrice: 20000})
   const [selectedCategories, setSelectedCategories] = useState({
     name: '',
     id: null
@@ -37,21 +34,23 @@ export const ProductListForWeb = () => {
 
   const {data}: any = useSelector((state: any) => state.product)
 
-  console.log(data, 'data from ps')
-
   useEffect(() => {
-    console.log('api hit')
+    // if (selectedCategories.id !== 100) {
     dispatch(
       getProductListAction({
         onSuccess: () => {},
         query: {
           sort: sortOrder.parameter,
           order: sortOrder.order,
-          categoryId: selectedCategories.id
+          categoryId:
+            selectedCategories.id !== 'all' ? selectedCategories.id : '',
+          minPrice: minMaxPrice.minPrice,
+          maxPrice: minMaxPrice.maxPrice
         }
       })
     )
-  }, [sortOrder.order, sortOrder.parameter, selectedCategories.id])
+    // }
+  }, [sortOrder.order, sortOrder.parameter, selectedCategories.id, minMaxPrice])
 
   const handleOutSideClick = (event) => {
     if (
@@ -87,6 +86,8 @@ export const ProductListForWeb = () => {
               name: name
             }))
           }}
+          setMinMaxPrice={setMinMaxPrice}
+          minMaxPrice={minMaxPrice}
         ></ProductListSideComp>
         <VStack>
           <HStack></HStack>
@@ -97,9 +98,13 @@ export const ProductListForWeb = () => {
         <VStack gap="$3">
           <Title subheading>Products</Title>
           <HStack align="center" justify="space-between" gap="$4">
-            {data?.map((item: any, index: number) => {
-              return <ProductCard data={item} key={item.id} />
-            })}
+            {data?.length > 0 ? (
+              data?.map((item: any, index: number) => {
+                return <ProductCard data={item} key={item.id} />
+              })
+            ) : (
+              <div>No Product found</div>
+            )}
           </HStack>
         </VStack>
         <div>
@@ -180,13 +185,22 @@ export const ProductListForWeb = () => {
 
 export const ProductListSideComp = ({
   onCategoryChange,
-  selectedCategories
+  selectedCategories,
+  minMaxPrice,
+  setMinMaxPrice
 }: {
   onCategoryChange: ({id, name}: {id: string; name: string}) => void
   selectedCategories: {
     id: string
     name: string
   }
+  minMaxPrice: {minPrice: number; maxPrice: number}
+  setMinMaxPrice: React.Dispatch<
+    React.SetStateAction<{
+      minPrice: number
+      maxPrice: number
+    }>
+  >
 }) => {
   const {categoryData}: any = useSelector((state: any) => state.category)
   console.log(selectedCategories, 'selected catogories')
@@ -200,7 +214,6 @@ export const ProductListSideComp = ({
   }, [])
 
   console.log(categoryData, 'categorydata')
-  const [minMaxPrice, setMinMaxPrice] = useState({minPrice: 0, maxPrice: 20000})
 
   return (
     <VStack
@@ -224,6 +237,15 @@ export const ProductListSideComp = ({
             />
           )
         })}
+
+        <CheckBox
+          name="all"
+          label="All"
+          handleCheckboxChange={() =>
+            onCategoryChange({id: 'all', name: 'All'})
+          }
+          check={'All' === selectedCategories.name}
+        />
       </VStack>
       <HStack
         style={{width: '90%'}}
