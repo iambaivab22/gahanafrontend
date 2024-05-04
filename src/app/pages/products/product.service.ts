@@ -6,18 +6,22 @@ const getProductList = async (query?: {
   categoryId?: string
   isNewArrivals?: boolean
   isBestSelling?: boolean
+  sort: string
+  order: string
 }) => {
   console.log('sh')
 
-  // const response = await api<any>('get')(
-  //   `/product?search=${query.search ?? ''}&categoryId=${
-  //     query.categoryId ?? ''
-  //   }&isNewArrivals=${query.isNewArrivals ?? ''}&isBestSelling=${
-  //     query.isBestSelling
-  //   }`
-  // )
+  // &isNewArrivals=${query.isNewArrivals ?? ''}
+  // &isBestSelling=${query.isBestSelling}
 
-  const response = await api<any>('get')(`/product`)
+  const response = await api<any>('get')(`/product`, {
+    search: query.search ?? '',
+    categoryId: query.categoryId ?? '',
+    sort: query.sort ?? '',
+    order: query.order ?? ''
+  })
+
+  // const response = await api<any>('get')(`/product`)
 
   console.log(response, 'datas response')
 

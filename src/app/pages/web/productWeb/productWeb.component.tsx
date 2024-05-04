@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {AiOutlineSortAscending} from 'react-icons/ai'
 import {
+  CheckBox,
   CustomModal,
   HStack,
   InputField,
@@ -9,11 +10,49 @@ import {
   VStack
 } from 'src/app/common'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
+import {useDispatch, useSelector} from 'src/store'
+import {getCategoryListAction} from '../../category/category.slice'
+import {getProductListAction} from '../../products/product.slice'
+import {ProductCard} from 'src/app/components'
+import toast from 'react-hot-toast'
 
 export const ProductListForWeb = () => {
   const [sortVisible, setSortVisible] = useState(false)
   const sortRef = useRef<HTMLDivElement | null>(null)
   const modalButtonRef = useRef<any>(null)
+  const [sortOrder, setSortOrder] = useState({
+    parameter: '',
+    order: ''
+  })
+  const [minMaxRange, setMinMaxRange] = useState({
+    minPrice: '',
+    maxPrice: ''
+  })
+  const [selectedCategories, setSelectedCategories] = useState({
+    name: '',
+    id: null
+  })
+
+  const dispatch = useDispatch()
+
+  const {data}: any = useSelector((state: any) => state.product)
+
+  console.log(data, 'data from ps')
+
+  useEffect(() => {
+    console.log('api hit')
+    dispatch(
+      getProductListAction({
+        onSuccess: () => {},
+        query: {
+          sort: sortOrder.parameter,
+          order: sortOrder.order,
+          categoryId: selectedCategories.id
+        }
+      })
+    )
+  }, [sortOrder.order, sortOrder.parameter, selectedCategories.id])
+
   const handleOutSideClick = (event) => {
     if (
       sortRef.current &&
@@ -26,7 +65,6 @@ export const ProductListForWeb = () => {
       // !!sortVisible && setSortVisible(false)
     }
   }
-
   useEffect(() => {
     document.addEventListener('click', handleOutSideClick)
 
@@ -35,16 +73,35 @@ export const ProductListForWeb = () => {
     }
   }, [])
   return (
-    <HStack justify="space-between" style={{width: '100%'}}>
+    <HStack
+      justify="space-between"
+      style={{width: '100%', minHeight: '40vh'}}
+      className="productWebPage-container"
+    >
       <VStack style={{width: '30%'}}>
-        <ProductListSideComp></ProductListSideComp>
+        <ProductListSideComp
+          selectedCategories={selectedCategories}
+          onCategoryChange={({id, name}) => {
+            setSelectedCategories((prev) => ({
+              id: id,
+              name: name
+            }))
+          }}
+        ></ProductListSideComp>
         <VStack>
           <HStack></HStack>
           <VStack></VStack>
         </VStack>
       </VStack>
-      <HStack style={{flex: 1}} justify="space-between" align="center">
-        <VStack>Products</VStack>
+      <HStack style={{flex: 1}} justify="space-between" align="flex-start">
+        <VStack gap="$3">
+          <Title subheading>Products</Title>
+          <HStack align="center" justify="space-between" gap="$4">
+            {data?.map((item: any, index: number) => {
+              return <ProductCard data={item} key={item.id} />
+            })}
+          </HStack>
+        </VStack>
         <div>
           <VStack className="sortMainContainer">
             <div
@@ -60,19 +117,55 @@ export const ProductListForWeb = () => {
               ref={sortRef}
             >
               <VStack>
-                <HStack align="center" gap="$3" className="filterItem">
+                <HStack
+                  align="center"
+                  gap="$3"
+                  className="filterItem"
+                  onClick={() => {
+                    setSortOrder((prev) => {
+                      return {...prev, parameter: 'price', order: 'asc'}
+                    })
+                  }}
+                >
                   <AiOutlineSortAscending></AiOutlineSortAscending>
                   <p>Asc (price low to high)</p>
                 </HStack>
-                <HStack align="center" gap="$3" className="filterItem">
+                <HStack
+                  align="center"
+                  gap="$3"
+                  className="filterItem"
+                  onClick={() => {
+                    setSortOrder((prev) => {
+                      return {...prev, parameter: 'price', order: 'desc'}
+                    })
+                  }}
+                >
                   <AiOutlineSortAscending></AiOutlineSortAscending>
                   <p>Desc (price hight to low)</p>
                 </HStack>
-                <HStack align="center" gap="$3" className="filterItem">
+                <HStack
+                  align="center"
+                  gap="$3"
+                  className="filterItem"
+                  onClick={() => {
+                    setSortOrder((prev) => {
+                      return {...prev, parameter: 'name', order: 'asc'}
+                    })
+                  }}
+                >
                   <AiOutlineSortAscending></AiOutlineSortAscending>
                   <p>Asc (Product Name A to Z)</p>
                 </HStack>
-                <HStack align="center" gap="$3" className="filterItem">
+                <HStack
+                  align="center"
+                  gap="$3"
+                  className="filterItem"
+                  onClick={() => {
+                    setSortOrder((prev) => {
+                      return {...prev, parameter: 'name', order: 'desc'}
+                    })
+                  }}
+                >
                   <AiOutlineSortAscending></AiOutlineSortAscending>
                   <p>Desc (Product Name A to Z)</p>
                 </HStack>
@@ -85,11 +178,53 @@ export const ProductListForWeb = () => {
   )
 }
 
-export const ProductListSideComp = () => {
+export const ProductListSideComp = ({
+  onCategoryChange,
+  selectedCategories
+}: {
+  onCategoryChange: ({id, name}: {id: string; name: string}) => void
+  selectedCategories: {
+    id: string
+    name: string
+  }
+}) => {
+  const {categoryData}: any = useSelector((state: any) => state.category)
+  console.log(selectedCategories, 'selected catogories')
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(
+      getCategoryListAction({
+        onSuccess: () => console.log('categoryList fetch Successfully')
+      })
+    )
+  }, [])
+
+  console.log(categoryData, 'categorydata')
   const [minMaxPrice, setMinMaxPrice] = useState({minPrice: 0, maxPrice: 20000})
+
   return (
-    <HStack align="center" justify="space-between" style={{width: '100%'}}>
+    <VStack
+      align="flex-start"
+      justify="space-between"
+      style={{width: '100%'}}
+      gap="$4"
+    >
       {/* <ProductPriceSlider /> */}
+      <VStack align="flex-start" justify="flex-start">
+        <Title primaryHeading>Categories</Title>
+        {categoryData?.map((item, index) => {
+          return (
+            <CheckBox
+              name={item.name}
+              label={item.name}
+              handleCheckboxChange={() =>
+                onCategoryChange({id: item.id, name: item.name})
+              }
+              check={item.name === selectedCategories.name}
+            />
+          )
+        })}
+      </VStack>
       <HStack
         style={{width: '90%'}}
         gap="$3"
@@ -133,7 +268,7 @@ export const ProductListSideComp = () => {
           ></InputField>
         </VStack>
       </HStack>
-    </HStack>
+    </VStack>
   )
 }
 

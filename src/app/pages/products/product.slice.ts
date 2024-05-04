@@ -15,6 +15,8 @@ const getProductListAction = createAsyncThunk(
         categoryId?: string
         isNewArrivals?: boolean
         isBestSelling?: boolean
+        sort:string,
+        order:string
       }
     },
     thunkAPI

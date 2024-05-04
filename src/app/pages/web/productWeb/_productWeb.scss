@@ -4,6 +4,9 @@
   position: relative;
 }
 
+.productWebPage-container {
+  padding: map-get($space, 5);
+}
 .sortModalContainer {
   background-color: white;
   padding: map-get($space, 3);
@@ -20,6 +23,7 @@
 }
 
 .filterItem {
+  cursor: pointer;
   transition: all 0.2s ease-in-out;
   &:hover {
     background-color: #fcedeb;
