@@ -613,6 +613,7 @@ import {getCartlistAction} from 'src/app/pages/web/cart/cart.slice'
 import {getCategoryListAction} from 'src/app/pages/category/category.slice'
 import {HiSearchCircle} from 'react-icons/hi'
 import {getProductListAction} from 'src/app/pages/products/product.slice'
+import {useNavigate} from 'react-router-dom'
 
 export const DesktopHeader = () => {
   const [category, setCategory] = useState<any>()
@@ -640,10 +641,12 @@ export const DesktopHeader = () => {
           link: item.name,
           type: 'page',
           hasChildren: true,
+          id: item.id,
           children: item.subCategories?.map((itemSub, indexSub) => {
             return {
               key: indexSub + index,
               name: itemSub.name,
+              id: itemSub.id,
               link: item.name / itemSub.name,
               type: 'page'
             }
@@ -796,14 +799,29 @@ export const DesktopHeader = () => {
       ]
     }
   ]
-
+  const navigate = useNavigate()
   return (
     <div className="navmenuList">
       <div className="navmenuContainer">
         {category?.map((menu) => (
           <Dropdown
             title={
-              <HStack gap="$3" align="center">
+              <HStack
+                gap="$3"
+                align="center"
+                onClick={() => {
+                  navigate(`/products?category=${menu.id}`)
+                  console.log(menu, 'meu')
+                  // dispatch(
+                  //   getProductListAction({
+                  //     onSuccess: () => {},
+                  //     query: {
+                  //       categoryId: menu.id
+                  //     }
+                  //   })
+                  // )
+                }}
+              >
                 <p className="menuText">{menu.name}</p>
 
                 {menu.hasChildren && <RiArrowDropDownLine size={22} />}
@@ -814,7 +832,21 @@ export const DesktopHeader = () => {
             {menu.children &&
               menu.children?.map((item) => (
                 <>
-                  <Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      navigate('/products')
+                      console.log(menu, 'meu')
+
+                      dispatch(
+                        getProductListAction({
+                          onSuccess: () => {},
+                          query: {
+                            subCategoryId: item.id
+                          }
+                        })
+                      )
+                    }}
+                  >
                     <HStack gap="$3" align="center">
                       <p className="menuText">{item.name}</p>{' '}
                       {item.hasChildren && (
@@ -1147,11 +1179,13 @@ export const TopHeader = () => {
 
   const [searchValue, setSearchValue] = useState<string>('')
   const debouncedSearchvalue = useDebounceValue(searchValue)
-
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(
       getProductListAction({
-        onSuccess: () => {},
+        onSuccess: () => {
+          navigate('/products')
+        },
         query: {
           search: debouncedSearchvalue
         }
@@ -1218,7 +1252,7 @@ export const TopHeader = () => {
 
       <div className="topHeader-container">
         <div className="topHeader">
-          <div className="topHeader-logo">
+          <div className="topHeader-logo" onClick={() => navigate('/home')}>
             <img
               src="src/assets/images/logo.jpg"
               alt="logo"

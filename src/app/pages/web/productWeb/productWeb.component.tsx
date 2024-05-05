@@ -15,6 +15,7 @@ import {getCategoryListAction} from '../../category/category.slice'
 import {getProductListAction} from '../../products/product.slice'
 import {Loader, ProductCard} from 'src/app/components'
 import toast from 'react-hot-toast'
+import {useQuery} from 'src/hooks'
 
 export const ProductListForWeb = () => {
   const [sortVisible, setSortVisible] = useState(false)
@@ -32,10 +33,25 @@ export const ProductListForWeb = () => {
 
   const dispatch = useDispatch()
 
+  const {category} = useQuery()
+  console.log('cc', category)
   const {data}: any = useSelector((state: any) => state.product)
 
   useEffect(() => {
+    console.log('ff', category)
+
+    !!category &&
+      setSelectedCategories(() => ({
+        id: category,
+        name: 'haawa'
+      }))
+  }, [category])
+  useEffect(() => {
     // if (selectedCategories.id !== 100) {
+
+    console.log(selectedCategories.id, 'selected categories id')
+
+    console.log('selected categories id', selectedCategories)
     dispatch(
       getProductListAction({
         onSuccess: () => {},

@@ -28,6 +28,9 @@ export const SearchInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue])
 
+
+  
+
   return (
     <div
       style={{

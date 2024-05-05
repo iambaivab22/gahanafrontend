@@ -267,11 +267,12 @@ export const ProductWebDetail = () => {
           </HStack>
         </VStack>
       </div>
-
-      <ProductSection
-        header="Similar Products"
-        isProfilePage={true}
-      ></ProductSection>
+      <div style={{marginBottom: '20px'}}>
+        <ProductSection
+          header="Similar Products"
+          isProfilePage={true}
+        ></ProductSection>
+      </div>
 
       {/* <ZoomSlider></ZoomSlider> */}
     </ActivityIndicator>

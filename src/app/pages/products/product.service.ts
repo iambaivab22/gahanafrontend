@@ -10,24 +10,24 @@ const getProductList = async (query?: {
   order?: string
   minPrice?: number
   maxPrice?: number
+  subCategoryId?: string
 }) => {
   console.log('sh')
 
   // &isNewArrivals=${query.isNewArrivals ?? ''}
-  // &isBestSelling=${query.isBestSelling}
-
+  console.log(query, 'subCat')
+  console.log('haha', query.subCategoryId)
   const response = await api<any>('get')(`/product`, {
     search: query.search ?? '',
     categoryId: query.categoryId ?? '',
     sort: query.sort ?? '',
     order: query.order ?? '',
     minPrice: query.minPrice ?? 0,
-    maxPrice: query.maxPrice ?? 20000
+    maxPrice: query.maxPrice ?? 20000,
+    subCategoryId: query.subCategoryId ?? ''
   })
 
   // const response = await api<any>('get')(`/product`)
-
-  console.log(response, 'datas response')
 
   return response.data
 }
@@ -38,7 +38,6 @@ const deleteProduct = async (productId: string) => {
 }
 
 const deleteProductImages = async (productId: string, imageId: string) => {
-  console.log(productId, 'productId from service')
   const response = await api<any>('delete')(`/product/${productId}/${imageId}`)
 }
 
