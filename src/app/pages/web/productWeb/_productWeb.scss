@@ -6,6 +6,9 @@
 
 .productWebPage-container {
   padding: map-get($space, 5);
+  width: 90%;
+
+  margin: 20px auto;
 }
 .sortModalContainer {
   background-color: white;

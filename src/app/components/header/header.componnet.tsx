@@ -607,7 +607,7 @@ import {Sidebar} from '../headerDrawer/headerDrawer.component'
 import {AiFillAccountBook, AiOutlineAccountBook} from 'react-icons/ai'
 import {RiArrowDropDownLine} from 'react-icons/ri'
 import {useDispatch, useSelector} from 'src/store'
-import {Children, useEffect, useState} from 'react'
+import {Children, useCallback, useEffect, useState} from 'react'
 import {getCookie} from 'src/helpers'
 import {getCartlistAction} from 'src/app/pages/web/cart/cart.slice'
 import {getCategoryListAction} from 'src/app/pages/category/category.slice'
@@ -799,8 +799,9 @@ export const DesktopHeader = () => {
   return (
     <div className="navmenuList">
       <div className="navmenuContainer">
-        {category?.map((menu) => (
+        {category?.map((menu, index) => (
           <Dropdown
+            key={index}
             title={
               <HStack
                 gap="$3"
@@ -830,17 +831,10 @@ export const DesktopHeader = () => {
               menu.children?.map((item) => (
                 <>
                   <Dropdown.Item
+                    key={item.id}
                     onClick={() => {
-                      navigate('/products')
-
-                      dispatch(
-                        getProductListAction({
-                          onSuccess: () => {},
-                          query: {
-                            subCategoryId: item.id
-                          }
-                        })
-                      )
+                      // navigate('/products')
+                      navigate(`/products?subCategoryId=${item.id}`)
                     }}
                   >
                     <HStack gap="$3" align="center">
@@ -1188,6 +1182,11 @@ export const TopHeader = () => {
   //   )
   // }, [debouncedSearchvalue])
 
+  const onSearchHandler = useCallback((searchedData: string) => {
+    console.log('onSearch handler called')
+    navigate(`/products?search=${searchedData}`)
+  }, [])
+
   return (
     <>
       <div className="header-top">
@@ -1259,7 +1258,8 @@ export const TopHeader = () => {
             <SearchField
               placeholder="Search Your Product"
               onChange={(e) => {
-                setSearchValue(e.target.value)
+                // setSearchValue(e.target.value)
+                onSearchHandler(e.target.value)
               }}
             ></SearchField>
           </div>

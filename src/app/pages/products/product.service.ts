@@ -14,6 +14,8 @@ const getProductList = async (query?: {
 }) => {
   // &isNewArrivals=${query.isNewArrivals ?? ''}
 
+  console.log('slice')
+
   const response = await api<any>('get')(`/product`, {
     search: query.search ?? '',
     categoryId: query.categoryId ?? '',
@@ -23,6 +25,8 @@ const getProductList = async (query?: {
     maxPrice: query.maxPrice ?? 20000,
     subCategoryId: query.subCategoryId ?? ''
   })
+
+  console.log(response, 'response from slice')
 
   // const response = await api<any>('get')(`/product`)
 

@@ -17,6 +17,7 @@ import {Loader, ProductCard} from 'src/app/components'
 import toast from 'react-hot-toast'
 import {useQuery} from 'src/hooks'
 import {useUpdateQuery} from 'src/hooks/useUpdateQuery.hook'
+import {FaSortAmountUp} from 'react-icons/fa'
 
 export const ProductListForWeb = () => {
   const [sortVisible, setSortVisible] = useState(false)
@@ -38,7 +39,7 @@ export const ProductListForWeb = () => {
 
   console.log('parent called', query)
 
-  const {data}: any = useSelector((state: any) => state.product)
+  const {data, loading}: any = useSelector((state: any) => state.product)
   const updateQuery = useUpdateQuery()
 
   // const {sort, order, categoryId, minPrice, maxPrice} = queries
@@ -85,7 +86,9 @@ export const ProductListForWeb = () => {
           order: query.order,
           categoryId: selectedCategories.id !== 'all' ? query.categoryId : '',
           minPrice: query.minPrice,
-          maxPrice: query.maxPrice
+          maxPrice: query.maxPrice,
+          search: query.search,
+          subCategoryId: query.subCategoryId
         }
 
         // queries
@@ -97,7 +100,9 @@ export const ProductListForWeb = () => {
     query.categoryId,
     query.categoryName,
     query.minPrice,
-    query.maxPrice
+    query.maxPrice,
+    query.search,
+    query.subCategoryId
   ])
 
   // useEffect(() => {
@@ -141,7 +146,7 @@ export const ProductListForWeb = () => {
   return (
     <HStack
       justify="space-between"
-      style={{width: '100%', minHeight: '40vh'}}
+      style={{width: '90%', minHeight: '40vh'}}
       className="productWebPage-container"
     >
       <VStack style={{width: '30%'}}>
@@ -171,7 +176,14 @@ export const ProductListForWeb = () => {
         <VStack gap="$3">
           <Title subheading>Products</Title>
           <HStack align="center" justify="space-between" gap="$4">
-            {data?.length > 0 ? (
+            {!!loading ? (
+              <Loader
+                variant="four"
+                loading={loading}
+                color="#0051ff"
+                size={80}
+              />
+            ) : data?.length > 0 ? (
               data?.map((item: any, index: number) => {
                 return <ProductCard data={item} key={item.id} />
               })
@@ -182,12 +194,17 @@ export const ProductListForWeb = () => {
         </VStack>
         <div>
           <VStack className="sortMainContainer">
-            <div
+            <HStack
               id="openModalButton"
               onClick={() => setSortVisible((prev) => !prev)}
+              align="center"
+              justify="flex-start"
+              style={{cursor: 'pointer'}}
+              gap="$3"
             >
               Sort
-            </div>
+              <FaSortAmountUp />
+            </HStack>
 
             <div
               className="sortModalContainer"

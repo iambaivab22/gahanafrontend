@@ -34,29 +34,29 @@ import {CartCard} from 'src/app/components'
 // import LoginPage from 'src/app/pages/login/login.page'
 
 export const Router: RouteObject[] = [
-  // {
-  //   path: '/product',
+  {
+    path: '/product',
 
-  //   element: <ProtectedAuth />,
-  //   children: [
-  //     {
-  //       path: '',
-  //       element: <ProductWebDetail />
-  //     },
-  //     {
-  //       path: 'add',
-  //       element: <AddProductPage />
-  //     },
-  //     {
-  //       path: 'update/:productId',
-  //       element: <AddProductPage />
-  //     },
-  //     {
-  //       path: 'view/:productId',
-  //       element: <ProductWebDetail />
-  //     }
-  //   ]
-  // },
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <ProductWebDetail />
+      },
+      {
+        path: 'add',
+        element: <AddProductPage />
+      },
+      {
+        path: 'update/:productId',
+        element: <AddProductPage />
+      },
+      {
+        path: 'view/:productId',
+        element: <ProductWebDetail />
+      }
+    ]
+  },
 
   {
     path: '/home',

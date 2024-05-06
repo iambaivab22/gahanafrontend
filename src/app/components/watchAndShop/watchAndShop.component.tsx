@@ -3,7 +3,11 @@ import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlaye
 
 export const WatchAndShopSection = ({data}: any) => {
   return (
-    <HStack justify="space-between" style={{width: '100%'}}>
+    <HStack
+      justify="flex-start"
+      gap="$3"
+      style={{width: '100%', cursor: 'pointer'}}
+    >
       {data?.map((item: any, index: number) => {
         return <WatchAndShopCard data={data?.[index]} />
       })}
@@ -12,6 +16,7 @@ export const WatchAndShopSection = ({data}: any) => {
 }
 
 export const WatchAndShopCard = ({data}: any) => {
+  console.log(data, 'was')
   return (
     <div className="watchAndShopCardContainer">
       <CustomVideoPlayerWatch

@@ -59,6 +59,8 @@ export const HomePage = () => {
     (state: any) => state.product
   )
 
+  console.log(watchandshopdata, 'watch and shop dataa')
+
   useEffect(() => {
     dispatch(
       getTestimonialListAction({
@@ -74,7 +76,16 @@ export const HomePage = () => {
       })
     )
 
-    dispatch(getProductListAction({}))
+    dispatch(
+      getProductListAction({
+        onSuccess: () => {
+          console.log('successfully hitted')
+        },
+        query: {
+          search: ''
+        }
+      })
+    )
   }, [])
   return (
     <>
