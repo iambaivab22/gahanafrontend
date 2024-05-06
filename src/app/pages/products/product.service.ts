@@ -12,11 +12,8 @@ const getProductList = async (query?: {
   maxPrice?: number
   subCategoryId?: string
 }) => {
-  console.log('sh')
-
   // &isNewArrivals=${query.isNewArrivals ?? ''}
-  console.log(query, 'subCat')
-  console.log('haha', query.subCategoryId)
+
   const response = await api<any>('get')(`/product`, {
     search: query.search ?? '',
     categoryId: query.categoryId ?? '',
@@ -33,7 +30,6 @@ const getProductList = async (query?: {
 }
 
 const deleteProduct = async (productId: string) => {
-  console.log(productId, 'productId from service')
   const response = await api<any>('delete')(`/product/${productId}`)
 }
 
@@ -65,7 +61,6 @@ const createProduct = async (body: any) => {
 }
 
 const updateProduct = async (body: any, productId: string) => {
-  console.log(body, 'bodyyyyy from update')
   const response = await api<Api.Base<{}>>('patch')(
     `/product/${productId}`,
     undefined,

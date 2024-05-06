@@ -623,17 +623,13 @@ export const DesktopHeader = () => {
   useEffect(() => {
     dispatch(
       getCategoryListAction({
-        onSuccess: () => console.log('categoryList fetch Successfully')
+        onSuccess: () => {}
       })
     )
   }, [])
 
-  console.log(categoryData, 'categorydata')
-
   useEffect(() => {
     const mappedCategoryWeb = categoryData?.map((item: any, index: number) => {
-      console.log(item, 'caetgory item')
-
       if (item?.subCategories?.length > 0) {
         return {
           key: index,
@@ -810,8 +806,9 @@ export const DesktopHeader = () => {
                 gap="$3"
                 align="center"
                 onClick={() => {
-                  navigate(`/products?category=${menu.id}`)
-                  console.log(menu, 'meu')
+                  navigate(
+                    `/products?categoryId=${menu.id}&categoryname=${menu.name}`
+                  )
                   // dispatch(
                   //   getProductListAction({
                   //     onSuccess: () => {},
@@ -835,7 +832,6 @@ export const DesktopHeader = () => {
                   <Dropdown.Item
                     onClick={() => {
                       navigate('/products')
-                      console.log(menu, 'meu')
 
                       dispatch(
                         getProductListAction({
@@ -1175,23 +1171,22 @@ export const TopHeader = () => {
     userId && dispatch(getCartlistAction({userId: userId}))
   }, [])
   const datas = useSelector((state: any) => state.cart)
-  console.log(datas, 'datas')
 
   const [searchValue, setSearchValue] = useState<string>('')
   const debouncedSearchvalue = useDebounceValue(searchValue)
   const navigate = useNavigate()
-  useEffect(() => {
-    dispatch(
-      getProductListAction({
-        onSuccess: () => {
-          navigate('/products')
-        },
-        query: {
-          search: debouncedSearchvalue
-        }
-      })
-    )
-  }, [debouncedSearchvalue])
+  // useEffect(() => {
+  //   dispatch(
+  //     getProductListAction({
+  //       onSuccess: () => {
+  //         navigate('/products')
+  //       },
+  //       query: {
+  //         search: debouncedSearchvalue
+  //       }
+  //     })
+  //   )
+  // }, [debouncedSearchvalue])
 
   return (
     <>

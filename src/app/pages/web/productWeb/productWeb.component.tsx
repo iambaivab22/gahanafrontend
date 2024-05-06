@@ -16,6 +16,7 @@ import {getProductListAction} from '../../products/product.slice'
 import {Loader, ProductCard} from 'src/app/components'
 import toast from 'react-hot-toast'
 import {useQuery} from 'src/hooks'
+import {useUpdateQuery} from 'src/hooks/useUpdateQuery.hook'
 
 export const ProductListForWeb = () => {
   const [sortVisible, setSortVisible] = useState(false)
@@ -33,40 +34,91 @@ export const ProductListForWeb = () => {
 
   const dispatch = useDispatch()
 
-  const {category} = useQuery()
-  console.log('cc', category)
+  const query = useQuery()
+
+  console.log('parent called', query)
+
   const {data}: any = useSelector((state: any) => state.product)
+  const updateQuery = useUpdateQuery()
+
+  // const {sort, order, categoryId, minPrice, maxPrice} = queries
+
+  // console.log(queries, 'queries')
+
+  // useEffect(() => {
+  //   console.log('called')
+  //   setSelectedCategories({name: 'hehe', id: query.category})
+  // }, [query.category])
+
+  // useEffect(() => {
+  //   console.log('update Query called')
+  //   // dispatch(
+  //   //   getProductListAction({
+  //   //     onSuccess: () => {},
+  //   //     query: {
+  //   //       sort: sortOrder.parameter,
+  //   //       order: sortOrder.order,
+  //   //       categoryId:
+  //   //         selectedCategories.id !== 'all' ? selectedCategories.id : '',
+  //   //       minPrice: minMaxPrice.minPrice,
+  //   //       maxPrice: minMaxPrice.maxPrice
+  //   //     }
+
+  //   //     // queries
+  //   //   })
+  //   // )
+
+  //   // }
+  // }, [
+  //   sortOrder.order,
+  //   sortOrder.parameter,
+  //   selectedCategories?.id,
+  //   minMaxPrice
+  // ])
 
   useEffect(() => {
-    console.log('ff', category)
-
-    !!category &&
-      setSelectedCategories(() => ({
-        id: category,
-        name: 'haawa'
-      }))
-  }, [category])
-  useEffect(() => {
-    // if (selectedCategories.id !== 100) {
-
-    console.log(selectedCategories.id, 'selected categories id')
-
-    console.log('selected categories id', selectedCategories)
     dispatch(
       getProductListAction({
         onSuccess: () => {},
         query: {
-          sort: sortOrder.parameter,
-          order: sortOrder.order,
-          categoryId:
-            selectedCategories.id !== 'all' ? selectedCategories.id : '',
-          minPrice: minMaxPrice.minPrice,
-          maxPrice: minMaxPrice.maxPrice
+          sort: query.sort,
+          order: query.order,
+          categoryId: selectedCategories.id !== 'all' ? query.categoryId : '',
+          minPrice: query.minPrice,
+          maxPrice: query.maxPrice
         }
+
+        // queries
       })
     )
-    // }
-  }, [sortOrder.order, sortOrder.parameter, selectedCategories.id, minMaxPrice])
+  }, [
+    query.sort,
+    query.order,
+    query.categoryId,
+    query.categoryName,
+    query.minPrice,
+    query.maxPrice
+  ])
+
+  // useEffect(() => {
+  //   console.log('api hit ', queries)
+  //   // dispatch(
+  //   //   getProductListAction({
+  //   //     onSuccess: () => {},
+  //   //     query:
+  //   //       // {
+  //   //       //   sort: sortOrder.parameter,
+  //   //       //   order: sortOrder.order,
+  //   //       //   categoryId:
+  //   //       //     selectedCategories.id !== 'all' ? selectedCategories.id : '',
+  //   //       //   minPrice: minMaxPrice.minPrice,
+  //   //       //   maxPrice: minMaxPrice.maxPrice
+  //   //       // }
+
+  //   //       queries
+  //   //   })
+  //   // )
+  // }, [sort, order, categoryId, minPrice, maxPrice])
 
   const handleOutSideClick = (event) => {
     if (
@@ -76,7 +128,6 @@ export const ProductListForWeb = () => {
     ) {
       setSortVisible(false)
     } else {
-      console.log(sortVisible, 'called')
       // !!sortVisible && setSortVisible(false)
     }
   }
@@ -97,13 +148,19 @@ export const ProductListForWeb = () => {
         <ProductListSideComp
           selectedCategories={selectedCategories}
           onCategoryChange={({id, name}) => {
-            setSelectedCategories((prev) => ({
-              id: id,
-              name: name
-            }))
+            // setSelectedCategories((prev) => ({
+            //   id: id,
+            //   name: name
+            // }))
+
+            updateQuery({
+              ...query,
+              categoryId: id,
+              categoryname: name
+            })
           }}
-          setMinMaxPrice={setMinMaxPrice}
-          minMaxPrice={minMaxPrice}
+          // setMinMaxPrice={setMinMaxPrice}
+          // minMaxPrice={minMaxPrice}
         ></ProductListSideComp>
         <VStack>
           <HStack></HStack>
@@ -143,8 +200,9 @@ export const ProductListForWeb = () => {
                   gap="$3"
                   className="filterItem"
                   onClick={() => {
-                    setSortOrder((prev) => {
-                      return {...prev, parameter: 'price', order: 'asc'}
+                    updateQuery({
+                      sort: 'price',
+                      order: 'asc'
                     })
                   }}
                 >
@@ -156,8 +214,9 @@ export const ProductListForWeb = () => {
                   gap="$3"
                   className="filterItem"
                   onClick={() => {
-                    setSortOrder((prev) => {
-                      return {...prev, parameter: 'price', order: 'desc'}
+                    updateQuery({
+                      sort: 'price',
+                      order: 'desc'
                     })
                   }}
                 >
@@ -169,8 +228,9 @@ export const ProductListForWeb = () => {
                   gap="$3"
                   className="filterItem"
                   onClick={() => {
-                    setSortOrder((prev) => {
-                      return {...prev, parameter: 'name', order: 'asc'}
+                    updateQuery({
+                      sort: 'name',
+                      order: 'asc'
                     })
                   }}
                 >
@@ -182,8 +242,9 @@ export const ProductListForWeb = () => {
                   gap="$3"
                   className="filterItem"
                   onClick={() => {
-                    setSortOrder((prev) => {
-                      return {...prev, parameter: 'name', order: 'desc'}
+                    updateQuery({
+                      sort: 'name',
+                      order: 'desc'
                     })
                   }}
                 >
@@ -205,31 +266,32 @@ export const ProductListSideComp = ({
   minMaxPrice,
   setMinMaxPrice
 }: {
-  onCategoryChange: ({id, name}: {id: string; name: string}) => void
-  selectedCategories: {
+  onCategoryChange?: ({id, name}: {id: string; name: string}) => void
+  selectedCategories?: {
     id: string
     name: string
   }
-  minMaxPrice: {minPrice: number; maxPrice: number}
-  setMinMaxPrice: React.Dispatch<
+  minMaxPrice?: {minPrice: number; maxPrice: number}
+  setMinMaxPrice?: React.Dispatch<
     React.SetStateAction<{
       minPrice: number
       maxPrice: number
     }>
   >
 }) => {
+  console.log('product list side comp called')
+  const query = useQuery()
+
   const {categoryData}: any = useSelector((state: any) => state.category)
-  console.log(selectedCategories, 'selected catogories')
   const dispatch = useDispatch()
+  const updateQuery = useUpdateQuery()
   useEffect(() => {
     dispatch(
       getCategoryListAction({
-        onSuccess: () => console.log('categoryList fetch Successfully')
+        onSuccess: () => {}
       })
     )
   }, [])
-
-  console.log(categoryData, 'categorydata')
 
   return (
     <VStack
@@ -249,7 +311,7 @@ export const ProductListSideComp = ({
               handleCheckboxChange={() =>
                 onCategoryChange({id: item.id, name: item.name})
               }
-              check={item.name === selectedCategories.name}
+              check={item.name === query.categoryname}
             />
           )
         })}
@@ -257,10 +319,8 @@ export const ProductListSideComp = ({
         <CheckBox
           name="all"
           label="All"
-          handleCheckboxChange={() =>
-            onCategoryChange({id: 'all', name: 'All'})
-          }
-          check={'All' === selectedCategories.name}
+          handleCheckboxChange={() => onCategoryChange({id: '', name: 'All'})}
+          check={'All' === query.categoryname}
         />
       </VStack>
       <HStack
@@ -276,14 +336,16 @@ export const ProductListSideComp = ({
             // style={{width: '40%'}}
             type="number"
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
-              console.log(e.target.value, 'value changes hai')
-              setMinMaxPrice((prev: any) => ({
-                ...prev,
+              // setMinMaxPrice((prev: any) => ({
+              //   ...prev,
+              //   minPrice: e.target.value
+              // }))
+              updateQuery({
+                // ...query,
                 minPrice: e.target.value
-              }))
+              })
             }}
             placeholder="Enter minimum price"
-            value={minMaxPrice.minPrice}
           ></InputField>
         </VStack>
         <HStack justify="center" align="center">
@@ -296,13 +358,17 @@ export const ProductListSideComp = ({
             type="number"
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
               console.log(e.target.value, 'value changes hai')
-              setMinMaxPrice((prev: any) => ({
-                ...prev,
+              // setMinMaxPrice((prev: any) => ({
+              //   ...prev,
+              //   maxPrice: e.target.value
+              // }))
+
+              updateQuery({
+                ...query,
                 maxPrice: e.target.value
-              }))
+              })
             }}
             placeholder="Enter max price"
-            value={minMaxPrice.maxPrice}
           ></InputField>
         </VStack>
       </HStack>

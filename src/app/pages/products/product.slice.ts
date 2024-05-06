@@ -25,7 +25,6 @@ const getProductListAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      console.log('query.categoryId', query)
       const response = await productService.getProductList(query && query)
       onSuccess?.(response)
       // console.log(response, 'from product servei')
@@ -50,7 +49,6 @@ const getAllProductVariantImagesAction = createAsyncThunk(
       const response = await productService.getAllProductVariantImages()
       onSuccess?.(response)
 
-      console.log(response, 'ddd')
       return response
     } catch (error) {
       return thunkAPI.rejectWithValue('Cannot get product variant!')
@@ -70,10 +68,9 @@ const delteProductAction = createAsyncThunk(
     },
     thunkAPI
   ) => {
-    console.log(productId, 'productId slice')
     try {
       const response = await productService.deleteProduct(productId)
-      console.log('on delete sucess called')
+
       onSuccess && onSuccess(response)
       return response
     } catch (error) {
@@ -97,7 +94,6 @@ const delteProductImageAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      console.log('productIMages slice', productId)
       const response = await productService.deleteProductImages(
         productId,
         imageId
@@ -125,7 +121,6 @@ const deleteProductColorVariantImagesAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      console.log('productIMages slice', variantId)
       const response = await productService.deleteProductColorVariantImages(
         variantId,
         imageId
@@ -151,7 +146,6 @@ const createProductAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      console.log(productBody, 'productBody create')
       const response = await productService.createProduct(productBody)
       onSuccess && onSuccess(response)
       return response
@@ -174,7 +168,6 @@ const createProductImageAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      // console.log(variantBody, 'productBody create')
       const response = await productService.CreateProductImage(variantBody)
       onSuccess && onSuccess(response)
       return response
@@ -199,7 +192,6 @@ const updateProductAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      console.log(productBody, 'productBody')
       const response = await productService.updateProduct(
         productBody,
         productId
@@ -222,7 +214,6 @@ const getProductDetailByIdAction = createAsyncThunk(
     },
     thunkAPI
   ) => {
-    console.log('getproduct detail by id called')
     try {
       const response = await productService.getProductDetailById(productId)
       return response
