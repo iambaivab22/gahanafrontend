@@ -1,4 +1,5 @@
 .shopByBudgetWeb-container {
+  cursor: pointer;
   .shopByBudgetWeb {
     border: 6px solid red;
     padding: map-get($space, 7) map-get($space, 8);

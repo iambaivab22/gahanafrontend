@@ -4,6 +4,13 @@
   position: relative;
 }
 
+.productListContainer {
+  width: 100%;
+
+  flex-wrap: wrap !important;
+  gap: 12px;
+}
+
 .productWebPage-container {
   padding: map-get($space, 5);
   width: 90%;

@@ -120,7 +120,11 @@ export const HomePage = () => {
             <VStack gap="$3">
               <div className="jobsSectionContainer-header">SHOP BY BUDGET</div>
 
-              <HStack justify="center" gap="$5" style={{width: '100%'}}>
+              <HStack
+                justify="center"
+                gap="$5"
+                style={{width: '100%', marginBottom: '12px'}}
+              >
                 {shopByBudgetData?.map((item, index) => {
                   return <ShopByBudgetWeb data={item}></ShopByBudgetWeb>
                 })}

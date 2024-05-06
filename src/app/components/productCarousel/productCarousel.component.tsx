@@ -7,11 +7,9 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import {useMedia, useQuery} from 'src/hooks'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
+import {WatchAndShopCard} from '../watchAndShop/watchAndShop.component'
 
-export const ProductCarousel = ({
-  handleCarouselClick,
-  productCarouselData
-}: Comp.ProductClickProps) => {
+export const ProductCarousel = ({data}: {data: any}) => {
   const query = useQuery()
   const media = useMedia()
   const [slidesToShow, setSlidesToShow] = useState(5)
@@ -23,35 +21,16 @@ export const ProductCarousel = ({
   const isDataExtractionActive = query.isAidataExtraction === 'true'
 
   useEffect(() => {
-    if (isCarouselOcrActive) {
-      handleCarouselClick(2)
-
-      setActiveItem(2)
-    } else if (isFolderSearchActive) {
-      handleCarouselClick(1)
-
-      setActiveItem(1)
-    } else if (isQuickSummaryActive) {
-      handleCarouselClick(4)
-      setActiveItem(4)
-    } else if (isDataExtractionActive) {
-      handleCarouselClick(3)
-      setActiveItem(3)
-    }
-  }, [
-    isCarouselOcrActive,
-    isFolderSearchActive,
-    isQuickSummaryActive,
-    isDataExtractionActive
-  ])
-
-  useEffect(() => {
     media?.xs && setSlidesToShow(1)
     media?.sm && setSlidesToShow(2)
     media?.md && setSlidesToShow(3)
     media?.lg && setSlidesToShow(4)
     media?.xl && setSlidesToShow(5)
   }, [media.xl, media.lg, media.md, media.sm])
+
+  const handleCarouselClick = (item) => {
+    setActiveItem(item)
+  }
 
   return (
     <div className="productCarouselContainer">
@@ -62,8 +41,8 @@ export const ProductCarousel = ({
             onClick={() =>
               setActiveItem((prev) => {
                 if (prev === 1) {
-                  handleCarouselClick(productCarouselData.length)
-                  return productCarouselData.length
+                  handleCarouselClick(data.length)
+                  return data.length
                 } else {
                   handleCarouselClick(prev - 1)
                   return prev - 1
@@ -83,6 +62,15 @@ export const ProductCarousel = ({
             }}
             modules={[Pagination, Navigation]}
           >
+            {data?.map((item: any, index: number) => {
+              return (
+                <SwiperSlide key={item.id}>
+                  <WatchAndShopCard data={data?.[index]} />
+                </SwiperSlide>
+              )
+            })}
+
+            {/* 
             {productCarouselData?.map((item: any, index: number) => (
               <SwiperSlide key={item.id}>
                 <div
@@ -108,13 +96,13 @@ export const ProductCarousel = ({
                   <div className="eachProduct-name">{item.title}</div>
                 </div>
               </SwiperSlide>
-            ))}
+            ))} */}
           </Swiper>
           <div
             className="swiper-button-next-custom"
             onClick={() =>
               setActiveItem((prev) => {
-                if (prev === productCarouselData.length) {
+                if (prev === data?.length) {
                   handleCarouselClick(1)
                   return 1
                 } else {

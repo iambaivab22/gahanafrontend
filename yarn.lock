@@ -10085,10 +10085,10 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-swiper@^11.0.3:
-  version "11.0.3"
-  resolved "https://registry.npmjs.org/swiper/-/swiper-11.0.3.tgz"
-  integrity sha512-MyV9ooQsriAe2EibeamqewLjgCfSvl2xoyratl6S3ln5BXDL4BzlO6mxcbLMCzQL6Z60b/u0AS/nKrepL0+TAg==
+swiper@^11.1.1:
+  version "11.1.1"
+  resolved "https://registry.npmjs.org/swiper/-/swiper-11.1.1.tgz"
+  integrity sha512-jGmEA/fNz1lACIcY4/40ggm1Gcyv+EUivmgV/Jd2WFPsEJhbWXnRAwzZR8OPjkBLtDxmzcoYG/iiAMWfRs0YKQ==
 
 symbol-tree@^3.2.4:
   version "3.2.4"

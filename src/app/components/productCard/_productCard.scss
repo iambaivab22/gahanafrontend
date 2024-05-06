@@ -1,12 +1,15 @@
 .productCard-container {
-  width: 100%;
   // height: 40vh;
+  width: 30%;
 
   .productCard {
     padding: map-get($space, 4);
     border-radius: map-get($radius, default);
     background: white;
-    min-width: 250px;
+    width: 100%;
+    // min-width: 250px;
+    // max-width: 350px;
+
     border-radius: 6px;
     // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border: 1px solid $lightBorderColor;

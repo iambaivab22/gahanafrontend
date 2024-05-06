@@ -149,7 +149,7 @@ export const ProductListForWeb = () => {
       style={{width: '90%', minHeight: '40vh'}}
       className="productWebPage-container"
     >
-      <VStack style={{width: '30%'}}>
+      <VStack style={{width: '25%'}}>
         <ProductListSideComp
           selectedCategories={selectedCategories}
           onCategoryChange={({id, name}) => {
@@ -167,111 +167,114 @@ export const ProductListForWeb = () => {
           // setMinMaxPrice={setMinMaxPrice}
           // minMaxPrice={minMaxPrice}
         ></ProductListSideComp>
-        <VStack>
-          <HStack></HStack>
-          <VStack></VStack>
-        </VStack>
       </VStack>
-      <HStack style={{flex: 1}} justify="space-between" align="flex-start">
-        <VStack gap="$3">
+      <HStack style={{width: '75%'}} justify="space-between" align="flex-start">
+        <VStack gap="$3" style={{width: '100%'}}>
           <Title subheading>Products</Title>
-          <HStack align="center" justify="space-between" gap="$4">
-            {!!loading ? (
-              <Loader
-                variant="four"
-                loading={loading}
-                color="#0051ff"
-                size={80}
-              />
-            ) : data?.length > 0 ? (
-              data?.map((item: any, index: number) => {
-                return <ProductCard data={item} key={item.id} />
-              })
-            ) : (
-              <div>No Product found</div>
-            )}
-          </HStack>
-        </VStack>
-        <div>
-          <VStack className="sortMainContainer">
-            <HStack
-              id="openModalButton"
-              onClick={() => setSortVisible((prev) => !prev)}
-              align="center"
-              justify="flex-start"
-              style={{cursor: 'pointer'}}
-              gap="$3"
-            >
-              Sort
-              <FaSortAmountUp />
-            </HStack>
 
-            <div
-              className="sortModalContainer"
-              style={{scale: sortVisible ? '1' : '0'}}
-              ref={sortRef}
+          {!!loading ? (
+            <Loader
+              variant="four"
+              loading={loading}
+              color="#0051ff"
+              size={80}
+            />
+          ) : data?.length > 0 ? (
+            <HStack
+              align="center"
+              justify="space-between"
+              gap="$4"
+              className="productListContainer"
             >
-              <VStack>
-                <HStack
-                  align="center"
-                  gap="$3"
-                  className="filterItem"
-                  onClick={() => {
-                    updateQuery({
-                      sort: 'price',
-                      order: 'asc'
-                    })
-                  }}
-                >
-                  <AiOutlineSortAscending></AiOutlineSortAscending>
-                  <p>Asc (price low to high)</p>
-                </HStack>
-                <HStack
-                  align="center"
-                  gap="$3"
-                  className="filterItem"
-                  onClick={() => {
-                    updateQuery({
-                      sort: 'price',
-                      order: 'desc'
-                    })
-                  }}
-                >
-                  <AiOutlineSortAscending></AiOutlineSortAscending>
-                  <p>Desc (price hight to low)</p>
-                </HStack>
-                <HStack
-                  align="center"
-                  gap="$3"
-                  className="filterItem"
-                  onClick={() => {
-                    updateQuery({
-                      sort: 'name',
-                      order: 'asc'
-                    })
-                  }}
-                >
-                  <AiOutlineSortAscending></AiOutlineSortAscending>
-                  <p>Asc (Product Name A to Z)</p>
-                </HStack>
-                <HStack
-                  align="center"
-                  gap="$3"
-                  className="filterItem"
-                  onClick={() => {
-                    updateQuery({
-                      sort: 'name',
-                      order: 'desc'
-                    })
-                  }}
-                >
-                  <AiOutlineSortAscending></AiOutlineSortAscending>
-                  <p>Desc (Product Name A to Z)</p>
-                </HStack>
-              </VStack>
-            </div>
-          </VStack>
-        </div>
+              {data?.map((item: any, index: number) => {
+                return <ProductCard data={item} key={item.id} />
+              })}
+            </HStack>
+          ) : (
+            <div>No Product found</div>
+          )}
+        </VStack>
+
+        <VStack className="sortMainContainer">
+          <HStack
+            id="openModalButton"
+            onClick={() => setSortVisible((prev) => !prev)}
+            align="center"
+            justify="flex-start"
+            style={{cursor: 'pointer'}}
+            gap="$3"
+          >
+            Sort
+            <FaSortAmountUp />
+          </HStack>
+
+          <div
+            className="sortModalContainer"
+            style={{scale: sortVisible ? '1' : '0'}}
+            ref={sortRef}
+          >
+            <VStack>
+              <HStack
+                align="center"
+                gap="$3"
+                className="filterItem"
+                onClick={() => {
+                  updateQuery({
+                    sort: 'price',
+                    order: 'asc'
+                  })
+                }}
+              >
+                <AiOutlineSortAscending></AiOutlineSortAscending>
+                <p>Asc (price low to high)</p>
+              </HStack>
+              <HStack
+                align="center"
+                gap="$3"
+                className="filterItem"
+                onClick={() => {
+                  updateQuery({
+                    sort: 'price',
+                    order: 'desc'
+                  })
+                }}
+              >
+                <AiOutlineSortAscending></AiOutlineSortAscending>
+                <p>Desc (price hight to low)</p>
+              </HStack>
+              <HStack
+                align="center"
+                gap="$3"
+                className="filterItem"
+                onClick={() => {
+                  updateQuery({
+                    sort: 'name',
+                    order: 'asc'
+                  })
+                }}
+              >
+                <AiOutlineSortAscending></AiOutlineSortAscending>
+                <p>Asc (Product Name A to Z)</p>
+              </HStack>
+              <HStack
+                align="center"
+                gap="$3"
+                className="filterItem"
+                onClick={() => {
+                  updateQuery({
+                    sort: 'name',
+                    order: 'desc'
+                  })
+                }}
+              >
+                <AiOutlineSortAscending></AiOutlineSortAscending>
+                <p>Desc (Product Name A to Z)</p>
+              </HStack>
+            </VStack>
+          </div>
+        </VStack>
+
+        <div></div>
       </HStack>
     </HStack>
   )

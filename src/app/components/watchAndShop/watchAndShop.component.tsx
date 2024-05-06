@@ -8,9 +8,11 @@ export const WatchAndShopSection = ({data}: any) => {
       gap="$3"
       style={{width: '100%', cursor: 'pointer'}}
     >
-      {data?.map((item: any, index: number) => {
+      {/* {data?.map((item: any, index: number) => {
         return <WatchAndShopCard data={data?.[index]} />
-      })}
+      })} */}
+
+      <ProductCarousel data={data}></ProductCarousel>
     </HStack>
   )
 }
@@ -33,6 +35,7 @@ import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
 import {FaPlay, FaWindowClose} from 'react-icons/fa'
 import {IoClose, IoCloseCircle} from 'react-icons/io5'
 import {HStack, VStack} from 'src/app/common'
+import {ProductCarousel} from '../productCarousel'
 
 const CustomVideoPlayerWatch = ({videoUrl, data, thumbnailUrl}) => {
   const [isFullScreen, setIsFullScreen] = useState(false)
