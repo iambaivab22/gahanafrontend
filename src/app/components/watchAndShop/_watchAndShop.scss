@@ -78,15 +78,18 @@
     z-index: 5000003;
   }
 
-  .video-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-  }
-
   video {
     width: 100%;
     height: 100%;
+  }
+
+  .video-container-fullScreen video {
+    position: fixed !important;
+    width: 100vw !important;
+    // position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh !important;
   }
 
   .close-button {

@@ -168,9 +168,90 @@ export const ProductListForWeb = () => {
           // minMaxPrice={minMaxPrice}
         ></ProductListSideComp>
       </VStack>
-      <HStack style={{width: '75%'}} justify="space-between" align="flex-start">
+      <VStack style={{width: '75%'}} justify="space-between" align="flex-start">
         <VStack gap="$3" style={{width: '100%'}}>
-          <Title subheading>Products</Title>
+          <HStack justify="space-between" align="center">
+            <Title subheading>Products</Title>
+
+            <VStack className="sortMainContainer">
+              <HStack
+                id="openModalButton"
+                onClick={() => setSortVisible((prev) => !prev)}
+                align="center"
+                justify="flex-start"
+                style={{cursor: 'pointer'}}
+                gap="$3"
+              >
+                Sort
+                <FaSortAmountUp />
+              </HStack>
+
+              <div
+                className="sortModalContainer"
+                style={{scale: sortVisible ? '1' : '0'}}
+                ref={sortRef}
+              >
+                <VStack>
+                  <HStack
+                    align="center"
+                    gap="$3"
+                    className="filterItem"
+                    onClick={() => {
+                      updateQuery({
+                        sort: 'price',
+                        order: 'asc'
+                      })
+                    }}
+                  >
+                    <AiOutlineSortAscending></AiOutlineSortAscending>
+                    <p>Asc (price low to high)</p>
+                  </HStack>
+                  <HStack
+                    align="center"
+                    gap="$3"
+                    className="filterItem"
+                    onClick={() => {
+                      updateQuery({
+                        sort: 'price',
+                        order: 'desc'
+                      })
+                    }}
+                  >
+                    <AiOutlineSortAscending></AiOutlineSortAscending>
+                    <p>Desc (price hight to low)</p>
+                  </HStack>
+                  <HStack
+                    align="center"
+                    gap="$3"
+                    className="filterItem"
+                    onClick={() => {
+                      updateQuery({
+                        sort: 'name',
+                        order: 'asc'
+                      })
+                    }}
+                  >
+                    <AiOutlineSortAscending></AiOutlineSortAscending>
+                    <p>Asc (Product Name A to Z)</p>
+                  </HStack>
+                  <HStack
+                    align="center"
+                    gap="$3"
+                    className="filterItem"
+                    onClick={() => {
+                      updateQuery({
+                        sort: 'name',
+                        order: 'desc'
+                      })
+                    }}
+                  >
+                    <AiOutlineSortAscending></AiOutlineSortAscending>
+                    <p>Desc (Product Name A to Z)</p>
+                  </HStack>
+                </VStack>
+              </div>
+            </VStack>
+          </HStack>
 
           {!!loading ? (
             <Loader
@@ -180,102 +261,16 @@ export const ProductListForWeb = () => {
               size={80}
             />
           ) : data?.length > 0 ? (
-            <HStack
-              align="center"
-              justify="space-between"
-              gap="$4"
-              className="productListContainer"
-            >
+            <div style={{}} className="productListContainer">
               {data?.map((item: any, index: number) => {
                 return <ProductCard data={item} key={item.id} />
               })}
-            </HStack>
+            </div>
           ) : (
             <div>No Product found</div>
           )}
         </VStack>
-
-        <VStack className="sortMainContainer">
-          <HStack
-            id="openModalButton"
-            onClick={() => setSortVisible((prev) => !prev)}
-            align="center"
-            justify="flex-start"
-            style={{cursor: 'pointer'}}
-            gap="$3"
-          >
-            Sort
-            <FaSortAmountUp />
-          </HStack>
-
-          <div
-            className="sortModalContainer"
-            style={{scale: sortVisible ? '1' : '0'}}
-            ref={sortRef}
-          >
-            <VStack>
-              <HStack
-                align="center"
-                gap="$3"
-                className="filterItem"
-                onClick={() => {
-                  updateQuery({
-                    sort: 'price',
-                    order: 'asc'
-                  })
-                }}
-              >
-                <AiOutlineSortAscending></AiOutlineSortAscending>
-                <p>Asc (price low to high)</p>
-              </HStack>
-              <HStack
-                align="center"
-                gap="$3"
-                className="filterItem"
-                onClick={() => {
-                  updateQuery({
-                    sort: 'price',
-                    order: 'desc'
-                  })
-                }}
-              >
-                <AiOutlineSortAscending></AiOutlineSortAscending>
-                <p>Desc (price hight to low)</p>
-              </HStack>
-              <HStack
-                align="center"
-                gap="$3"
-                className="filterItem"
-                onClick={() => {
-                  updateQuery({
-                    sort: 'name',
-                    order: 'asc'
-                  })
-                }}
-              >
-                <AiOutlineSortAscending></AiOutlineSortAscending>
-                <p>Asc (Product Name A to Z)</p>
-              </HStack>
-              <HStack
-                align="center"
-                gap="$3"
-                className="filterItem"
-                onClick={() => {
-                  updateQuery({
-                    sort: 'name',
-                    order: 'desc'
-                  })
-                }}
-              >
-                <AiOutlineSortAscending></AiOutlineSortAscending>
-                <p>Desc (Product Name A to Z)</p>
-              </HStack>
-            </VStack>
-          </div>
-        </VStack>
-
-        <div></div>
-      </HStack>
+      </VStack>
     </HStack>
   )
 }

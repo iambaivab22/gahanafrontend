@@ -88,7 +88,7 @@ const CustomVideoPlayerWatch = ({videoUrl, data, thumbnailUrl}) => {
           {/* </div> */}
         </div>
       ) : (
-        <div className="video-container">
+        <div className="video-container-fullScreen">
           <button
             className="close-button"
             onClick={(e: any) => closeFullScreen(e)}

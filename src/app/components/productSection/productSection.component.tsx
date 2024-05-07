@@ -61,9 +61,11 @@ export const ProductSection = ({
       {/* {!!(!!jobItems && jobItems.length > 0) ? ( */}
       <div
         className="jobsSectionContainer-items"
-        style={{
-          gridTemplateColumns: media.md ? `repeat(${itemOnGrid}, 1fr)` : ''
-        }}
+        style={
+          {
+            // gridTemplateColumns: media.md ? `repeat(${itemOnGrid}, 1fr)` : ''
+          }
+        }
       >
         {data?.map((item: any, index: number) => {
           return <ProductCard data={item} key={item.id} />

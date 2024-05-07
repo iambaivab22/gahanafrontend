@@ -1,12 +1,12 @@
 .productCard-container {
   // height: 40vh;
-  width: 30%;
+  width: 100%;
 
   .productCard {
     padding: map-get($space, 4);
     border-radius: map-get($radius, default);
     background: white;
-    width: 100%;
+    // width: 30%;
     // min-width: 250px;
     // max-width: 350px;
 
