@@ -8,7 +8,9 @@
     height: 100%;
 
     color: map-get($text, primary);
-    // border: 2px solid red;
+
+    &-left {
+    }
 
     &-detailBottom-description-content {
       color: map-get($text, gray);
@@ -17,6 +19,8 @@
     }
 
     &-detailTop {
+      width: 40%;
+
       &-color {
         &-item {
           height: 30px;
@@ -42,6 +46,16 @@
         color: map-get($text, primary);
         font-size: map-get($fontSizes, 5) !important;
         line-height: 1.2;
+      }
+
+      &-description {
+        max-height: 120px;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .originalPrice {

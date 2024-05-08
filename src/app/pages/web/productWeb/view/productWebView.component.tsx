@@ -120,7 +120,7 @@ export const ProductWebDetail = () => {
       <div className="productDetail-container">
         <VStack className="productDetail">
           <HStack style={{width: '100%'}} gap="$3">
-            <div style={{width: '50%'}}>
+            <div style={{width: '60%'}} className="productDetail-left">
               {/* <CarouselSlider>
                 {products?.map((data: any, index: any) => (
                   <img
@@ -145,17 +145,18 @@ export const ProductWebDetail = () => {
                 {productDetailData?.name}
               </Title>
 
-              <VStack
+              <div
+                className="productDetail-detailTop-description"
                 dangerouslySetInnerHTML={{
                   __html: productDetailData?.description
                 }}
-              ></VStack>
+              ></div>
 
-              <HStack>
+              {/* <HStack>
                 <div className="productDetail-detailBottom-description-content">
                   {productDetailData?.details}
                 </div>
-              </HStack>
+              </HStack> */}
               <HStack justify="flex-start" gap="$5">
                 <p
                   // subheading
