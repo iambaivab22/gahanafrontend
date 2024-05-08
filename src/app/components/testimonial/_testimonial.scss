@@ -205,10 +205,12 @@ p {
 .info {
   margin-bottom: 0.75rem;
   width: 60%;
+  height: 100px;
+
   // border: 2px solid red;
   margin: auto;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -99,11 +99,13 @@ export const HomePage = () => {
           <ProductSection
             header="Best Selling"
             isHomePage={true}
+            homeCategory="isBestSelling"
           ></ProductSection>
           <div>
             <ProductSection
               header="New Arrivals"
               isHomePage={true}
+              homeCategory="isNewArrivals"
             ></ProductSection>
           </div>
           {testimonialList?.length > 0 && (

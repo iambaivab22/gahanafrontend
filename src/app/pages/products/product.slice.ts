@@ -25,7 +25,7 @@ const getProductListAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      console.log('response')
+      console.log('response service', query)
       const response = await productService.getProductList(query && query)
 
       onSuccess?.(response)

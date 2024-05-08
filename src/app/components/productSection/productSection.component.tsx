@@ -5,7 +5,7 @@ import moment from 'moment'
 import {useMedia} from 'src/hooks'
 
 import {getImageUrl} from 'src/helpers/getImageUrl.helper'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {ProductCard} from '../productCard'
 import {useSelector, useDispatch} from 'src/store'
 import {useEffect} from 'react'
@@ -19,7 +19,8 @@ export const ProductSection = ({
   jobItems,
   header,
   itemOnGrid,
-  isHomePage
+  isHomePage,
+  homeCategory
 }: any) => {
   const media = useMedia()
   // const dispatch = useDispatch()
@@ -43,6 +44,7 @@ export const ProductSection = ({
   const {data}: any = useSelector((state: any) => state.product)
 
   console.log(data, 'data from ps')
+  const navigate = useNavigate()
 
   return (
     <div className="jobsSectionContainer">
@@ -75,7 +77,20 @@ export const ProductSection = ({
         <a> */}
 
       {isHomePage && (
-        <div className="jobsSectionContainer-seemore">See more</div>
+        <div
+          className="jobsSectionContainer-seemore"
+          onClick={() => {
+            navigate(
+              `/products?${
+                homeCategory === 'isBestSelling'
+                  ? 'isBestSelling=true'
+                  : 'isNewArrivals=true'
+              }`
+            )
+          }}
+        >
+          See more
+        </div>
       )}
       {/* </a>
       </Link> */}

@@ -19,6 +19,7 @@
         // border: 2px solid pink;
         height: 60px;
         width: 60px;
+        width: 30%;
         color: black;
         img {
           display: block;
@@ -28,6 +29,7 @@
       }
 
       .productDescription {
+        width: 70%;
         color: black;
         .productTitle {
           display: -webkit-box;
@@ -83,10 +85,12 @@
     height: 100%;
   }
 
-  .video-container-fullScreen video {
+  .video-container-fullScreen .activeVideo {
     position: fixed !important;
     width: 100vw !important;
-    // position: fixed;
+
+    border: 5px solid red;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh !important;

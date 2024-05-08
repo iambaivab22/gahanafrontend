@@ -88,7 +88,9 @@ export const ProductListForWeb = () => {
           minPrice: query.minPrice,
           maxPrice: query.maxPrice,
           search: query.search,
-          subCategoryId: query.subCategoryId
+          subCategoryId: query.subCategoryId,
+          isBestSelling: query.isBestSelling,
+          isNewArrivals: query.isNewArrivals
         }
 
         // queries
@@ -102,7 +104,9 @@ export const ProductListForWeb = () => {
     query.minPrice,
     query.maxPrice,
     query.search,
-    query.subCategoryId
+    query.subCategoryId,
+    query.bestSelling,
+    query.isNewArrivals
   ])
 
   // useEffect(() => {

@@ -8,6 +8,7 @@ import 'swiper/css/navigation'
 import {useMedia, useQuery} from 'src/hooks'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
 import {WatchAndShopCard} from '../watchAndShop/watchAndShop.component'
+import {IoClose} from 'react-icons/io5'
 
 export const ProductCarousel = ({data}: {data: any}) => {
   const query = useQuery()
@@ -19,6 +20,9 @@ export const ProductCarousel = ({data}: {data: any}) => {
   const isQuickSummaryActive = query.isQuickSummary === 'true'
 
   const isDataExtractionActive = query.isAidataExtraction === 'true'
+
+  const [isFullScreen, setIsFullScreen] = useState(false)
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0)
 
   useEffect(() => {
     media?.xs && setSlidesToShow(1)
@@ -63,12 +67,40 @@ export const ProductCarousel = ({data}: {data: any}) => {
             modules={[Pagination, Navigation]}
           >
             {data?.map((item: any, index: number) => {
+              // !isFullScreen && (
               return (
                 <SwiperSlide key={item.id}>
-                  <WatchAndShopCard data={data?.[index]} />
+                  <WatchAndShopCard
+                    isFullScreen={isFullScreen}
+                    setActiveIndex={setActiveVideoIndex}
+                    index={index}
+                    data={data?.[index]}
+                    setIsFullScreen={setIsFullScreen}
+                  />
                 </SwiperSlide>
               )
+              // )
             })}
+
+            {isFullScreen && (
+              <div className="video-container-fullScreen">
+                <button
+                  className="close-button"
+                  onClick={(e: any) => {
+                    console.log('close clicked')
+                    setIsFullScreen(false)
+                  }}
+                >
+                  <IoClose size={20} color="red" stroke="white"></IoClose>
+                </button>
+                <video
+                  src={`http://localhost:8000/video/${data[activeVideoIndex]?.video}`}
+                  controls
+                  autoPlay
+                  className="activeVideo"
+                />
+              </div>
+            )}
 
             {/* 
             {productCarouselData?.map((item: any, index: number) => (

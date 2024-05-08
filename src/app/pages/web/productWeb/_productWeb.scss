@@ -10,9 +10,9 @@
   display: grid;
   justify-content: flex-start;
   gap: 16px;
-  grid-template-columns: repeat(4, 1fr);
-  @include responsive-for(lg) {
-    grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  @include responsive-for(xlg) {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @include responsive-for(md) {
