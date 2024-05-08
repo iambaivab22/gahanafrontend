@@ -89,15 +89,22 @@ export const CartPage = () => {
       className="cartPage"
     >
       <VStack gap="$3" style={{width: '60%'}}>
-        {datas?.cartData?.[0]?.products?.map((item: any, index: number) => {
-          return (
-            <CartCard
-              data={item}
-              onChangePrice={changeQuantity}
-              key={index}
-            ></CartCard>
-          )
-        })}
+        {datas?.cartData?.[0]?.products?.length > 0 ? (
+          datas?.cartData?.[0]?.products?.map((item: any, index: number) => {
+            return (
+              <CartCard
+                data={item}
+                onChangePrice={changeQuantity}
+                key={index}
+              ></CartCard>
+            )
+          })
+        ) : (
+          <img
+            className="noProductOnCart"
+            src="src/assets/images/noCart.png"
+          ></img>
+        )}
       </VStack>
       <VStack style={{width: '30%'}} gap="$3">
         <VStack className="cartPage-orderSummary" gap="$5">
@@ -115,6 +122,7 @@ export const CartPage = () => {
               {getNprPrice(
                 upatedcartData
                   ?.map((item, index) => {
+                    console.log(item.quantity, 'quantity')
                     return item.price * item.quantity
                   })
                   ?.reduce((acc, curr) => {

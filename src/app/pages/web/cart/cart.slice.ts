@@ -510,6 +510,7 @@ export {
   delteProductFromCartAction,
   getCartlistAction,
   createCartByUserIdAction,
+  // updateCardByUserIdAction,
   createOrderByUserIdAction,
   getOrderListAction
 }

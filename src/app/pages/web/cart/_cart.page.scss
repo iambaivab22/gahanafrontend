@@ -3,6 +3,12 @@
   width: 90vw;
   margin: 40px auto;
 
+  .noProductOnCart {
+    width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
   &-orderSummary {
     width: 100%;
     padding: map-get($space, 3);

@@ -74,6 +74,7 @@
       gap: map-get($space, 4);
 
       &-cart {
+        cursor: pointer;
         position: relative;
       }
     }

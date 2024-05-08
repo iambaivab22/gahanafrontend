@@ -1164,7 +1164,7 @@ export const TopHeader = () => {
     const userId = getCookie('userId')
     userId && dispatch(getCartlistAction({userId: userId}))
   }, [])
-  const datas = useSelector((state: any) => state.cart)
+  const datas: any = useSelector((state: any) => state.cart)
 
   const [searchValue, setSearchValue] = useState<string>('')
   const debouncedSearchvalue = useDebounceValue(searchValue)
@@ -1186,6 +1186,8 @@ export const TopHeader = () => {
     console.log('onSearch handler called')
     navigate(`/products?search=${searchedData}`)
   }, [])
+
+  console.log(datas, 'cartData hai')
 
   return (
     <>
@@ -1265,14 +1267,19 @@ export const TopHeader = () => {
           </div>
 
           <div className="topHeader-cartProfile">
-            <div className="topHeader-cartProfile-cart">
+            <div
+              className="topHeader-cartProfile-cart"
+              onClick={() => {
+                navigate('cart')
+              }}
+            >
               <HStack
                 justify="center"
                 align="center"
                 style={{
                   // padding: '20px',
-                  height: 16,
-                  width: 16,
+                  height: 20,
+                  width: 20,
                   borderRadius: '50%',
                   background: 'red',
                   color: 'white',
@@ -1283,14 +1290,14 @@ export const TopHeader = () => {
                     'hsl(0, 82.48847926267283%, 57.45098039215687%)'
                 }}
               >
-                {datas.cartData?.length}
+                {datas?.cartData?.[0].products?.length}
               </HStack>
               {/* <p>1</p> */}
-              <FaCartArrowDown size={20} />
+              <FaCartArrowDown size={26} />
             </div>
 
             <div className="topHeader-cartProfile-profile">
-              <FaUserAlt size={20} />
+              <FaUserAlt size={26} />
             </div>
           </div>
         </div>

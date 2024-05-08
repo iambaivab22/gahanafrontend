@@ -21,7 +21,10 @@ import {
 } from 'src/app/components'
 import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlayer.component'
 import html2canvas from 'html2canvas'
-import {createCartByUserIdAction} from '../../cart/cart.slice'
+import {
+  createCartByUserIdAction,
+  getCartlistAction
+} from '../../cart/cart.slice'
 import toast from 'react-hot-toast'
 import {getCookie} from 'src/helpers'
 
@@ -110,6 +113,9 @@ export const ProductWebDetail = () => {
         data: cartData,
         onSuccess: () => {
           toast.success('Product added to cart Successfully!')
+
+          const userId = getCookie('userId')
+          userId && dispatch(getCartlistAction({userId: userId}))
         }
       })
     )
