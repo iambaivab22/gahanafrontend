@@ -8,6 +8,8 @@ import {createCartByUserId} from 'src/app/pages/web/cart/cart.service'
 import {createCartByUserIdAction} from 'src/app/pages/web/cart/cart.slice'
 import {getCookie} from 'src/helpers'
 import toast from 'react-hot-toast'
+import {getNprPrice} from 'src/helpers/nprPrice.helper'
+import {FiEye} from 'react-icons/fi'
 
 const productImages = [
   // 'src/assets/images/products/jewellery-1.jpg',
@@ -67,6 +69,17 @@ export const ProductCard = ({data}: {data: any}) => {
         </HStack>
 
         <VStack className="productCard-titleDescription" gap="$2">
+          <Chip
+            title={data?.category.name}
+            style={{padding: '4px 6px'}}
+            // color="rgb(241 233 214)"
+            color="rgb(219 247 241)"
+            // style={{width: 'max-content'}}
+
+            // icon={<FaCartArrowDown size={12} fill="black" />}
+
+            // style={{color: 'black'}}
+          ></Chip>
           <HStack justify="space-between">
             <p className="productCard-titleDescription-title">{data?.name}</p>
           </HStack>
@@ -82,23 +95,23 @@ export const ProductCard = ({data}: {data: any}) => {
           </div>
           <HStack align="center" gap="$3">
             <div className="productCard-titleDescription-price">
-              {data?.discountedPrice}
+              {getNprPrice(data?.discountedPrice)}
             </div>
             <div
               style={{color: 'hsl(0, 0%, 47%)', textDecoration: 'line-through'}}
             >
-              {data?.originalPrice}
+              {getNprPrice(data?.originalPrice)}
             </div>
           </HStack>
 
-          <p
+          {/* <p
             className="productCard-titleDescription-description"
             // dangerouslySetInnerHTML={data?.description
 
             dangerouslySetInnerHTML={{
               __html: data?.description
             }}
-          ></p>
+          ></p> */}
         </VStack>
 
         <HStack
@@ -108,7 +121,7 @@ export const ProductCard = ({data}: {data: any}) => {
           gap="$3"
         >
           <div>
-            <FaCartArrowDown size={20} fill="white" />
+            <FiEye size={20} />
           </div>
           <div className="productCard-footer-right">View Details</div>
         </HStack>

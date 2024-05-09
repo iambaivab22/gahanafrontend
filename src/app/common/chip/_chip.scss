@@ -1,5 +1,7 @@
 .chip-container {
   border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
 
   padding: 8px;
   display: inline-block;

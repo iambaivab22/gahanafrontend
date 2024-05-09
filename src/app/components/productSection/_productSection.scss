@@ -53,7 +53,22 @@
     // border: 2px solid red;
     font-size: map-get($fontSizes, 5);
     cursor: pointer;
-    padding-top: map-get($space, 3);
+    margin-top: map-get($space, 3);
+    padding: map-get($space, 1) map-get($space, 3);
+    border-radius: 20px;
+    cursor: pointer;
+    background: linear-gradient(
+      109.54deg,
+      rgb(205, 47, 111) 24.35%,
+      rgb(205, 47, 111) 140.11%
+    );
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // text-transform: uppercase;
+
     // border: 2px solid red;
   }
 

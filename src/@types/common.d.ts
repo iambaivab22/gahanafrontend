@@ -78,6 +78,7 @@ declare namespace Com {
     color?: string
     title: string
     icon?: React.ReactNode
+    style?: React.CSSProperties
   }
 
   interface FilterChipProps extends ChipProps {

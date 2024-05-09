@@ -804,7 +804,7 @@ export const DesktopHeader = () => {
             key={index}
             title={
               <HStack
-                gap="$3"
+                gap="$1"
                 align="center"
                 onClick={() => {
                   navigate(

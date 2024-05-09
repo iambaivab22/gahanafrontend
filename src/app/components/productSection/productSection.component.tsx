@@ -69,7 +69,7 @@ export const ProductSection = ({
           }
         }
       >
-        {data?.map((item: any, index: number) => {
+        {data?.slice(0, 4).map((item: any, index: number) => {
           return <ProductCard data={item} key={item.id} />
         })}
       </div>

@@ -56,7 +56,7 @@ export const CheckBox = ({
             htmlFor={id ?? name}
             style={{
               cursor: 'pointer',
-              border: `2px solid ${check ? 'blue' : 'red'}`,
+              border: `2px solid ${check ? 'green' : 'rgb(241 114 97)'}`,
               borderRadius: 4,
               height: 16,
               width: 16,
@@ -78,7 +78,7 @@ export const CheckBox = ({
               }}
             >
               <BsCheckLg
-                fill={check ? 'blue' : 'transparent'}
+                fill={check ? 'green' : 'transparent'}
                 size={9}
               ></BsCheckLg>
             </Box>

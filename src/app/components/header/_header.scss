@@ -12,6 +12,12 @@
   background-color: unset !important;
 }
 
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .header-social-container {
   display: flex;
   justify-content: flex-start;
