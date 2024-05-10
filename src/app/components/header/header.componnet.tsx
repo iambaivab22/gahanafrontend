@@ -1226,8 +1226,8 @@ export const TopHeader = () => {
           <div className="header-alert-news">
             <p>
               <b>Upto 50% off</b>
-              This Week Order Over - $55
             </p>
+            <p>This Week Order Over - $55</p>
           </div>
 
           <div className="header-top-actions">
@@ -1273,26 +1273,30 @@ export const TopHeader = () => {
                 navigate('cart')
               }}
             >
-              <HStack
-                justify="center"
-                align="center"
-                style={{
-                  // padding: '20px',
-                  height: 20,
-                  width: 20,
-                  borderRadius: '50%',
-                  background: 'red',
-                  color: 'white',
-                  position: 'absolute',
-                  top: -10,
-                  right: -6,
-                  backgroundColor:
-                    'hsl(0, 82.48847926267283%, 57.45098039215687%)'
-                }}
-              >
-                {datas?.cartData?.[0].products?.length}
-              </HStack>
+              {datas?.cartData?.[0]?.products?.length > 0 && (
+                <HStack
+                  justify="center"
+                  align="center"
+                  style={{
+                    // padding: '20px',
+                    height: 20,
+                    width: 20,
+                    borderRadius: '50%',
+                    background: 'red',
+                    color: 'white',
+                    position: 'absolute',
+                    top: -10,
+                    right: -6,
+                    backgroundColor:
+                      'hsl(0, 82.48847926267283%, 57.45098039215687%)'
+                  }}
+                >
+                  {datas?.cartData?.[0]?.products?.length}
+                </HStack>
+              )}
+
               {/* <p>1</p> */}
+
               <FaCartArrowDown size={26} />
             </div>
 

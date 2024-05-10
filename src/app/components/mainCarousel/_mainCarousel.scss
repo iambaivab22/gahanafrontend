@@ -1,10 +1,6 @@
 .carouselContainers {
   height: 70vh;
 
-  @include responsive-for(md) {
-    height: 9vh;
-  }
-
   // border: 2px solid red;
   width: 100%;
 

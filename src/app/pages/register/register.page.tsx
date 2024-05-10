@@ -1,26 +1,25 @@
 import React, {useEffect, useState} from 'react'
 
-import './_loginPage.scss'
+import './_register.scss'
 import {useDispatch} from 'src/store'
-import {LoginAction} from './login.slice'
+import {RegisterAction} from './register.slice'
 import toast from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 import {setCookie} from 'src/helpers'
-export const LoginPage = () => {
+export const RegisterPage = () => {
   const dispatch = useDispatch()
 
   const [loginData, setLoginData] = useState({email: '', password: ''})
   const navigate = useNavigate()
-  const handleLogin = () => {
+  const handleRegister = () => {
     // console.log(loginData, 'logindatat')
 
     if (loginData.email.length > 0 && loginData.password.length > 0) {
       dispatch(
-        LoginAction({
-          loginBody: {email: loginData.email, password: loginData.password},
+        RegisterAction({
+          registerBody: {email: loginData.email, password: loginData.password},
           onSuccess: (data: any) => {
-            console.log(data?.user?._id, 'success login')
-            toast.success('Logged In successfully')
+            toast.success('User Created successfully')
             setCookie('userId', data?.user?._id)
             navigate('/home')
           }
@@ -31,7 +30,7 @@ export const LoginPage = () => {
 
   return (
     <>
-      <h2 className="login-title">Log in</h2>
+      <h2 className="login-title">Create Your Account</h2>
       <div className="container">
         <div className="login-form">
           <div>
@@ -69,10 +68,10 @@ export const LoginPage = () => {
             className="btn btn--form"
             style={{background: 'rgb(197 49 213)'}}
             type="submit"
-            value="Log in"
-            onClick={handleLogin}
+            value="register"
+            onClick={handleRegister}
           >
-            Log in
+            Register
           </button>
         </div>
       </div>

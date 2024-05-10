@@ -16,6 +16,7 @@ import {
   BestSellingPage,
   NewArrivalListPage,
   OrderListPage,
+  RegisterPage,
   ReturnPolicy,
   ShippingPolicy,
   Testimonial
@@ -74,6 +75,18 @@ export const Router: RouteObject[] = [
       }
     ]
   },
+
+  {
+    path: '/register',
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <RegisterPage />
+      }
+    ]
+  },
+
   {
     path: '/sample',
     // element: <Sample />
