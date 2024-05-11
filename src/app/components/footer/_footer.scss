@@ -8,6 +8,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: map-get($space, 3);
+    margin-top: map-get($space, 5);
 
     &-left,
     &-middle,

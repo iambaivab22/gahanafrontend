@@ -5,6 +5,7 @@
 
   width: 100%;
   gap: map-get($space, 3s);
+  margin: map-get($space, 4) 0;
   &-header {
     width: 100%;
     margin-bottom: map-get($space, 3);
@@ -53,7 +54,7 @@
     // border: 2px solid red;
     font-size: map-get($fontSizes, 5);
     cursor: pointer;
-    margin-top: map-get($space, 3);
+    margin-top: map-get($space, 5);
     padding: map-get($space, 1) map-get($space, 3);
     border-radius: 20px;
     cursor: pointer;
@@ -78,9 +79,9 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: map-get($space, 4);
     row-gap: map-get($space, 6);
-
+    grid-template-columns: repeat(4, 1fr);
     @include responsive-for(lg) {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
 
     @include responsive-for(md) {

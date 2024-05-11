@@ -1187,8 +1187,6 @@ export const TopHeader = () => {
     navigate(`/products?search=${searchedData}`)
   }, [])
 
-  console.log(datas, 'cartData hai')
-
   return (
     <>
       <div className="header-top">
@@ -1297,11 +1295,11 @@ export const TopHeader = () => {
 
               {/* <p>1</p> */}
 
-              <FaCartArrowDown size={26} />
+              <FaCartArrowDown size={24} />
             </div>
 
             <div className="topHeader-cartProfile-profile">
-              <FaUserAlt size={26} />
+              <FaUserAlt size={24} />
             </div>
           </div>
         </div>

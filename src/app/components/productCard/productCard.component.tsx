@@ -69,17 +69,32 @@ export const ProductCard = ({data}: {data: any}) => {
         </HStack>
 
         <VStack className="productCard-titleDescription" gap="$2">
-          <Chip
-            title={data?.category.name}
-            style={{padding: '4px 6px'}}
-            // color="rgb(241 233 214)"
-            color="rgb(219 247 241)"
-            // style={{width: 'max-content'}}
+          <HStack justify="space-between" style={{width: '100%'}}>
+            <Chip
+              title={data?.category.name}
+              style={{padding: '4px 6px'}}
+              // color="rgb(241 233 214)"
+              color="rgb(219 247 241)"
+              // style={{width: 'max-content'}}
 
-            // icon={<FaCartArrowDown size={12} fill="black" />}
+              // icon={<FaCartArrowDown size={12} fill="black" />}
 
-            // style={{color: 'black'}}
-          ></Chip>
+              // style={{color: 'black'}}
+            ></Chip>
+
+            <Chip
+              title={data?.stockQuantity}
+              style={{padding: '4px 6px'}}
+              // color="rgb(241 233 214)"
+              color="rgb(219 247 241)"
+              // style={{width: 'max-content'}}
+
+              // icon={<FaCartArrowDown size={12} fill="black" />}
+
+              // style={{color: 'black'}}
+            ></Chip>
+          </HStack>
+
           <HStack justify="space-between">
             <p className="productCard-titleDescription-title">{data?.name}</p>
           </HStack>

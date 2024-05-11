@@ -3,7 +3,7 @@ import jsPDF from 'jspdf'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {CompWrapper, HStack, VStack} from 'src/app/common'
 import {
-  CategorryContainer,
+  CategoryContainer,
   MainCarousel,
   ProductSection,
   ShopByBudgetWeb,
@@ -88,10 +88,10 @@ export const HomePage = () => {
     )
   }, [])
   return (
-    <>
+    <div className="home">
       <MainCarousel></MainCarousel>
       <CompWrapper>
-        <CategorryContainer></CategorryContainer>
+        <CategoryContainer data={[1, 2, 3, 4, 5, 6, 7]}></CategoryContainer>
       </CompWrapper>
 
       <CompWrapper>
@@ -122,19 +122,25 @@ export const HomePage = () => {
             <VStack gap="$3">
               <div className="jobsSectionContainer-header">SHOP BY BUDGET</div>
 
-              <HStack
-                justify="center"
-                gap="$5"
-                style={{width: '100%', marginBottom: '12px'}}
+              <div
+                style={{
+                  width: '100%',
+                  marginBottom: '12px',
+                  columnGap: '20px',
+                  rowGap: '20px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap'
+                }}
               >
                 {shopByBudgetData?.map((item, index) => {
                   return <ShopByBudgetWeb data={item}></ShopByBudgetWeb>
                 })}
-              </HStack>
+              </div>
             </VStack>
           </VStack>
         </VStack>
       </CompWrapper>
-    </>
+    </div>
   )
 }

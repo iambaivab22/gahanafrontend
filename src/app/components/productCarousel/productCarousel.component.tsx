@@ -25,7 +25,7 @@ export const ProductCarousel = ({data}: {data: any}) => {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0)
 
   useEffect(() => {
-    media?.xs && setSlidesToShow(1)
+    media?.xs && setSlidesToShow(2)
     media?.sm && setSlidesToShow(2)
     media?.md && setSlidesToShow(3)
     media?.lg && setSlidesToShow(4)

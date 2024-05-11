@@ -32,9 +32,16 @@ export const ShopByBudget = () => {
   }, [])
 
   return (
-    <div>
+    <div style={{marginBottom: '40px', border: '2px solid red'}}>
       <Box>
-        <HStack justify="space-between" style={{margin: '20px 0'}}>
+        <HStack
+          justify="space-between"
+          style={{
+            margin: '20px 0',
+            marginBottom: '30px'
+          }}
+          gap="$3"
+        >
           <Button
             title="Add Shop By Budget"
             onClick={() => navigate('add')}

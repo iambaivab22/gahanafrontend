@@ -20,11 +20,7 @@ import {Header, TopHeader} from './app/components/header'
 import {CompWrapper} from './app/common'
 // import Sidebar from './app/components/headerDrawer/headerDrawer.component'
 import {Sidebar} from './app/components/headerDrawer/headerDrawer.component'
-import {
-  CategorryContainer,
-  MainCarousel,
-  ProductSection
-} from './app/components'
+import {CategoryContainer, MainCarousel, ProductSection} from './app/components'
 import {ProductCard} from './app/components/productCard/productCard.component'
 import {Footer} from './app/components/footer/footer.component'
 
@@ -50,8 +46,8 @@ const App = () => {
     <div
       style={{
         position: 'absolute',
-        right: '10px',
-        width: '100vw',
+        // right: '10px',
+        width: '100%',
         marginTop: '40px'
       }}
     >
