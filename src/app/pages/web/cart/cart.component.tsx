@@ -3,10 +3,16 @@ import {useDispatch, useSelector} from 'src/store'
 // import {getCartByUserIdListAction} from './cart.slice'
 import {getCookie} from 'src/helpers'
 import {CartCard} from 'src/app/components'
-import {createOrderByUserIdAction, getCartlistAction} from './cart.slice'
+import {
+  createCartByUserIdAction,
+  createOrderByUserIdAction,
+  getCartlistAction,
+  updatedCartByProductIdAction
+} from './cart.slice'
 import {HStack, InputField, SelectField, VStack} from 'src/app/common'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
 import toast from 'react-hot-toast'
+import {useMeasure, useMedia} from 'src/hooks'
 export const CartPage = () => {
   const dispatch = useDispatch()
   const datas = useSelector((state: any) => state.cart)
@@ -19,6 +25,8 @@ export const CartPage = () => {
   const [cartProductList, setCartProductList] = useState<any>([])
   const [shoppingCost, setShoppingCost] = useState(10)
   const [shippingLocation, setShippingLocation] = useState('')
+  const media = useMedia()
+
   useEffect(() => {
     const userId = getCookie('userId')
     userId && dispatch(getCartlistAction({userId: userId}))
@@ -30,31 +38,52 @@ export const CartPage = () => {
     setUpdatedCartData(datas?.cartData?.[0]?.products)
   }, [datas?.cartData?.[0]?.products])
 
+  const userId = getCookie('userId')
+
+  console.log(userId, 'uuuuuu')
+
   const changeQuantity = (countQuantity, data) => {
+    console.log('data chaiyo', countQuantity, data)
     // console.log(e.target.value, 'e.target value')
     const updatedCart = upatedcartData?.map((item: any, index: number) => {
       if (item._id !== data._id) {
         return item
       } else {
-        return {...item, quantity: countQuantity}
+        return {
+          ...item,
+          quantity: countQuantity,
+          price: Number(data?.productId?.discountedPrice * countQuantity)
+        }
       }
     })
+
+    console.log(upatedcartData, 'updated Cart data')
+
+    console.log('uid', userId)
+    dispatch(
+      updatedCartByProductIdAction({
+        data: {
+          userId: userId,
+          productId: data?.productId?.id,
+          quantity: data?.quantity,
+          price: Number(data?.productId?.discountedPrice * countQuantity)
+        },
+        onSuccess: () => {
+          toast.success('Product on cart updated successfully')
+          userId && dispatch(getCartlistAction({userId: userId}))
+        }
+      })
+    )
 
     setUpdatedCartData(updatedCart)
   }
 
-  useEffect(() => {
-    console.log('updatedCartData', upatedcartData)
-    console.log(
-      'sum',
-      upatedcartData?.map((item, index) => {
-        return item.price * item.quantity
-      })
-    )
-  }, [upatedcartData])
+  // useEffect(() => {
+
+  // }, [upatedcartData])
 
   const checkoutHandler = () => {
-    const userId = getCookie('userId')
+    console.log(userId, 'userID')
     userId &&
       dispatch(
         createOrderByUserIdAction({
@@ -81,14 +110,32 @@ export const CartPage = () => {
       )
   }
 
+  console.log(upatedcartData, 'kk')
+  console.log(
+    upatedcartData?.map((item, index) => {
+      console.log(item, 'iiiiii')
+      return item.price
+    }),
+    'kkk'
+  )
+  console.log(
+    getNprPrice(
+      upatedcartData
+        ?.map((item, index) => {
+          console.log(item, 'iiiiii')
+          return item.price
+        })
+        ?.reduce((acc, curr) => {
+          console.log(acc, curr, 'acccurr')
+          return acc + curr
+        }, 0) + shoppingCost
+    ),
+    'oooo'
+  )
+
   return (
-    <HStack
-      gap="$4"
-      align="flex-start"
-      justify="space-between"
-      className="cartPage"
-    >
-      <VStack gap="$3" style={{width: '60%'}}>
+    <div className="cartPage">
+      <VStack gap="$3" style={{width: media.md ? '60%' : '100%'}}>
         {datas?.cartData?.[0]?.products?.length > 0 ? (
           datas?.cartData?.[0]?.products?.map((item: any, index: number) => {
             return (
@@ -106,7 +153,7 @@ export const CartPage = () => {
           ></img>
         )}
       </VStack>
-      <VStack style={{width: '30%'}} gap="$3">
+      <VStack style={{width: media.md ? '30%' : '100%'}} gap="$3">
         <VStack className="cartPage-orderSummary" gap="$5">
           <p className="cartPage-orderSummary-itemCount">
             Total Items:{upatedcartData?.length}
@@ -122,8 +169,8 @@ export const CartPage = () => {
               {getNprPrice(
                 upatedcartData
                   ?.map((item, index) => {
-                    console.log(item.quantity, 'quantity')
-                    return item.price * item.quantity
+                    console.log(item, 'qqqq')
+                    return item.price
                   })
                   ?.reduce((acc, curr) => {
                     return acc + curr
@@ -182,7 +229,8 @@ export const CartPage = () => {
               {getNprPrice(
                 upatedcartData
                   ?.map((item, index) => {
-                    return item.price * item.quantity
+                    console.log(item, 'iiiiii')
+                    return item.price
                   })
                   ?.reduce((acc, curr) => {
                     return acc + curr
@@ -200,6 +248,6 @@ export const CartPage = () => {
           Checkout
         </HStack>
       </VStack>
-    </HStack>
+    </div>
   )
 }

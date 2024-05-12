@@ -22,6 +22,7 @@ export const CartCard = ({
   const userId = getCookie('userId')
 
   const deleteProductFromCart = () => {
+    console.log('delete product called')
     dispatch(
       delteProductFromCartAction({
         userId: userId,

@@ -601,14 +601,14 @@ import {
   FaUserAlt
 } from 'react-icons/fa'
 import Dropdown from 'react-multilevel-dropdown'
-import {HStack, SearchField} from 'src/app/common'
+import {HStack, SearchField, VStack} from 'src/app/common'
 import {useDebounceValue, useMedia} from 'src/hooks'
 import {Sidebar} from '../headerDrawer/headerDrawer.component'
 import {AiFillAccountBook, AiOutlineAccountBook} from 'react-icons/ai'
 import {RiArrowDropDownLine} from 'react-icons/ri'
 import {useDispatch, useSelector} from 'src/store'
-import {Children, useCallback, useEffect, useState} from 'react'
-import {getCookie} from 'src/helpers'
+import {Children, useCallback, useEffect, useRef, useState} from 'react'
+import {getCookie, removeCookie} from 'src/helpers'
 import {getCartlistAction} from 'src/app/pages/web/cart/cart.slice'
 import {getCategoryListAction} from 'src/app/pages/category/category.slice'
 import {HiSearchCircle} from 'react-icons/hi'
@@ -1166,7 +1166,8 @@ export const TopHeader = () => {
     userId && dispatch(getCartlistAction({userId: userId}))
   }, [])
   const datas: any = useSelector((state: any) => state.cart)
-
+  const [sortVisible, setSortVisible] = useState(false)
+  const sortRefs = useRef<HTMLDivElement | null>(null)
   const [searchValue, setSearchValue] = useState<string>('')
   const debouncedSearchvalue = useDebounceValue(searchValue)
   const navigate = useNavigate()
@@ -1187,6 +1188,34 @@ export const TopHeader = () => {
     console.log('onSearch handler called')
     navigate(`/products?search=${searchedData}`)
   }, [])
+
+  const handleOutSideClick = (event) => {
+    const target = document.getElementById('openModalButtons')
+    const children = target.getElementsByTagName('svg')
+
+    if (
+      sortRefs.current &&
+      !sortRefs.current.contains(event.target) &&
+      event.target !== Array.from(Array.from(children)[0].children)[0]
+    ) {
+      console.log('set false')
+      setSortVisible(false)
+    } else {
+      console.log('set true')
+      // !!sortVisible && setSortVisible(false)
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', handleOutSideClick)
+
+    return () => {
+      document.removeEventListener('click', handleOutSideClick)
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log(sortVisible, 'sortVisible')
+  }, [sortVisible])
 
   return (
     <>
@@ -1300,7 +1329,44 @@ export const TopHeader = () => {
             </div>
 
             <div className="topHeader-cartProfile-profile">
-              <FaUserAlt size={24} />
+              <VStack className="sortMainContainer">
+                <HStack
+                  id="openModalButtons"
+                  onClick={() => setSortVisible((prev) => !prev)}
+                  style={{cursor: 'pointer'}}
+                >
+                  <FaUserAlt
+                    // gap="$3"
+                    size={24}
+                  />
+                </HStack>
+
+                <div
+                  className="sortModalContainer"
+                  style={{scale: sortVisible ? '1' : '0', minWidth: '120px'}}
+                  ref={sortRefs}
+                >
+                  <VStack>
+                    <HStack align="center" gap="$3" className="filterItem">
+                      <p>My Profile</p>
+                    </HStack>
+
+                    <HStack
+                      align="center"
+                      gap="$3"
+                      className="filterItem"
+                      onClick={() => {
+                        navigate('/login')
+                        setSortVisible(false)
+
+                        removeCookie('userId')
+                      }}
+                    >
+                      <p>Logout</p>
+                    </HStack>
+                  </VStack>
+                </div>
+              </VStack>
             </div>
           </div>
         </div>

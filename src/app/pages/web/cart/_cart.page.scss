@@ -2,6 +2,13 @@
   // padding: 40px;
   width: 90vw;
   margin: 40px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @include responsive-for(md) {
+    flex-direction: column;
+  }
 
   .noProductOnCart {
     width: 100%;

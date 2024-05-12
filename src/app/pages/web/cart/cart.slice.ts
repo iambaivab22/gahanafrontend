@@ -270,7 +270,7 @@ const delteProductFromCartAction = createAsyncThunk(
         userId,
         productId
       )
-      // console.log('on delete sucess called')
+      console.log('on delete sucess called')
       onSuccess && onSuccess(response)
       return response
     } catch (error) {
@@ -353,6 +353,31 @@ const createCartByUserIdAction = createAsyncThunk(
   }
 )
 
+const updatedCartByProductIdAction = createAsyncThunk(
+  'updateCartByUserId/create',
+  async (
+    {
+      data,
+      onSuccess
+    }: {
+      data: any
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      // console.log('bannerData', bannerData)
+
+      console.log(data, 'dsa')
+      const response = await CartService.updateCartByProductId(data)
+      onSuccess && onSuccess(response)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot update Cart!')
+    }
+  }
+)
+
 const createOrderByUserIdAction = createAsyncThunk(
   'orderByUserId/create',
   async (
@@ -408,6 +433,8 @@ const initialState: {
   subCategoryData?: any
   createOrderByUserIdData?: any
   createOrderByUserIdLoading?: boolean
+  updatedCartByProductId: any
+  updatedCardByLoading?: boolean
   categoryDetailData?: any
   getSubCategoryLoading?: boolean
   deleteProductFromCartLoading?: boolean
@@ -424,6 +451,8 @@ const initialState: {
   createOrderByUserIdData: undefined,
   createOrderByUserIdLoading: false,
   deleteProductFromCartLoading: false,
+  updatedCartByProductId: undefined,
+  updatedCardByLoading: false,
   createCategoryLoading: false,
   updateCategoryLoading: false,
   categoryDetailData: undefined,
@@ -478,6 +507,16 @@ const cartSlice = createSlice({
       state.createOrderByUserIdLoading = false
     })
 
+    builder.addCase(updatedCartByProductIdAction.pending, (state) => {
+      state.updatedCardByLoading = true
+    })
+    builder.addCase(updatedCartByProductIdAction.fulfilled, (state, action) => {
+      state.updatedCardByLoading = false
+    })
+    builder.addCase(updatedCartByProductIdAction.rejected, (state) => {
+      state.updatedCardByLoading = false
+    })
+
     // builder.addCase(getCategoryDetailByIdAction.pending, (state) => {
     //   state.categoryDetailDataLoading = true
     // })
@@ -512,6 +551,7 @@ export {
   createCartByUserIdAction,
   // updateCardByUserIdAction,
   createOrderByUserIdAction,
-  getOrderListAction
+  getOrderListAction,
+  updatedCartByProductIdAction
 }
 export default cartSlice.reducer

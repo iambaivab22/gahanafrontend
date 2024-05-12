@@ -2,11 +2,11 @@
   // height: auto;
   width: 100%;
   padding: 2vw;
-  height: 85dvh;
+  // height: 85dvh;
   @include responsive-for(md) {
     height: unset;
   }
-  // border: 2px solid blue;
+
   .productDetail {
     height: 100%;
 
@@ -42,7 +42,7 @@
 
       .priceContainer {
         @include responsive-for(md) {
-          flex-direction: column;
+          // flex-direction: column;
         }
       }
 

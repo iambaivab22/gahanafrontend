@@ -15,7 +15,7 @@ import {getCategoryListAction} from '../../category/category.slice'
 import {getProductListAction} from '../../products/product.slice'
 import {Loader, ProductCard} from 'src/app/components'
 import toast from 'react-hot-toast'
-import {useQuery} from 'src/hooks'
+import {useMedia, useQuery} from 'src/hooks'
 import {useUpdateQuery} from 'src/hooks/useUpdateQuery.hook'
 import {FaSortAmountUp} from 'react-icons/fa'
 
@@ -36,6 +36,7 @@ export const ProductListForWeb = () => {
   const dispatch = useDispatch()
 
   const query = useQuery()
+  const media = useMedia()
 
   console.log('parent called', query)
 
@@ -147,13 +148,16 @@ export const ProductListForWeb = () => {
       document.removeEventListener('click', handleOutSideClick)
     }
   }, [])
+
   return (
-    <HStack
-      justify="space-between"
+    <div
       style={{width: '90%', minHeight: '40vh'}}
       className="productWebPage-container"
     >
-      <VStack style={{width: '25%'}}>
+      <div
+        style={{width: media.md ? '25%' : '100%'}}
+        className="productWebPage-container-left"
+      >
         <ProductListSideComp
           selectedCategories={selectedCategories}
           onCategoryChange={({id, name}) => {
@@ -171,8 +175,12 @@ export const ProductListForWeb = () => {
           // setMinMaxPrice={setMinMaxPrice}
           // minMaxPrice={minMaxPrice}
         ></ProductListSideComp>
-      </VStack>
-      <VStack style={{width: '75%'}} justify="space-between" align="flex-start">
+      </div>
+      <VStack
+        style={{width: media.md ? '75%' : '100%'}}
+        justify="space-between"
+        align="flex-start"
+      >
         <VStack gap="$3" style={{width: '100%'}}>
           <HStack justify="space-between" align="center">
             <Title subheading>Products</Title>
@@ -275,7 +283,7 @@ export const ProductListForWeb = () => {
           )}
         </VStack>
       </VStack>
-    </HStack>
+    </div>
   )
 }
 
@@ -304,6 +312,7 @@ export const ProductListSideComp = ({
   const {categoryData}: any = useSelector((state: any) => state.category)
   const dispatch = useDispatch()
   const updateQuery = useUpdateQuery()
+  const media = useMedia()
   useEffect(() => {
     dispatch(
       getCategoryListAction({
@@ -319,9 +328,17 @@ export const ProductListSideComp = ({
       style={{width: '100%'}}
       gap="$4"
     >
+      <Title primaryHeading>Categories</Title>
       {/* <ProductPriceSlider /> */}
-      <VStack align="flex-start" justify="flex-start">
-        <Title primaryHeading>Categories</Title>
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          flexDirection: media.md ? 'column' : 'row',
+          flexWrap: media.md ? 'nowrap' : 'wrap',
+          gap: '12px'
+        }}
+      >
         {categoryData?.map((item, index) => {
           return (
             <CheckBox
@@ -341,7 +358,7 @@ export const ProductListSideComp = ({
           handleCheckboxChange={() => onCategoryChange({id: '', name: 'All'})}
           check={'All' === query.categoryname}
         />
-      </VStack>
+      </div>
       <HStack
         style={{width: '90%'}}
         gap="$3"

@@ -21,6 +21,7 @@ export const LoginPage = () => {
           onSuccess: (data: any) => {
             console.log(data?.user?._id, 'success login')
             toast.success('Logged In successfully')
+            console.log('loginnnnnnnn')
             setCookie('userId', data?.user?._id)
             navigate('/home')
           }

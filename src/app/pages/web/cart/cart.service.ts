@@ -2,7 +2,7 @@ import {api} from 'src/api'
 
 const getCartListByUserId = async ({userId}: {userId: string}) => {
   const response = await api<Api.Base<any>>('get')(`/cart/${userId}`)
-  console.log('from cart service', response.data)
+  console.log('data', response.data)
   return response.data
 }
 
@@ -21,6 +21,16 @@ export const createCartByUserId = async (body: any, userId: string) => {
   return response.data
 }
 
+export const updateCartByProductId = async (body: any) => {
+  console.log(body, 'b')
+  const response = await api<Api.Base<{}>>('post')(
+    `/cart/${body.productId}`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
 export const createOrderByUserId = async (body: any, userId: string) => {
   console.log(body, 'b')
   const response = await api<Api.Base<{}>>('post')(
@@ -33,9 +43,13 @@ export const createOrderByUserId = async (body: any, userId: string) => {
 
 const deleteCartByProductId = async (userId: string, productId: string) => {
   //   console.log(bannerName, 'productId from service')
+  console.log('delte service')
   const response = await api<any>('delete')(`/cart/${productId}`, undefined, {
     userId: userId
   })
+  console.log(response, 'response hai ta')
+
+  return response
 }
 
 export const CartService = {
@@ -43,5 +57,6 @@ export const CartService = {
   deleteCartByProductId,
   getCartListByUserId,
   createOrderByUserId,
-  getOrderList
+  getOrderList,
+  updateCartByProductId
 }

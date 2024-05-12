@@ -27,9 +27,11 @@ import {
 } from '../../cart/cart.slice'
 import toast from 'react-hot-toast'
 import {getCookie} from 'src/helpers'
+import {useMedia} from 'src/hooks'
 
 export const ProductWebDetail = () => {
-  const [position, setPosition] = useState({x: 1175, y: 450})
+  const media = useMedia()
+  const [position, setPosition] = useState({x: media.md ? 1175 : '0', y: 450})
   const [offset, setOffset] = useState({x: 0, y: 0})
 
   const handleMouseDown = (e) => {
@@ -263,7 +265,7 @@ export const ProductWebDetail = () => {
                     {/* <video controls width="640" height="360">
                       <source src={productDetailData?.video} type="video/mp4" />
                     </video> */}
-                    {/* <div
+                    <div
                       style={{
                         position: 'absolute',
                         left: position.x,
@@ -276,7 +278,7 @@ export const ProductWebDetail = () => {
                         videoUrl={`http://localhost:8000/video/${productDetailData?.video}`}
                         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
                       ></CustomVideoPlayer>
-                    </div> */}
+                    </div>
                   </HStack>
                 </VStack>
               </VStack>
@@ -284,7 +286,7 @@ export const ProductWebDetail = () => {
           </div>
         </VStack>
       </div>
-      <div style={{marginBottom: '20px'}}>
+      <div style={{marginBottom: '20px', padding: '2vw'}}>
         <ProductSection
           header="Similar Products"
           isProfilePage={true}
