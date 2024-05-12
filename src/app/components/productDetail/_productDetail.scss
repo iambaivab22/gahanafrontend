@@ -3,6 +3,11 @@
   width: 100%;
 
   .productDetail {
+    &-left {
+      @include responsive-for(sm) {
+        width: 100% !important;
+      }
+    }
     &-detailTop {
       padding: map-get($space, 4) map-get($space, 3);
       &-topMost {

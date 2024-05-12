@@ -44,6 +44,18 @@
 }
 .left_2 {
   width: 500px;
+
+  @include responsive-for(md) {
+    width: 100% !important;
+
+    div {
+      width: 100% !important;
+      img {
+        width: 100% !important;
+      }
+    }
+  }
+
   //   height: 100%;
   //   border: 2px solid blue;
   div {

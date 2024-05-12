@@ -3,13 +3,32 @@
   width: 100%;
   padding: 2vw;
   height: 85dvh;
+  @include responsive-for(md) {
+    height: unset;
+  }
   // border: 2px solid blue;
   .productDetail {
     height: 100%;
 
     color: map-get($text, primary);
 
+    .productsWrapper {
+      display: flex;
+
+      @include responsive-for(md) {
+        flex-direction: column;
+      }
+    }
+
     &-left {
+      .left {
+        @include responsive-for(md) {
+          flex-direction: column;
+        }
+      }
+      @include responsive-for(md) {
+        // width: 100% !important;
+      }
     }
 
     &-detailBottom-description-content {
@@ -20,6 +39,12 @@
 
     &-detailTop {
       width: 40%;
+
+      .priceContainer {
+        @include responsive-for(md) {
+          flex-direction: column;
+        }
+      }
 
       &-color {
         &-item {

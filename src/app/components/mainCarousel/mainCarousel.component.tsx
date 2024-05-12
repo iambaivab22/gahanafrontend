@@ -78,17 +78,17 @@ export const MainCarousel = () => {
         {bannerList?.length > 0 &&
           bannerList?.map((item: any, index: number) => {
             return (
-              <div className="image-container" key={index}>
-                <img
-                  src={`http://localhost:8000/${item}`}
-                  alt="image"
-                  placeholder="blur"
-                  // blurDataURL={item}
-                  // objectFit="cover"
-                  // objectPosition={'top center'}
-                  // layout="fill"
-                ></img>
-              </div>
+              // <div className="image-container" key={index}>
+              <img
+                src={`http://localhost:8000/${item}`}
+                alt="image"
+                placeholder="blur"
+                // blurDataURL={item}
+                // objectFit="cover"
+                // objectPosition={'top center'}
+                // layout="fill"
+              ></img>
+              // </div>
             )
           })}
       </Slider>

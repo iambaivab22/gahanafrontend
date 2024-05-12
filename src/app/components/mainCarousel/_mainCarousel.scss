@@ -1,15 +1,28 @@
 .carouselContainers {
-  height: 70vh;
+  height: 60vh;
+  width: 100vw;
+  border: 2px solid red;
 
   // border: 2px solid red;
   width: 100%;
 
+  .slick-next {
+    display: none !important;
+  }
+
+  .slick-slide {
+    height: 60vh !important;
+    img {
+      height: 60vh !important;
+    }
+  }
+
   .slider {
-    height: 80vh !important;
+    height: 60vh !important;
 
     .image-container {
       position: relative;
-      height: 80vh !important;
+      height: 60vh !important;
 
       // span > img {
       //   height: 100% !important;
@@ -22,7 +35,7 @@
   }
 
   .image-container img {
-    height: 70vh !important;
+    height: 40vh !important;
     width: 100% !important;
   }
 

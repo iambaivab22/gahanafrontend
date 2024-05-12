@@ -56,7 +56,7 @@ export const ZoomSlider = ({data}: {data: any}) => {
             </div>
           ))}
         </div>
-        <div className="left_2" style={{height: '342px', width: '513px'}}>
+        <div className="left_2" style={{height: '100%', width: '513px'}}>
           <ReactImageMagnify
             {...{
               smallImage: {

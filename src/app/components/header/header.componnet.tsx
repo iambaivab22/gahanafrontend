@@ -614,6 +614,7 @@ import {getCategoryListAction} from 'src/app/pages/category/category.slice'
 import {HiSearchCircle} from 'react-icons/hi'
 import {getProductListAction} from 'src/app/pages/products/product.slice'
 import {useNavigate} from 'react-router-dom'
+import {SideNav} from 'src/app/routing/sideNav/sidenav.component'
 
 export const DesktopHeader = () => {
   const [category, setCategory] = useState<any>()
@@ -1309,7 +1310,21 @@ export const TopHeader = () => {
 }
 
 export const Header = () => {
+  const [showSideNav, setShowSideNav] = useState<boolean>(true)
   const media = useMedia()
 
-  return <>{media.md ? <DesktopHeader /> : <Sidebar></Sidebar>}</>
+  const handleSideNav = useCallback(() => {
+    console.log('handle close')
+    setShowSideNav(!SideNav)
+  }, [SideNav])
+
+  return (
+    <>
+      {media.md ? (
+        <DesktopHeader />
+      ) : (
+        <Sidebar handleClose={handleSideNav}></Sidebar>
+      )}
+    </>
+  )
 }

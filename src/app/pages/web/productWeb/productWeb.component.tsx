@@ -262,7 +262,7 @@ export const ProductListForWeb = () => {
               variant="four"
               loading={loading}
               color="#0051ff"
-              size={80}
+              size={60}
             />
           ) : data?.length > 0 ? (
             <div style={{}} className="productListContainer">

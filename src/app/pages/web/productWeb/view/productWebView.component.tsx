@@ -125,7 +125,10 @@ export const ProductWebDetail = () => {
     <ActivityIndicator animating={productDetailLoading}>
       <div className="productDetail-container">
         <VStack className="productDetail">
-          <HStack style={{width: '100%'}} gap="$3">
+          <div
+            style={{width: '100%', display: 'flex'}}
+            className="productsWrapper"
+          >
             <div style={{width: '60%'}} className="productDetail-left">
               {/* <CarouselSlider>
                 {products?.map((data: any, index: any) => (
@@ -163,7 +166,14 @@ export const ProductWebDetail = () => {
                   {productDetailData?.details}
                 </div>
               </HStack> */}
-              <HStack justify="flex-start" gap="$5">
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  gap: '20px'
+                }}
+                className="priceContainer"
+              >
                 <p
                   // subheading
                   style={{color: '#FB2E86'}}
@@ -174,7 +184,7 @@ export const ProductWebDetail = () => {
                 <p className="discountedPrice">
                   NPR.{productDetailData?.originalPrice}
                 </p>
-              </HStack>
+              </div>
 
               <VStack className="productDetail-detailTop-color">
                 <p>Color</p>
@@ -253,7 +263,7 @@ export const ProductWebDetail = () => {
                     {/* <video controls width="640" height="360">
                       <source src={productDetailData?.video} type="video/mp4" />
                     </video> */}
-                    <div
+                    {/* <div
                       style={{
                         position: 'absolute',
                         left: position.x,
@@ -266,12 +276,12 @@ export const ProductWebDetail = () => {
                         videoUrl={`http://localhost:8000/video/${productDetailData?.video}`}
                         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
                       ></CustomVideoPlayer>
-                    </div>
+                    </div> */}
                   </HStack>
                 </VStack>
               </VStack>
             </VStack>
-          </HStack>
+          </div>
         </VStack>
       </div>
       <div style={{marginBottom: '20px'}}>
