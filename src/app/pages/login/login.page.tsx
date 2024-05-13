@@ -6,12 +6,14 @@ import {LoginAction} from './login.slice'
 import toast from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 import {setCookie} from 'src/helpers'
+import {useAuth} from 'src/app/routing'
 export const LoginPage = () => {
   const dispatch = useDispatch()
 
   const [loginData, setLoginData] = useState({email: '', password: ''})
   const navigate = useNavigate()
-  const handleLogin = () => {
+  const {handleLogin} = useAuth()
+  const handleLogins = () => {
     // console.log(loginData, 'logindatat')
 
     if (loginData.email.length > 0 && loginData.password.length > 0) {
@@ -23,7 +25,10 @@ export const LoginPage = () => {
             toast.success('Logged In successfully')
             console.log('loginnnnnnnn')
             setCookie('userId', data?.user?._id)
+            setCookie('userRoles', data?.userRoles)
             navigate('/home')
+
+            handleLogin(data.token, data.userRoles)
           }
         })
       )
@@ -71,7 +76,7 @@ export const LoginPage = () => {
             style={{background: 'rgb(197 49 213)'}}
             type="submit"
             value="Log in"
-            onClick={handleLogin}
+            onClick={handleLogins}
           >
             Log in
           </button>

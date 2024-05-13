@@ -15,6 +15,8 @@ const ProtectedAuth = ({allowedRoles}: allowedRolesProps) => {
   const {auth} = useAuth()
   const location = useLocation()
   const canAccess = useCanAccessRoute()
+
+  console.log('canAccesss', canAccess)
   return auth?.isLoggedin ? (
     canAccess?.length > 0 ? (
       // <CompWrapper>
@@ -32,10 +34,11 @@ export const useCanAccessRoute = (url?: string) => {
   const {auth} = useAuth()
   const location = useLocation()
 
-  const testRoutes = useMemo(
-    () => (auth.role ? USER_ROLES[auth.role]?.access : []),
-    [auth.role]
-  )
+  const testRoutes = useMemo(() => {
+    console.log(auth.role, 'authrole')
+
+    return auth.role ? USER_ROLES[auth.role]?.access : []
+  }, [auth.role])
 
   const canAccess = testRoutes.filter((path: any) => {
     // console.log('path', path)

@@ -28,11 +28,14 @@ import {
 import toast from 'react-hot-toast'
 import {getCookie} from 'src/helpers'
 import {useMedia} from 'src/hooks'
+import {useAuth} from 'src/app/routing'
 
 export const ProductWebDetail = () => {
   const media = useMedia()
   const [position, setPosition] = useState({x: media.md ? 1175 : '0', y: 450})
   const [offset, setOffset] = useState({x: 0, y: 0})
+
+  const {auth} = useAuth()
 
   const handleMouseDown = (e) => {
     setOffset({
@@ -115,13 +118,14 @@ export const ProductWebDetail = () => {
         data: cartData,
         onSuccess: () => {
           toast.success('Product added to cart Successfully!')
-
           const userId = getCookie('userId')
           userId && dispatch(getCartlistAction({userId: userId}))
         }
       })
     )
   }
+
+  console.log('auth.isLoggedin', auth.isLoggedin)
 
   return (
     <ActivityIndicator animating={productDetailLoading}>
@@ -207,7 +211,11 @@ export const ProductWebDetail = () => {
 
               <div
                 className="productDetail-detailTop-addToCart"
-                onClick={() => handleAddToCart(productDetailData)}
+                onClick={() => {
+                  !!auth.isLoggedin
+                    ? handleAddToCart(productDetailData)
+                    : toast.success('Product Updated SuccessFully')
+                }}
               >
                 <p>ADD TO CART</p>
               </div>

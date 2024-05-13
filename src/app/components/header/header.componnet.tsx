@@ -615,6 +615,7 @@ import {HiSearchCircle} from 'react-icons/hi'
 import {getProductListAction} from 'src/app/pages/products/product.slice'
 import {useNavigate} from 'react-router-dom'
 import {SideNav} from 'src/app/routing/sideNav/sidenav.component'
+import {useAuth} from 'src/app/routing'
 
 export const DesktopHeader = () => {
   const [category, setCategory] = useState<any>()
@@ -1217,6 +1218,8 @@ export const TopHeader = () => {
     console.log(sortVisible, 'sortVisible')
   }, [sortVisible])
 
+  const {setAuth} = useAuth()
+
   return (
     <>
       <div className="header-top">
@@ -1356,10 +1359,15 @@ export const TopHeader = () => {
                       gap="$3"
                       className="filterItem"
                       onClick={() => {
+                        // handleLogout()
                         navigate('/login')
                         setSortVisible(false)
-
                         removeCookie('userId')
+
+                        // setAuth({
+                        //   isLoggedin: false,
+                        //   role: 'USER'
+                        // })
                       }}
                     >
                       <p>Logout</p>

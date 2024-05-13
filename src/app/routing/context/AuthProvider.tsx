@@ -51,7 +51,7 @@ export const AuthProvider = memo(({children}: any) => {
   const loginSuccess = (role: string) => {
     setAuth({
       isLoggedin: true,
-      role: 'ADMIN'
+      role: role
     })
   }
 
