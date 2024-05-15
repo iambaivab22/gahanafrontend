@@ -22,7 +22,8 @@ export const WatchAndShopCard = ({
   isFullScreen,
   setIsFullScreen,
   activeVideoIndex,
-  setActiveVideoIndex
+  setActiveIndex,
+  index
 }: any) => {
   console.log(data, 'was')
   return (
@@ -31,8 +32,9 @@ export const WatchAndShopCard = ({
         isFullScreen={isFullScreen}
         setIsFullScreen={setIsFullScreen}
         activeVideoIndex={activeVideoIndex}
-        setActiveVideoIndex={setActiveVideoIndex}
+        setActiveVideoIndex={setActiveIndex}
         data={data}
+        index={index}
         videoUrl={`http://localhost:8000/video/${data?.video}`}
         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
       ></CustomVideoPlayerWatch>
@@ -55,13 +57,15 @@ const CustomVideoPlayerWatch = ({
   isFullScreen,
   setIsFullScreen,
   activeVideoIndex,
-  setActiveVideoIndex
+  setActiveVideoIndex,
+  index
 }) => {
   const [isClosed, setIsClosed] = useState(false)
 
   const toggleFullScreen = (activeVideoIndex) => {
     setIsFullScreen(!isFullScreen)
     setActiveVideoIndex(activeVideoIndex)
+    console.log(index, 'index')
   }
 
   const closeFullScreen = (e: any) => {
@@ -72,7 +76,7 @@ const CustomVideoPlayerWatch = ({
   return (
     <div
       className="custom-video-players"
-      onClick={() => toggleFullScreen(data.activeVideoIndex)}
+      onClick={() => toggleFullScreen(index)}
     >
       {
         !isFullScreen && (
