@@ -1,1 +1,1 @@
-export * from './addCategory.page.tsx'
+export * from './addCategory.page'

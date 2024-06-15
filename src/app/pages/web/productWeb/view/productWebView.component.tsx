@@ -39,6 +39,7 @@ export const ProductWebDetail = () => {
 
   const handleMouseDown = (e) => {
     setOffset({
+      //@ts-ignore
       x: e.clientX - position.x - 30,
       y: e.clientY - position.y - 40
     })

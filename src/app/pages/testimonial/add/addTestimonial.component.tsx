@@ -100,7 +100,7 @@ export const AddTestimonialPage = () => {
           <ImageUploader
             defaultImage={data.image}
             onImageChange={(e: any) => {
-              const selectedFiles = Array.from(event.target.files)
+              const selectedFiles = Array.from(e.target.files)
               console.log(selectedFiles, 'seelctedFiles+++++++++++++')
 
               setData((prev: any) => ({...prev, image: selectedFiles}))

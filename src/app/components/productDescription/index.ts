@@ -1,1 +1,1 @@
-// export * from './productDescription.component'
+export * from './productDescription.component'

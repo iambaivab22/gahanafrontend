@@ -41,7 +41,7 @@ export const LoginPage = () => {
       <div className="container">
         <div className="login-form">
           <div>
-            <label for="email">Email </label>
+            <label htmlFor="email">Email </label>
             <input
               id="email"
               type="email"
@@ -55,7 +55,7 @@ export const LoginPage = () => {
           </div>
 
           <div>
-            <label for="password">Password </label>
+            <label htmlFor="password">Password </label>
             <input
               id="password"
               type="password"

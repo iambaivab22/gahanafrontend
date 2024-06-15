@@ -70,7 +70,7 @@ export const CartCard = ({
             <InputField
               // style={{width: '40%'}}
               type="number"
-              onChange={(e: React.FormEvent<HTMLInputElement>) => {
+              onChange={(e: any) => {
                 console.log(e.target.value, 'value changes hai')
                 setQuantity(e.target.value)
                 onChangePrice(e.target.value, data)

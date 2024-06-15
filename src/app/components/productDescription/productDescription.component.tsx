@@ -384,3 +384,9 @@
 //     </div>
 //   )
 // }
+
+import React from 'react'
+
+export const productDescription = () => {
+  return <div>productDescription.component</div>
+}

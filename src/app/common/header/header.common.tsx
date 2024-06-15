@@ -373,3 +373,9 @@
 //     </Modal>
 //   )
 // }
+
+import React from 'react'
+
+export const Header = () => {
+  return <div>header.common</div>
+}

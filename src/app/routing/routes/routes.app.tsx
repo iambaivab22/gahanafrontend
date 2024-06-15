@@ -9,7 +9,7 @@ import {AddProductPage} from 'src/app/pages/products/add/addProduct.page'
 // import {CategoryListPage} from 'src/app/pages/category/category.page'
 import CategoryDetailPage from 'src/app/pages/category/view/[categoryId]/categoryId.page'
 import {CategoryListPage} from 'src/app/pages/category/category.page'
-import {CartPage, ProductListForWeb, cartPage} from 'src/app/pages/web'
+import {CartPage, ProductListForWeb} from 'src/app/pages/web'
 // import {BestSellingPage} from 'src/app/pages/bestSelling'
 import {
   Banners,
@@ -25,7 +25,7 @@ import {
 import {AddCategoryPage} from 'src/app/pages/category'
 import {Sample, SubCategoryListPage, LoginPage} from 'src/app/pages'
 import {AddSubCategoryPage} from 'src/app/pages/subCategory/add'
-import {ProductWeb, ProductWebDetail} from 'src/app/pages/web'
+import {ProductWebDetail} from 'src/app/pages/web'
 import {HomePage} from 'src/app/pages/web/home/home.component'
 import {AddTestimonialPage} from 'src/app/pages/testimonial/add/addTestimonial.component'
 import {ShopByBudget} from 'src/app/pages/shopByBudget/shopByBudget.component'

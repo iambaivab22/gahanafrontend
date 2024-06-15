@@ -371,7 +371,7 @@ export const ProductListSideComp = ({
           <InputField
             // style={{width: '40%'}}
             type="number"
-            onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            onChange={(e: any) => {
               // setMinMaxPrice((prev: any) => ({
               //   ...prev,
               //   minPrice: e.target.value
@@ -392,7 +392,7 @@ export const ProductListSideComp = ({
           <InputField
             // style={{width: '40%'}}
             type="number"
-            onChange={(e: React.FormEvent<HTMLInputElement>) => {
+            onChange={(e: any) => {
               console.log(e.target.value, 'value changes hai')
               // setMinMaxPrice((prev: any) => ({
               //   ...prev,

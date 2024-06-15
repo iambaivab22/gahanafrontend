@@ -205,7 +205,7 @@ export const CartPage = () => {
             <p>Shipping Location</p>
 
             <InputField
-              onChange={(e) => setShippingLocation(e.target.value)}
+              onChange={(e: any) => setShippingLocation(e.target.value)}
               placeholder="Enter full address"
             ></InputField>
           </HStack>
