@@ -14,7 +14,7 @@ export const ZoomSlider = ({data}: {data: any}) => {
 
   useEffect(() => {
     const images = data?.map((item: any, index: number) => {
-      return `http://localhost:8000/products/${item}`
+      return `${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${item}`
     })
 
     setImages(images)

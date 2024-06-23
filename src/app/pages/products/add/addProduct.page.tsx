@@ -674,7 +674,9 @@ export const AddProductPage = () => {
           <VideoUploader
             defaultVideo={
               productId && !!productDetailData
-                ? `http://localhost:8000/video/${productDetailData?.video}`
+                ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
+                    productDetailData?.video
+                  }`
                 : ''
             }
             onVideoChange={handleVideo}

@@ -100,7 +100,9 @@ const ProductDetailsPage = () => {
                     s
                     <CustomVideoPlayer
                       // videoUrl={productDetailData?.video}
-                      videoUrl={`http://localhost:8000/products/${productDetailData?.video}`}
+                      videoUrl={`${
+                        import.meta.env.REACT_APP_DEV_ASSET_URL
+                      }/products/${productDetailData?.video}`}
                       thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
                     ></CustomVideoPlayer>
                   </HStack>

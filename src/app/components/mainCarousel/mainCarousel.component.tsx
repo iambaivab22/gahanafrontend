@@ -80,7 +80,7 @@ export const MainCarousel = () => {
             return (
               // <div className="image-container" key={index}>
               <img
-                src={`http://localhost:8000/${item}`}
+                src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/${item}`}
                 alt="image"
                 placeholder="blur"
                 // blurDataURL={item}

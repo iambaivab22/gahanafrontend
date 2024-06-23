@@ -180,7 +180,9 @@ export const ProductListPage = () => {
 
                       // src=`http://localhost:8000/products${datas.}`
 
-                      src={`http://localhost:8000/products/${datas?.[0]?.coloredImage[0]}`}
+                      src={`${
+                        import.meta.env.REACT_APP_DEV_ASSET_URL
+                      }/products/${datas?.[0]?.coloredImage[0]}`}
                       // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
                       style={{height: '70px', width: '100px'}}
                     ></img>

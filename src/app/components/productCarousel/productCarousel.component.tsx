@@ -94,7 +94,9 @@ export const ProductCarousel = ({data}: {data: any}) => {
                   <IoClose size={20} color="red" stroke="white"></IoClose>
                 </button>
                 <video
-                  src={`http://localhost:8000/video/${data[activeVideoIndex]?.video}`}
+                  src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
+                    data[activeVideoIndex]?.video
+                  }`}
                   controls
                   autoPlay
                   className="activeVideo"

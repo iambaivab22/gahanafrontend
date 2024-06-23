@@ -27,9 +27,16 @@ const ImageUploader = React.memo(
       if (!!defaultImage && defaultImage.length > 0) {
         console.log(defaultImage, 'default Image')
         const remappedFiles = defaultImage?.map((item: any, index: number) => ({
+          // file: isBanner
+          //   ? import.meta.env.REACT_APP_DEV_URL/$
+
+          //   `http://localehost:8000/${item}`
+          //   : `http://localhost:8000/products/${item}`,
+          // id: isBanner ? item : item._id
+
           file: isBanner
-            ? `http://localehost:8000/${item}`
-            : `http://localhost:8000/products/${item}`,
+            ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/${item}`
+            : `${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${item}`,
           id: isBanner ? item : item._id
         }))
 
