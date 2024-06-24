@@ -154,7 +154,7 @@ export const BestSellingPage = () => {
                 <div>
                   {
                     <img
-                      src={datas[0]?.url}
+                      src={datas?.[0]?.url}
                       style={{height: '70px', width: '100px'}}
                     ></img>
                   }

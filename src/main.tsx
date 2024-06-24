@@ -11,7 +11,7 @@ import {
   RouterProvider,
   useRoutes
 } from 'react-router-dom'
-import {AuthProvider} from './app/routing'
+import {AuthProvider, USER_ROLES} from './app/routing'
 import {Router, router} from './app/routing/routes'
 import {SideNav} from './app/routing/sideNav/sidenav.component'
 import {Toaster} from 'react-hot-toast'
@@ -23,13 +23,24 @@ import {Sidebar} from './app/components/headerDrawer/headerDrawer.component'
 import {CategoryContainer, MainCarousel, ProductSection} from './app/components'
 import {ProductCard} from './app/components/productCard/productCard.component'
 import {Footer} from './app/components/footer/footer.component'
+import {getCookie} from './helpers'
+import {useEffect, useMemo} from 'react'
 
 const MemoChild = () => {
+  const roles = getCookie('userRoles')
+
+  const sideNavData = useMemo(() => {
+    console.log('hello memo')
+    return roles === 'ADMIN' ? <SideNav /> : <></>
+  }, [getCookie('userRoles')])
+
+  console.log(roles, 'roles')
   return (
     <AuthProvider>
-      {/* <SideNav /> */}
-      <App />
-      {/* </div> */}
+      {sideNavData}
+      <div>
+        <App />
+      </div>
     </AuthProvider>
   )
 }
@@ -47,13 +58,18 @@ const App = () => {
       style={{
         position: 'absolute',
         // right: '10px',
-        width: '100%',
-        marginTop: '40px'
+        width: getCookie('userRoles') !== 'ADMIN' ? '100vw' : '75vw',
+        marginTop: '40px',
+        left: getCookie('userRoles') !== 'ADMIN' ? '0vw' : '20vw'
       }}
     >
-      <TopHeader></TopHeader>
+      {getCookie('userRoles') !== 'ADMIN' && (
+        <>
+          <TopHeader></TopHeader>
+          <Header></Header>
+        </>
+      )}
 
-      <Header></Header>
       {useRoutes(Router)}
 
       {/* <MainCarousel></MainCarousel> */}
@@ -67,7 +83,8 @@ const App = () => {
           isProfilePage={true}
         ></ProductSection>
       </CompWrapper> */}
-      <Footer></Footer>
+
+      {getCookie('userRoles') !== 'ADMIN' && <Footer></Footer>}
 
       <Toaster position="bottom-right" reverseOrder={false} />
     </div>

@@ -441,6 +441,13 @@ export const AddProductPage = () => {
     console.log(allColorVariant, 'allColorVariant')
   }, [allColorVariant])
 
+  useEffect(() => {
+    const discountedPrice = data?.originalPrice * data?.discountPercentage
+    const finalPrice = discountedPrice / 100
+    const actualDiscountedPrice = data?.originalPrice - finalPrice
+    setData((prev) => ({...prev, discountedPrice: actualDiscountedPrice}))
+  }, [data?.discountPercentage, data?.originalPrice])
+
   return (
     <div className="addProductContainer">
       <div className="addProduct">
@@ -531,12 +538,13 @@ export const AddProductPage = () => {
           <InputField
             type="number"
             placeholder="Enter Discounted Price"
-            onChange={(e: any) =>
-              setData((prev: any) => ({
-                ...prev,
-                discountedPrice: e.target.value
-              }))
-            }
+            // onChange={(e: any) =>
+            //   setData((prev: any) => ({
+            //     ...prev,
+            //     discountedPrice: e.target.value
+            //   }))
+            // }
+
             value={data.discountedPrice}
           ></InputField>
         </div>

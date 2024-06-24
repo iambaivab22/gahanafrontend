@@ -72,7 +72,6 @@ const delteProductAction = createAsyncThunk(
   ) => {
     try {
       const response = await productService.deleteProduct(productId)
-
       onSuccess && onSuccess(response)
       return response
     } catch (error) {

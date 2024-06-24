@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {FaCartArrowDown} from 'react-icons/fa'
 import {Chip, HStack, VStack} from 'src/app/common'
 import ReactStarsRating from 'react-awesome-stars-rating'
@@ -23,13 +23,11 @@ export const ProductCard = ({data}: {data: any}) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const ProductImages = data?.images[0]?.coloredImage?.map(
-    (item: any, index: number) => {
-      return item
-    }
-  )
+  const ProductImages = data?.images?.map((item: any, index: number) => {
+    return item.coloredImage[0]
+  })
 
-  // console.log(data?.images[2], 'product')
+  console.log(productImages, 'product')
 
   return (
     <div
@@ -73,7 +71,7 @@ export const ProductCard = ({data}: {data: any}) => {
         <VStack className="productCard-titleDescription" gap="$2">
           <HStack justify="space-between" style={{width: '100%'}}>
             <Chip
-              title={data?.category.name}
+              title={data?.category?.name}
               style={{padding: '4px 6px'}}
               // color="rgb(241 233 214)"
               color="rgb(219 247 241)"

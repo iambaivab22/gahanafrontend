@@ -247,7 +247,7 @@ export const ProductWebDetail = () => {
                   {/* <Chip color="success"></Chip> */}
 
                   <Chip
-                    title={productDetailData?.category.name}
+                    title={productDetailData?.category?.name}
                     // color="rgb(241 233 214)"
                     color="rgb(219 247 241)"
                     // style={{width: 'max-content'}}
