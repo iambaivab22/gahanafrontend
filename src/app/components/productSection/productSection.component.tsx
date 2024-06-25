@@ -49,7 +49,7 @@ export const ProductSection = ({
   return (
     <div className="jobsSectionContainer">
       <div className="jobsSectionContainer-header">
-        {header}
+        {data?.length > 0 && header}
 
         <div className="jobsSectionContainer-header-right">
           {/* <div className="jobsSectionContainer-header-right-common">

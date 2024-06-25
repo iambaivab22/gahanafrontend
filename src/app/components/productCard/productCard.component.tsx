@@ -22,12 +22,20 @@ export const ProductCard = ({data}: {data: any}) => {
   const [activeImage, setActiveImage] = useState(0)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [productImages, setProductImages] = useState([])
 
-  const ProductImages = data?.images?.map((item: any, index: number) => {
-    return item.coloredImage[0]
-  })
+  useEffect(() => {
+    const ProductImages = data?.images?.map((item: any, index: number) => {
+      console.log(item.coloredImage[0], 'coloredimage')
+      return item.coloredImage[0]
+    })
 
-  console.log(productImages, 'product')
+    setProductImages(ProductImages)
+  }, [data])
+  // const ProductImages = data?.images?.map((item: any, index: number) => {
+  //   console.log(item.coloredImage[0], 'coloredimage')
+  //   return item.coloredImage[0]
+  // })
 
   return (
     <div
@@ -43,7 +51,7 @@ export const ProductCard = ({data}: {data: any}) => {
 
           <img
             src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${
-              ProductImages?.[activeImage]
+              productImages?.[activeImage]
             }`}
           />
         </div>

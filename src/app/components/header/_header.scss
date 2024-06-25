@@ -3,8 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-sortModalContainer
-._dropdown_15ws1_1 ._menu_15ws1_133 {
+sortModalContainer ._dropdown_15ws1_1 ._menu_15ws1_133 {
   min-width: unset !important;
 }
 
@@ -93,6 +92,9 @@ sortModalContainer
       &-cart {
         cursor: pointer;
         position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

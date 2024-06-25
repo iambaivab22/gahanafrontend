@@ -24,6 +24,7 @@
       .left {
         @include responsive-for(md) {
           flex-direction: column;
+          gap: map-get($space, 3);
         }
       }
       @include responsive-for(md) {
@@ -39,6 +40,10 @@
 
     &-detailTop {
       width: 40%;
+
+      @include responsive-for(md) {
+        width: 100% !important;
+      }
 
       .priceContainer {
         @include responsive-for(md) {

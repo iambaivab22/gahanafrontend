@@ -5,7 +5,7 @@ export const ProductDetail = ({productDetails}: Comp.ProductDetailProps) => {
   return (
     <VStack className="productDetail-container">
       <VStack className="productDetail">
-        <VStack className="productDetail-detailTop" gap="$4">
+        <div className="productDetail-detailTop">
           <HStack
             className="productDetail-detailTop-topMost"
             justify="space-between"
@@ -28,7 +28,7 @@ export const ProductDetail = ({productDetails}: Comp.ProductDetailProps) => {
           </VStack>
 
           <Title primaryHeading>Rs.{productDetails.price}</Title>
-        </VStack>
+        </div>
 
         <VStack className="productDetail-detailBottom" gap="$8">
           <VStack className="productDetail-detailBottom-description" gap="$4">

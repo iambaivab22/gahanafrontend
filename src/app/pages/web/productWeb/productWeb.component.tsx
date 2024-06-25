@@ -269,7 +269,7 @@ export const ProductListForWeb = () => {
             <Loader
               variant="four"
               loading={loading}
-              color="#0051ff"
+              color="#fcedeb"
               size={30}
             />
           ) : data?.length > 0 ? (

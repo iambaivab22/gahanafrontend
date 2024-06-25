@@ -3,16 +3,27 @@
   width: 100%;
 
   .productDetail {
+    width: 100%;
     &-left {
       @include responsive-for(sm) {
         width: 100% !important;
       }
     }
     &-detailTop {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: map-get($space, 2);
+      flex-direction: column;
+      width: 50%;
+
       padding: map-get($space, 4) map-get($space, 3);
       &-topMost {
         color: map-get($text, 'secondary');
 
+        @include responsive-for(md) {
+          width: 100% !important;
+        }
         @include responsive-for(sm) {
           flex-direction: column;
           row-gap: map-get($space, 3);
