@@ -41,7 +41,9 @@ export const ProductCard = ({data}: {data: any}) => {
     <div
       className="productCard-container"
       onClick={() => navigate(`/product/view/${data?.id}`)}
-      onMouseOver={() => setActiveImage(1)}
+      onMouseOver={() => {
+        return productImages?.length > 1 ? setActiveImage(1) : setActiveImage(0)
+      }}
       onMouseLeave={() => setActiveImage(0)}
     >
       <VStack className="productCard" gap="$3">

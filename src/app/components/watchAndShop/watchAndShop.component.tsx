@@ -75,6 +75,13 @@ const CustomVideoPlayerWatch = ({
     setIsFullScreen(false)
   }
 
+  console.log(
+    `${import.meta.env.REACT_APP_DEV_ASSET_URL}/${
+      data?.images[0]?.coloredImage[0]
+    }`,
+    'hello image'
+  )
+
   return (
     <div
       className="custom-video-players"
@@ -104,7 +111,7 @@ const CustomVideoPlayerWatch = ({
             <HStack gap="$3" className="custom-video-players-productDetail">
               <div className="productImage">
                 <img
-                  src={`${import.meta.env.REACT_APP_DEV_URL}/products/${
+                  src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${
                     data?.images[0]?.coloredImage[0]
                   }`}
                 />
