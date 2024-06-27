@@ -23,7 +23,7 @@ export const createCartByUserId = async (body: any, userId: string) => {
 
 export const updateCartByProductId = async (body: any) => {
   console.log(body, 'b')
-  const response = await api<Api.Base<{}>>('post')(
+  const response = await api<Api.Base<{}>>('patch')(
     `/cart/${body.productId}`,
     undefined,
     body

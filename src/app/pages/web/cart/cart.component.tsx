@@ -40,8 +40,6 @@ export const CartPage = () => {
 
   const userId = getCookie('userId')
 
-  console.log(userId, 'uuuuuu')
-
   const changeQuantity = (countQuantity, data) => {
     console.log('data chaiyo', countQuantity, data)
     // console.log(e.target.value, 'e.target value')
@@ -57,9 +55,6 @@ export const CartPage = () => {
       }
     })
 
-    console.log(upatedcartData, 'updated Cart data')
-
-    console.log('uid', userId)
     dispatch(
       updatedCartByProductIdAction({
         data: {
@@ -110,28 +105,7 @@ export const CartPage = () => {
       )
   }
 
-  console.log(upatedcartData, 'kk')
-  console.log(
-    upatedcartData?.map((item, index) => {
-      console.log(item, 'iiiiii')
-      return item.price
-    }),
-    'kkk'
-  )
-  console.log(
-    getNprPrice(
-      upatedcartData
-        ?.map((item, index) => {
-          console.log(item, 'iiiiii')
-          return item.price
-        })
-        ?.reduce((acc, curr) => {
-          console.log(acc, curr, 'acccurr')
-          return acc + curr
-        }, 0) + shoppingCost
-    ),
-    'oooo'
-  )
+  console.log(upatedcartData, 'upatedCarddata hai')
 
   return (
     <div className="cartPage">
@@ -169,13 +143,12 @@ export const CartPage = () => {
               {getNprPrice(
                 upatedcartData
                   ?.map((item, index) => {
-                    console.log(item, 'qqqq')
                     return item.price
                   })
                   ?.reduce((acc, curr) => {
                     return acc + curr
                   }, 0)
-              )}
+              ) ?? 0}
             </p>
           </HStack>
 
@@ -229,7 +202,6 @@ export const CartPage = () => {
               {getNprPrice(
                 upatedcartData
                   ?.map((item, index) => {
-                    console.log(item, 'iiiiii')
                     return item.price
                   })
                   ?.reduce((acc, curr) => {

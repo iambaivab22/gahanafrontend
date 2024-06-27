@@ -50,6 +50,15 @@ export const OrderListPage = () => {
             },
 
             {
+              field: 'userId',
+              name: 'Customer Name',
+              render: (datas) => {
+                console.log(datas, 'datasssssssssss')
+                return <div>{datas?.email}</div>
+              }
+            },
+
+            {
               field: 'products',
               name: 'Quantity',
               render: (datas) => {
