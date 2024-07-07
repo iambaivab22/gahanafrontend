@@ -1,7 +1,6 @@
 {
   "name": "react-boilerplate",
   "private": true,
-  "homePage": "https://abhushangallery.com/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

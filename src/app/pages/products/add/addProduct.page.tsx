@@ -681,9 +681,7 @@ export const AddProductPage = () => {
           <VideoUploader
             defaultVideo={
               productId && !!productDetailData
-                ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
-                    productDetailData?.video
-                  }`
+                ? `https://api.abhushangallery.com/video/${productDetailData?.video}`
                 : ''
             }
             onVideoChange={handleVideo}

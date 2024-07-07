@@ -10,6 +10,11 @@
     gap: map-get($space, 3);
     margin-top: map-get($space, 5);
 
+    @include responsive-for(md) {
+      display: flex;
+      flex-direction: column;
+    }
+
     &-left,
     &-middle,
     &-right {

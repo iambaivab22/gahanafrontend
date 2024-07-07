@@ -40,9 +40,7 @@ export const CartCard = ({
         <HStack className="cartCard-left" gap="$3">
           <HStack className="cartCard-left-image">
             <img
-              src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${
-                data?.productId?.images[0]?.coloredImage[0]
-              }`}
+              src={`https://api.abhushangallery.com/products/${data?.productId?.images[0]?.coloredImage[0]}`}
             />
           </HStack>
           <VStack className="cartCard-left-detail">

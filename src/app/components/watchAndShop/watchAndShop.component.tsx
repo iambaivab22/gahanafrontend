@@ -35,9 +35,7 @@ export const WatchAndShopCard = ({
         setActiveVideoIndex={setActiveIndex}
         data={data}
         index={index}
-        videoUrl={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
-          data?.video
-        }`}
+        videoUrl={`https://api.abhushangallery.com/video/${data?.video}`}
         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
       ></CustomVideoPlayerWatch>
     </div>
@@ -104,9 +102,7 @@ const CustomVideoPlayerWatch = ({
             <HStack gap="$3" className="custom-video-players-productDetail">
               <div className="productImage">
                 <img
-                  src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${
-                    data?.images[0]?.coloredImage[0]
-                  }`}
+                  src={`https://api.abhushangallery.com/products/${data?.images[0]?.coloredImage[0]}`}
                 />
               </div>
               <VStack className="productDescription">
