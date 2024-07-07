@@ -538,13 +538,12 @@ export const AddProductPage = () => {
           <InputField
             type="number"
             placeholder="Enter Discounted Price"
-            // onChange={(e: any) =>
-            //   setData((prev: any) => ({
-            //     ...prev,
-            //     discountedPrice: e.target.value
-            //   }))
-            // }
-
+            onChange={(e: any) =>
+              setData((prev: any) => ({
+                ...prev,
+                discountedPrice: e.target.value
+              }))
+            }
             value={data.discountedPrice}
           ></InputField>
         </div>
