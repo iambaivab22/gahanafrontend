@@ -49,6 +49,7 @@ export const AuthProvider = memo(({children}: any) => {
   // const dispatch = useDispatch()
 
   const loginSuccess = (role: string) => {
+    console.log(role, 'role')
     setAuth({
       isLoggedin: true,
       role: role
@@ -98,6 +99,8 @@ export const AuthProvider = memo(({children}: any) => {
           loginFailure()
           removeCookie('token')
           removeCookie('@token')
+          removeCookie('userId')
+          removeCookie('userRoles')
         }
       }}
     >

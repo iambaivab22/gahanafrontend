@@ -59,7 +59,7 @@ export const CarouselSlider = ({children}: any) => {
 
   //for autoplay
   const slides = useMemo(() => {
-    if (children.length > 1) {
+    if (children?.length > 1) {
       let items = Children.map(children, (child: any, index: number) => {
         console.log(child, 'child from slides')
         return (
@@ -80,7 +80,7 @@ export const CarouselSlider = ({children}: any) => {
         </li>
       ]
     }
-    return <li className="slide">{children[0]}</li>
+    return <li className="slide">{children?.[0]}</li>
   }, [children])
 
   useLayoutEffect(() => {
@@ -107,7 +107,7 @@ export const CarouselSlider = ({children}: any) => {
         </div>
 
         <div className="countInfo">
-          {current + 1}/{children.length}
+          {current + 1}/{children?.length}
         </div>
         <div className="fullScreen" onClick={() => setFullScreenVisible(true)}>
           <BiFullscreen />
@@ -126,7 +126,7 @@ export const CarouselSlider = ({children}: any) => {
             <img
               src={
                 current === 0
-                  ? children[children?.length - 1]?.props.src
+                  ? children?.[children?.length - 1]?.props.src
                   : children[current - 1]?.props.src
               }
               alt="modal image"

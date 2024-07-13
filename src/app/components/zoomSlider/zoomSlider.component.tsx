@@ -52,7 +52,14 @@ export const ZoomSlider = ({data}: {data: any}) => {
               onMouseOver={() => hoverHandler(image, i)}
               ref={addRefs}
             >
-              <img src={image} alt="" />
+              <img
+                src={image}
+                alt=""
+                onError={(event) =>
+                  (event.currentTarget.src =
+                    'https://www.verizon.com/learning/_next/static/images/87c8be7b206ab401b295fd1d21620b79.jpg')
+                }
+              />
             </div>
           ))}
         </div>

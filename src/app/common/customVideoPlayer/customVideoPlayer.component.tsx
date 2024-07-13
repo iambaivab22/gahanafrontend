@@ -3,7 +3,7 @@ import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
 import {FaPlay, FaWindowClose} from 'react-icons/fa'
 import {IoClose, IoCloseCircle} from 'react-icons/io5'
 
-const CustomVideoPlayer = ({videoUrl, thumbnailUrl}) => {
+const CustomVideoPlayer = ({videoUrl, thumbnailUrl, isFromUploader}) => {
   const [isFullScreen, setIsFullScreen] = useState(false)
   const [isClosed, setIsClosed] = useState(false)
 
@@ -34,7 +34,13 @@ const CustomVideoPlayer = ({videoUrl, thumbnailUrl}) => {
             onClick={toggleFullScreen}
           /> */}
 
-          <div className="videos">
+          <div
+            className="videos"
+            style={{
+              height: isFromUploader ? '80px' : '220px',
+              width: isFromUploader ? '80px' : '120px'
+            }}
+          >
             <video src={videoUrl} muted autoPlay loop />
           </div>
 

@@ -102,28 +102,34 @@ export const ProductWebDetail = () => {
   const handleAddToCart = (data: any) => {
     const userId = getCookie('userId')
 
-    const cartData = {
-      userId,
-      products: [
-        {
-          productId: data?.id,
-          quantity: 1,
-          price: data?.discountedPrice
-        }
-      ]
-    }
+    const roles = getCookie('userRoles')
 
-    dispatch(
-      createCartByUserIdAction({
-        userId: userId,
-        data: cartData,
-        onSuccess: () => {
-          toast.success('Product added to cart Successfully!')
-          const userId = getCookie('userId')
-          userId && dispatch(getCartlistAction({userId: userId}))
-        }
-      })
-    )
+    if (!!userId && !!roles) {
+      const cartData = {
+        userId,
+        products: [
+          {
+            productId: data?.id,
+            quantity: 1,
+            price: data?.discountedPrice
+          }
+        ]
+      }
+
+      dispatch(
+        createCartByUserIdAction({
+          userId: userId,
+          data: cartData,
+          onSuccess: () => {
+            toast.success('Product added to cart Successfully!')
+            const userId = getCookie('userId')
+            userId && dispatch(getCartlistAction({userId: userId}))
+          }
+        })
+      )
+    } else {
+      toast.error('Please login first to add product')
+    }
   }
 
   console.log('auth.isLoggedin', auth.isLoggedin)

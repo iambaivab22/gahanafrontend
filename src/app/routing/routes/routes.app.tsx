@@ -158,7 +158,7 @@ export const Router: RouteObject[] = [
   },
 
   {
-    path: '/new-arrivals',
+    path: '/dash-new-arrivals',
 
     element: <ProtectedAuth />,
     children: [
@@ -170,7 +170,7 @@ export const Router: RouteObject[] = [
   },
 
   {
-    path: '/best-selling',
+    path: '/dash-best-selling',
 
     element: <ProtectedAuth />,
     children: [
@@ -181,7 +181,7 @@ export const Router: RouteObject[] = [
     ]
   },
   {
-    path: '/category',
+    path: '/dash-category',
 
     element: <ProtectedAuth />,
     children: [
@@ -205,7 +205,7 @@ export const Router: RouteObject[] = [
   },
 
   {
-    path: '/subCategory',
+    path: '/dash-subCategory',
 
     element: <ProtectedAuth />,
     children: [
@@ -228,7 +228,7 @@ export const Router: RouteObject[] = [
     ]
   },
   {
-    path: '/banners',
+    path: '/dash-banners',
 
     element: <ProtectedAuth />,
     children: [
@@ -252,7 +252,7 @@ export const Router: RouteObject[] = [
   },
 
   {
-    path: '/testimonial',
+    path: '/dash-testimonial',
 
     element: <ProtectedAuth />,
     children: [
@@ -276,7 +276,7 @@ export const Router: RouteObject[] = [
   },
 
   {
-    path: '/shopByBudget',
+    path: '/dash-shopByBudget',
 
     element: <ProtectedAuth />,
     children: [
@@ -311,7 +311,7 @@ export const Router: RouteObject[] = [
   },
 
   {
-    path: '/orders',
+    path: '/dash-orders',
 
     element: <ProtectedAuth />,
     children: [

@@ -150,6 +150,10 @@ p {
   height: 50vh;
   // border: 2px solid red;
   margin-bottom: 30px;
+
+  @include responsive-for(md) {
+    margin-bottom: 0;
+  }
 }
 .review:hover {
   box-shadow: var(--dark-shadow);
@@ -214,6 +218,10 @@ p {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @include responsive-for(md) {
+    width: 100%;
+  }
 }
 .prev-btn,
 .next-btn {

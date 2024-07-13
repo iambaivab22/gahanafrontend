@@ -9,6 +9,12 @@
     align-items: flex-start;
     gap: map-get($space, 3);
     margin-top: map-get($space, 5);
+    flex-wrap: wrap;
+
+    @include responsive-for(md) {
+      // flex-direction: column;
+      row-gap: map-get($space, 3);
+    }
 
     &-left,
     &-middle,
@@ -18,7 +24,9 @@
       justify-content: flex-start;
       align-items: flex-start;
       gap: map-get($space, 3);
-
+      @include responsive-for(md) {
+        width: 45%;
+      }
       &-subTitle {
         font-size: map-get($fontSizes, 5);
       }

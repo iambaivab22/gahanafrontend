@@ -5,6 +5,7 @@
   // height: 85dvh;
   @include responsive-for(md) {
     height: unset;
+    padding: 2vw 3vw;
   }
 
   .productDetail {

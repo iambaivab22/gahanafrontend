@@ -102,6 +102,13 @@ export const AddProductPage = () => {
         label: productDetailData?.subCategory.neame,
         value: productDetailData?.subCategory?.value
       })
+
+      setProductVariantIdList(
+        productDetailData?.images?.map((item: any, index: number) => {
+          return item._id
+        })
+      )
+
       setData((prev: any) => ({
         ...prev,
         name: productDetailData?.name,
@@ -112,11 +119,48 @@ export const AddProductPage = () => {
         discountPercentage: !!productDetailData
           ? productDetailData.discountPercentage
           : '',
+        stockQuantity: !!productDetailData
+          ? productDetailData.stockQuantity
+          : 0,
 
-        // images: !!productDetailData ? productDetailData.images?.[0] : '',
+        images: !!productDetailData ? productDetailData.images?.[0] : '',
+
         // video: !!productDetailData ? productDetailData.video : null,
+
+        // video: !!productDetailData
+        //   ? productDetailData.video
+        //     ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
+        //         productDetailData?.video
+        //       }`
+        //     : null
+        //   : null,
+
         description: !!productDetailData ? productDetailData?.description : ''
       }))
+
+      const videoUrl = productDetailData?.video
+        ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
+            productDetailData.video
+          }`
+        : null
+
+      if (videoUrl) {
+        fetch(videoUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok')
+            }
+            return response.blob()
+          })
+          .then((blob) => {
+            setData((prev) => ({
+              ...prev,
+              video: blob
+            }))
+          })
+      }
+
+      console.log(productVariantIdList, 'pr list')
 
       // setIsNewArrivalOrBestSelling((prev:any)=>({...prev,isBestSelling:!!productDetailData?productDetailData?.isBestSelling))
       setIsNewArrivalOrBestSelling((prev: any) => ({
@@ -146,10 +190,9 @@ export const AddProductPage = () => {
 
   const {createProductLoading, updateProductLoading, productVariantList}: any =
     useSelector((state: any) => state.product)
-
   const [productVariantIdList, setProductVariantIdList] = useState([''])
-
   useEffect(() => {
+    console.log('product variant list')
     setProductVariantIdList(
       productVariantList?.map((item: any, index: number) => {
         return item._id
@@ -236,11 +279,7 @@ export const AddProductPage = () => {
   }
 
   useEffect(() => {
-    console.log(data, 'data')
-  }, [data])
-
-  useEffect(() => {
-    console.log(productDetailData, '---------------------')
+    console.log(productDetailData, 'pr')
   }, [productDetailData])
 
   const handleAction = (imageId: string) => {
@@ -259,6 +298,8 @@ export const AddProductPage = () => {
   const handleVideo = (event: any) => {
     const selectedFile = event.target.files[0]
     const videoUrl = URL.createObjectURL(selectedFile)
+
+    console.log(videoUrl, 'video url')
     setData((prev: any) => ({...prev, video: videoUrl}))
   }
 
@@ -285,13 +326,15 @@ export const AddProductPage = () => {
     console.log('addProduct called')
     console.log(isNewArrivalOrBestSelling, 'is new arrival or best selling')
     const formData = new FormData()
+
     formData.append('name', data.name)
-    formData.append('category', selectedCategory.id)
-    formData.append('subCategory', selectedSubCategory.id)
+    formData.append('category', selectedCategory?.id)
+    formData.append('subCategory', selectedSubCategory?.id)
     formData.append('originalPrice', data.originalPrice)
     formData.append('discountedPrice', data.discountedPrice)
     formData.append('discountPercentage', data.discountPercentage)
     formData.append('description', data.description)
+    console.log(data.video, 'data video')
     formData.append('video', data.video)
     formData.append('stockQuantity', data.stockQuantity)
 
@@ -585,7 +628,7 @@ export const AddProductPage = () => {
                     uniqueKeys={index}
                     defaultImage={
                       productId && !!productDetailData
-                        ? productDetailData.images[index].coloredImage
+                        ? productDetailData?.images[index]?.coloredImage
                         : ''
                     }
                     onImageChange={(event) => {

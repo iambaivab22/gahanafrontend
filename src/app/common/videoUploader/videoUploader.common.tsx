@@ -65,7 +65,6 @@ const VideoUploader = ({
   }
 
   useEffect(() => {
-    console.clear()
     console.log(defaultVideo, 'default Video')
     console.log(selectedVideos, 'seelcted videosss')
   }, [selectedVideos, files])
@@ -96,6 +95,7 @@ const VideoUploader = ({
       <div className="video-list">
         {selectedVideos && (
           <CustomVideoPlayer
+            isFromUploader={true}
             videoUrl={selectedVideos}
             thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
           ></CustomVideoPlayer>

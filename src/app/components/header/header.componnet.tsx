@@ -616,6 +616,7 @@ import {getProductListAction} from 'src/app/pages/products/product.slice'
 import {useNavigate} from 'react-router-dom'
 import {SideNav} from 'src/app/routing/sideNav/sidenav.component'
 import {useAuth} from 'src/app/routing'
+import Cookies from 'universal-cookie'
 
 export const DesktopHeader = () => {
   const [category, setCategory] = useState<any>()
@@ -629,6 +630,8 @@ export const DesktopHeader = () => {
       })
     )
   }, [])
+
+  const cookies = new Cookies()
 
   useEffect(() => {
     const mappedCategoryWeb = categoryData?.map((item: any, index: number) => {
@@ -1162,6 +1165,8 @@ export const DesktopHeader = () => {
 
 export const TopHeader = () => {
   const dispatch = useDispatch()
+
+  const cookies = new Cookies()
   useEffect(() => {
     const userId = getCookie('userId')
     userId && dispatch(getCartlistAction({userId: userId}))
@@ -1332,12 +1337,11 @@ export const TopHeader = () => {
             </div>
 
             <div className="topHeader-cartProfile-profile">
-              <VStack className="sortMainContainer">
-                <HStack
-                  id="openModalButtons"
-                  onClick={() => setSortVisible((prev) => !prev)}
-                  style={{cursor: 'pointer'}}
-                >
+              <VStack
+                className="sortMainContainer"
+                onClick={() => setSortVisible((prev) => !prev)}
+              >
+                <HStack id="openModalButtons" style={{cursor: 'pointer'}}>
                   <FaUserAlt
                     // gap="$3"
                     size={24}
@@ -1363,7 +1367,10 @@ export const TopHeader = () => {
                         navigate('/login')
                         setSortVisible(false)
                         removeCookie('userId')
+                        removeCookie('userRoles')
 
+                        cookies.remove('userRoles')
+                        cookies.remove('userId')
                         // setAuth({
                         //   isLoggedin: false,
                         //   role: 'USER'

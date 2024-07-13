@@ -107,6 +107,10 @@ const CustomVideoPlayerWatch = ({
                   src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${
                     data?.images[0]?.coloredImage[0]
                   }`}
+                  onError={(event) =>
+                    (event.currentTarget.src =
+                      'https://www.verizon.com/learning/_next/static/images/87c8be7b206ab401b295fd1d21620b79.jpg')
+                  }
                 />
               </div>
               <VStack className="productDescription">

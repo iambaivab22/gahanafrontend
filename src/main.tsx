@@ -9,6 +9,7 @@ import {
   HashRouter,
   RouteObject,
   RouterProvider,
+  useLocation,
   useRoutes
 } from 'react-router-dom'
 import {AuthProvider, USER_ROLES} from './app/routing'
@@ -17,33 +18,29 @@ import {SideNav} from './app/routing/sideNav/sidenav.component'
 import {Toaster} from 'react-hot-toast'
 import {Sample} from './app/pages'
 import {Header, TopHeader} from './app/components/header'
-import {CompWrapper} from './app/common'
+import {CompWrapper, HStack} from './app/common'
 // import Sidebar from './app/components/headerDrawer/headerDrawer.component'
 import {Sidebar} from './app/components/headerDrawer/headerDrawer.component'
 import {CategoryContainer, MainCarousel, ProductSection} from './app/components'
 import {ProductCard} from './app/components/productCard/productCard.component'
 import {Footer} from './app/components/footer/footer.component'
 import {getCookie} from './helpers'
-import {useEffect, useMemo} from 'react'
+import {useEffect, useMemo, useState} from 'react'
+import {useMedia} from './hooks'
 
-const MemoChild = () => {
-  const roles = getCookie('userRoles')
+// const MemoChild = () => {
+//   console.log('hello memo')
 
-  const sideNavData = useMemo(() => {
-    console.log('hello memo')
-    return roles === 'ADMIN' ? <SideNav /> : <></>
-  }, [getCookie('userRoles')])
-
-  console.log(roles, 'roles')
-  return (
-    <AuthProvider>
-      {sideNavData}
-      <div>
-        <App />
-      </div>
-    </AuthProvider>
-  )
-}
+//   console.log(window.location.href, 'hello')
+//   console.log(roles, 'roles')
+//   return (
+//     <AuthProvider>
+//       <div>
+//         <App />
+//       </div>
+//     </AuthProvider>
+//   )
+// }
 
 const App = () => {
   let routes: RouteObject[] = [
@@ -53,48 +50,85 @@ const App = () => {
     }
   ]
 
+  const media = useMedia()
+
+  console.log('hello app')
+
+  const [containsDash, setContainsDash] = useState(false)
+  const location = useLocation()
+  const roles = getCookie('userRoles')
+
+  useEffect(() => {
+    const checkForDash = () => {
+      const currentUrl = window.location.href
+      setContainsDash(currentUrl.includes('dash-'))
+    }
+
+    checkForDash()
+  }, [location])
+
+  const sideNavData = useMemo(() => {
+    return window.location.href.includes('dash-') &&
+      getCookie('userRoles') === 'ADMIN' ? (
+      <SideNav />
+    ) : (
+      <></>
+    )
+  }, [getCookie('userRoles'), window.location.href])
+
   return (
-    <div
-      style={{
-        position: 'absolute',
-        // right: '10px',
-        width: getCookie('userRoles') !== 'ADMIN' ? '100vw' : '75vw',
-        marginTop: '40px',
-        left: getCookie('userRoles') !== 'ADMIN' ? '0vw' : '20vw'
-      }}
-    >
-      {getCookie('userRoles') !== 'ADMIN' && (
-        <>
-          <TopHeader></TopHeader>
-          <Header></Header>
-        </>
-      )}
+    <AuthProvider>
+      <HStack>
+        {sideNavData}
+        <div
+          style={{
+            position: 'absolute',
+            // right: '10px',
+            width:
+              containsDash && getCookie('userRoles') === 'ADMIN'
+                ? '75vw'
+                : '100vw',
+            marginTop: media.md ? '40px' : '20px',
+            left:
+              containsDash && getCookie('userRoles') === 'ADMIN'
+                ? '20vw'
+                : '0vw'
+          }}
+        >
+          {!containsDash && (
+            <>
+              <TopHeader></TopHeader>
+              <Header></Header>
+            </>
+          )}
 
-      {useRoutes(Router)}
+          {useRoutes(Router)}
 
-      {/* <MainCarousel></MainCarousel> */}
-      {/* <CompWrapper>
+          {/* <MainCarousel></MainCarousel> */}
+          {/* <CompWrapper>
         <CategorryContainer></CategorryContainer>
       </CompWrapper> */}
 
-      {/* <CompWrapper>
+          {/* <CompWrapper>
         <ProductSection
           header="Best Selling"
           isProfilePage={true}
         ></ProductSection>
       </CompWrapper> */}
 
-      {getCookie('userRoles') !== 'ADMIN' && <Footer></Footer>}
+          {!containsDash && <Footer></Footer>}
 
-      <Toaster position="bottom-right" reverseOrder={false} />
-    </div>
+          <Toaster position="bottom-right" reverseOrder={false} />
+        </div>
+      </HStack>
+    </AuthProvider>
   )
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <HashRouter>
     <Provider store={store}>
-      <MemoChild />
+      <App />
     </Provider>
   </HashRouter>
 )

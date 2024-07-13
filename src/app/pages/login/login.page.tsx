@@ -39,15 +39,16 @@ export const LoginPage = () => {
               'email and password'
             )
             if (
-              loginData?.email === 'meromail123@gmail.com' &&
-              loginData?.password === '12345673'
+              loginData?.email === 'adminemail12@gmail.com' &&
+              loginData?.password === '12345678'
             ) {
               setCookie('userRoles', 'ADMIN')
+              handleLogin(data.token, 'ADMIN')
             } else {
               setCookie('userRoles', 'USER')
+              handleLogin(data.token, 'USER')
             }
             navigate('/home')
-            handleLogin(data.token, data.userRoles)
           }
         })
       )

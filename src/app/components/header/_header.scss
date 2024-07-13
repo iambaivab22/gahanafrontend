@@ -39,7 +39,7 @@ sortModalContainer ._dropdown_15ws1_1 ._menu_15ws1_133 {
   border-bottom: 1px solid $grey200;
 
   .navmenuContainer {
-    width: 70%;
+    width: 95%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -61,6 +61,10 @@ sortModalContainer ._dropdown_15ws1_1 ._menu_15ws1_133 {
   border-bottom: 1px solid $grey200;
   .topHeader {
     padding: map-get($space, 3);
+
+    @include responsive-for(md) {
+      padding: map-get($space, 3) map-get($space, 2);
+    }
 
     display: flex;
     justify-content: space-between;

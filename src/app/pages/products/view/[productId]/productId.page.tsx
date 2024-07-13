@@ -79,7 +79,7 @@ const ProductDetailsPage = () => {
                       }}
                     />
                   </HStack>
-                  <Title subheading>{productDetailData?.category.name}</Title>
+                  <Title subheading>{productDetailData?.category?.name}</Title>
                   <HStack
                     style={{
                       width: '70%'

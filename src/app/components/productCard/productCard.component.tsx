@@ -51,7 +51,7 @@ export const ProductCard = ({data}: {data: any}) => {
 
           <img
             src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${
-              productImages?.[activeImage]
+              productImages?.[0]
             }`}
           />
         </div>

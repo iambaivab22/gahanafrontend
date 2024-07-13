@@ -97,34 +97,34 @@ const SideNavComponent = React.memo(() => {
             <MdBusiness size={18} />
           ))}
 
-          {getNav('Category', '/category', () => (
+          {getNav('Category', '/dash-category', () => (
             <MdWork size={18} />
           ))}
 
-          {getNav('SubCategory', '/subCategory', () => (
+          {getNav('SubCategory', '/dash-subCategory', () => (
             <MdWork size={18} />
           ))}
 
-          {getNav('New Arrivals', '/new-arrivals', () => (
+          {getNav('New Arrivals', '/dash-new-arrivals', () => (
             <MdReport size={18} />
           ))}
-          {getNav('Best Sellings', '/best-selling', () => (
+          {getNav('Best Sellings', '/dash-best-selling', () => (
             <RiFolderTransferFill size={18} />
           ))}
 
-          {getNav('Banners', '/banners', () => (
+          {getNav('Banners', '/dash-banners', () => (
             <MdReport size={18} />
           ))}
 
-          {getNav('Testimonial', '/testimonial', () => (
+          {getNav('Testimonial', '/dash-testimonial', () => (
             <MdReport size={18} />
           ))}
 
-          {getNav('Shop By Budget', '/shopByBudget', () => (
+          {getNav('Shop By Budget', '/dash-shopByBudget', () => (
             <MdReport size={18} />
           ))}
 
-          {getNav('Order List', '/orders', () => (
+          {getNav('Order List', '/dash-orders', () => (
             <MdReport size={18} />
           ))}
         </Box>

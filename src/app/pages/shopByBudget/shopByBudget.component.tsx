@@ -32,7 +32,7 @@ export const ShopByBudget = () => {
   }, [])
 
   return (
-    <div style={{marginBottom: '40px', border: '2px solid red'}}>
+    <div style={{marginBottom: '40px'}}>
       <Box>
         <HStack
           justify="space-between"
