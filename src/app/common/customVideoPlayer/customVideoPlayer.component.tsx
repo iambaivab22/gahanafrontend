@@ -3,7 +3,15 @@ import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
 import {FaPlay, FaWindowClose} from 'react-icons/fa'
 import {IoClose, IoCloseCircle} from 'react-icons/io5'
 
-const CustomVideoPlayer = ({videoUrl, thumbnailUrl, isFromUploader}) => {
+const CustomVideoPlayer = ({
+  videoUrl,
+  thumbnailUrl,
+  isFromUploader
+}: {
+  videoUrl: string
+  thumbnailUrl: string
+  isFromUploader?: boolean
+}) => {
   const [isFullScreen, setIsFullScreen] = useState(false)
   const [isClosed, setIsClosed] = useState(false)
 
