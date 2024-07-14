@@ -34,6 +34,7 @@ import {useStepContext} from '@mui/material'
 import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlayer.component'
 import ReactPlayer from 'react-player'
 import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
+import {color} from 'html2canvas/dist/types/css/types/color'
 
 export const AddProductPage = () => {
   const navigate = useNavigate()
@@ -161,6 +162,13 @@ export const AddProductPage = () => {
       }
 
       console.log(productVariantIdList, 'pr list')
+
+      setColorCount(productDetailData?.images?.length)
+      setAllColorVariant(productDetailData?.images)
+
+      // productId && !!productDetailData
+      // ? productDetailData?.images[index]?.coloredImage
+      // : ''
 
       // setIsNewArrivalOrBestSelling((prev:any)=>({...prev,isBestSelling:!!productDetailData?productDetailData?.isBestSelling))
       setIsNewArrivalOrBestSelling((prev: any) => ({
@@ -306,6 +314,8 @@ export const AddProductPage = () => {
   const handlenewArrival = (item: any) => {
     setIsNewArrivalOrBestSelling((prev: any) => ({...prev, isNewArrival: item}))
   }
+
+  console.log(allColorVariant, colorCount, 'cc')
 
   const handleBestSelling = (item: any) => {
     setIsNewArrivalOrBestSelling((prev: any) => ({
@@ -616,60 +626,76 @@ export const AddProductPage = () => {
           ></InputField>
         </div>
 
-        {Array(Number(colorCount))
-          .fill(10)
-          .map((item: any, index: number) => {
-            console.log('index')
-            return (
-              <HStack key={index}>
-                <div>
-                  <ImageUploader
-                    key={index}
-                    uniqueKeys={index}
-                    defaultImage={
-                      productId && !!productDetailData
-                        ? productDetailData?.images[index]?.coloredImage
-                        : ''
-                    }
-                    onImageChange={(event) => {
-                      const selectedFiles = Array.from(event.target.files)
+        {colorCount &&
+          Array(Number(colorCount))
+            ?.fill(10)
+            ?.map((item: any, index: number) => {
+              console.log('item color name', item.colorName)
+              return (
+                <HStack key={index}>
+                  <div>
+                    <ImageUploader
+                      key={index}
+                      uniqueKeys={index}
+                      defaultImage={
+                        productId && !!productDetailData
+                          ? productDetailData?.images[index]?.coloredImage
+                          : ''
+                      }
+                      onImageChange={(event) => {
+                        const selectedFiles = Array.from(event.target.files)
 
-                      console.log(index, 'index')
-                      console.log(selectedFiles, 'seelctedFiles+++++++++++++')
+                        console.log(index, 'index')
+                        console.log(selectedFiles, 'seelctedFiles+++++++++++++')
 
-                      setColorImage((prev: any) => ({
-                        ...prev,
-                        image: [...prev.image, ...selectedFiles]
-                      }))
-                    }}
-                    // value={allColorVariant[index].image}
-                    actionHandler={handleAction}
-                  ></ImageUploader>
-                </div>
+                        setColorImage((prev: any) => ({
+                          ...prev,
+                          image: [...prev.image, ...selectedFiles]
+                        }))
+                      }}
+                      // value={allColorVariant[index].image}
+                      actionHandler={handleAction}
+                    ></ImageUploader>
+                  </div>
 
-                <div>
-                  <input
-                    type="color"
-                    style={{width: '200px', height: '200px'}}
-                    onChange={(e: any) =>
-                      setColorImage((prev: any) => ({
-                        ...prev,
-                        color: e.target.value
-                      }))
-                    }
-                    // value="#ae251e"
-                    // value={productId && colorImage?.color}
-                    value={productDetailData?.images?.[index]?.colorName}
-                  ></input>
+                  <div>
+                    <input
+                      type="color"
+                      style={{width: '200px', height: '200px'}}
+                      onChange={(e: any) =>
 
-                  <Button
-                    title="Add Color variant"
-                    onClick={handleColorVariant}
-                  ></Button>
-                </div>
-              </HStack>
-            )
-          })}
+                        {
+                        setColorImage((prev: any) => ({
+                          ...prev,
+                          color: e.target.value
+                        }))
+
+                        setAllColorVariant((prev)=>{
+                          const findItem=allColorVariant.map((items,index)=>{
+                            return item.id===items?.id
+                          })
+                          return [...prev,]
+
+                        })
+
+                      }
+
+                   
+                      }
+                      value={allColorVariant[index]?.colorName}
+                      // value={productId && colorImage?.color}
+
+                      // value={productDetailData?.images?.[index]?.colorName}
+                    ></input>
+
+                    <Button
+                      title="Add Color variant"
+                      onClick={handleColorVariant}
+                    ></Button>
+                  </div>
+                </HStack>
+              )
+            })}
 
         <div className="addProduct-input">
           <Label required labelName="Product Detail"></Label>

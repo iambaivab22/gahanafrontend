@@ -6,6 +6,7 @@ import {CartCard} from 'src/app/components'
 import {
   createCartByUserIdAction,
   createOrderByUserIdAction,
+  delteProductFromCartAction,
   getCartlistAction,
   updatedCartByProductIdAction
 } from './cart.slice'
@@ -55,12 +56,13 @@ export const CartPage = () => {
       }
     })
 
+    console.log(data.quantity, 'data quantity')
     dispatch(
       updatedCartByProductIdAction({
         data: {
           userId: userId,
           productId: data?.productId?.id,
-          quantity: data?.quantity,
+          quantity: countQuantity,
           price: Number(data?.productId?.discountedPrice * countQuantity)
         },
         onSuccess: () => {
@@ -86,7 +88,7 @@ export const CartPage = () => {
           data: {
             userId: userId,
             products: upatedcartData?.map((item, index) => {
-              console.log(item.price, item.quantity, 'price and quantity')
+              console.log(item.price, item.count, 'price and quantity')
               return {
                 productId: item.productId.id,
                 quantity: item.quantity,
@@ -98,8 +100,23 @@ export const CartPage = () => {
             orderedAt: Date.now().toLocaleString(),
             shippingLocation: shippingLocation
           },
-          onSuccess: () => {
-            toast.success('Checkout successfully done')
+          onSuccess: (data: any) => {
+            toast.success('Ordered placed successfully done')
+            console.log('hello guys')
+
+            console.log('delete product called')
+            upatedcartData?.map((item, index) => {
+              dispatch(
+                delteProductFromCartAction({
+                  userId: userId,
+                  productId: item?._id,
+                  onSuccess: () => {
+                    dispatch(getCartlistAction({userId: userId}))
+                    toast.success('Product Deleted from cart Successfully')
+                  }
+                })
+              )
+            })
           }
         })
       )

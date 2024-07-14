@@ -36,7 +36,7 @@ export const CartCard = ({
   }
   return (
     <div className="cartCard-container">
-      <HStack className="cartCard">
+      <div className="cartCard">
         <HStack className="cartCard-left" gap="$3">
           <HStack className="cartCard-left-image">
             <img
@@ -101,7 +101,7 @@ export const CartCard = ({
             ></AiOutlineClose>
           </HStack>
         </HStack>
-      </HStack>
+      </div>
     </div>
   )
 }

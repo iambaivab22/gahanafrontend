@@ -16,6 +16,8 @@ export const OrderListPage = () => {
   const [selectedCateory, setSelectedCategory] = useState<any>()
   const orderData = useSelector((state: any) => state.cart)
 
+  console.log(orderData, 'order data')
+
   useEffect(() => {
     dispatch(
       getOrderListAction({
