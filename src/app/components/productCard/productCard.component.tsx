@@ -50,9 +50,7 @@ export const ProductCard = ({data}: {data: any}) => {
           {/* <img src="http://localhost:8000/1705164295377-htmlimage.jpg"></img> */}
 
           <img
-            src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${
-              productImages?.[0]
-            }`}
+            src={`https://api.abhushangallery.com/products/${productImages?.[0]}`}
           />
         </div>
 

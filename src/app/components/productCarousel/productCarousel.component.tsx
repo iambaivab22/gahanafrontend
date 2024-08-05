@@ -94,9 +94,7 @@ export const ProductCarousel = ({data}: {data: any}) => {
                   <IoClose size={20} color="red" stroke="white"></IoClose>
                 </button>
                 <video
-                  src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
-                    data[activeVideoIndex]?.video
-                  }`}
+                  src={`https://api.abhushangallery.com/video/${data[activeVideoIndex]?.video}`}
                   controls
                   autoPlay
                   className="activeVideo"

@@ -85,9 +85,7 @@ export const Testimonial = () => {
 
                     // src=`http://localhost:8000/products${datas.}`
 
-                    src={`${
-                      import.meta.env.REACT_APP_DEV_ASSET_URL
-                    }/testimonial/${datas}`}
+                    src={`https://api.abhushangallery.com/testimonial/${datas}`}
                     // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
                     style={{height: '70px', width: '100px'}}
                   ></img>

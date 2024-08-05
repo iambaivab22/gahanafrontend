@@ -140,9 +140,7 @@ export const AddProductPage = () => {
       }))
 
       const videoUrl = productDetailData?.video
-        ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
-            productDetailData.video
-          }`
+        ? `https://api.abhushangallery.com/video/${productDetailData.video}`
         : null
 
       if (videoUrl) {
@@ -662,26 +660,21 @@ export const AddProductPage = () => {
                     <input
                       type="color"
                       style={{width: '200px', height: '200px'}}
-                      onChange={(e: any) =>
-
-                        {
+                      onChange={(e: any) => {
                         setColorImage((prev: any) => ({
                           ...prev,
                           color: e.target.value
                         }))
 
-                        setAllColorVariant((prev)=>{
-                          const findItem=allColorVariant.map((items,index)=>{
-                            return item.id===items?.id
-                          })
-                          return [...prev,]
-
+                        setAllColorVariant((prev) => {
+                          const findItem = allColorVariant.map(
+                            (items, index) => {
+                              return item.id === items?.id
+                            }
+                          )
+                          return [...prev]
                         })
-
-                      }
-
-                   
-                      }
+                      }}
                       value={allColorVariant[index]?.colorName}
                       // value={productId && colorImage?.color}
 
@@ -750,9 +743,7 @@ export const AddProductPage = () => {
           <VideoUploader
             defaultVideo={
               productId && !!productDetailData
-                ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/video/${
-                    productDetailData?.video
-                  }`
+                ? `https://api.abhushangallery.com/video/${productDetailData?.video}`
                 : ''
             }
             onVideoChange={handleVideo}

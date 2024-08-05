@@ -84,9 +84,7 @@ export const TestimonailSection = ({reviews}) => {
       <article className="review">
         <div className="img-container">
           <img
-            src={`${import.meta.env.REACT_APP_DEV_ASSET_URL}/testimonial/${
-              image?.[0]
-            }`}
+            src={`https://api.abhushangallery.com/testimonial/${image?.[0]}`}
             className="person-img"
           />
           <span className="quote-icon">

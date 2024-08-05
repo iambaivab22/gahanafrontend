@@ -4,10 +4,8 @@ import {getCookie} from 'src/helpers'
 
 // MARK: - instance
 const instance: AxiosInstance = axios.create({
-  baseURL:
-    import.meta.env.MODE === 'development'
-      ? import.meta.env.REACT_APP_DEV_URL
-      : import.meta.env.REACT_APP_PROD_URL,
+  baseURL:'https://api.abhushangallery.com/api'
+,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

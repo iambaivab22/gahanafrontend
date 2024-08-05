@@ -33,7 +33,7 @@ export const Table = <T, K extends Extract<keyof T, string>>({
     field: any
     name: string
     colStyle?: React.CSSProperties
-    render?: (item: any) => React.ReactNode
+    render?: (item: any, wholeData: any) => React.ReactNode
   }>
   data: Array<T>
   actions?: {
@@ -152,7 +152,7 @@ export const Table = <T, K extends Extract<keyof T, string>>({
                             key={i}
                             align={`${i === 0 ? 'left' : 'center'}`}
                           >
-                            {col.render(item[col.field])}
+                            {col.render(item[col.field], item)}
                           </StyledTableCell>
                         )
                       } else {

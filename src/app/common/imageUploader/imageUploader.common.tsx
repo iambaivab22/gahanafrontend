@@ -35,8 +35,8 @@ const ImageUploader = React.memo(
           // id: isBanner ? item : item._id
 
           file: isBanner
-            ? `${import.meta.env.REACT_APP_DEV_ASSET_URL}/${item}`
-            : `${import.meta.env.REACT_APP_DEV_ASSET_URL}/products/${item}`,
+            ? `https://api.abhushangallery.com/${item}`
+            : `https://api.abhushangallery.com/products/${item}`,
           id: isBanner ? item : item._id
         }))
 
