@@ -32,7 +32,7 @@ export const CarouselSlider = ({children}: any) => {
         setCurrent((prev) => --prev)
       }
     } else if (mode === 'next') {
-      if (current < children.length - 1) {
+      if (current < children?.length - 1) {
         setTranslateX(containerRef.current.clientWidth * (current + 1))
         setCurrent((prev) => ++prev)
       }
@@ -46,7 +46,7 @@ export const CarouselSlider = ({children}: any) => {
         setTranslateX(containerRef.current.clientWidth * current)
       }
 
-      if (current >= children.length) {
+      if (current >= children?.length) {
         containerRef.current.style.transitionDuration = '0ms'
         setTranslateX(containerRef.current.clientWidth * children.length)
       }

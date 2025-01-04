@@ -26,8 +26,8 @@ export const ProductCard = ({data}: {data: any}) => {
 
   useEffect(() => {
     const ProductImages = data?.images?.map((item: any, index: number) => {
-      console.log(item.coloredImage[0], 'coloredimage')
-      return item.coloredImage[0]
+      console.log(item.coloredImage, 'coloredimage')
+      return item.coloredImage
     })
 
     setProductImages(ProductImages)

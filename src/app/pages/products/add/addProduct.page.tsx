@@ -36,6 +36,8 @@ import ReactPlayer from 'react-player'
 import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
 import {color} from 'html2canvas/dist/types/css/types/color'
 
+import {v4 as uuidv4} from 'uuid'
+
 export const AddProductPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -56,15 +58,23 @@ export const AddProductPage = () => {
   // console.log(!!productDetailData, 'product detail data boolean')
 
   // console.log('product id is available', productId)
+
   const [image, setImage] = useState<any>([])
 
   const [colorCount, setColorCount] = useState(2)
-  const [colorImage, setColorImage] = useState({
-    color: '',
-    image: []
-  })
+  const [colorImage, setColorImage] = useState([
+    {
+      id: uuidv4(),
+      color: '',
+      image: {}
+    }
+  ])
 
   const [allColorVariant, setAllColorVariant] = useState([])
+
+  useEffect(() => {
+    console.log(colorImage, 'colorImage value')
+  }, [colorImage])
 
   useEffect(() => {
     console.log(colorCount, 'colorCount')
@@ -447,17 +457,22 @@ export const AddProductPage = () => {
 
   const handleColorVariant = () => {
     // setAllColorVariant((prev) => [...prev, colorImage])
-    console.log(colorImage, 'colorIMage')
+    // console.log(colorImage, 'colorIMage')
     const formData = new FormData()
-    console.clear()
-    console.log(colorImage.image, 'image list')
+    // console.clear()
+    // console.log(colorImage.image, 'image list')
 
-    colorImage.image.forEach((item: any, index: number) => {
-      formData.append('coloredImage', item)
+    // colorImage.image.forEach((item: any, index: number) => {
+    //   formData.append('coloredImage', item)
+    // })
+
+    console.log(colorImage, 'colorImage hai')
+
+    colorImage.forEach((item, index) => {
+      console.log(item.image[0], 'image list hai')
+      formData.append(`coloredImage`, item.image[0])
+      formData.append(`colorName`, item.color)
     })
-
-    formData.append('colorName', colorImage.color)
-
     // createProductImageAction
 
     dispatch(
@@ -474,10 +489,7 @@ export const AddProductPage = () => {
             })
           )
 
-          setColorImage((prev: any) => ({
-            image: [],
-            color: ''
-          }))
+          setColorImage((prev: any) => [])
         }
       })
     )
@@ -491,6 +503,9 @@ export const AddProductPage = () => {
   useEffect(() => {
     console.log(allColorVariant, 'allColorVariant')
   }, [allColorVariant])
+
+  const [currentlySelectedColor, setCurrentlySelectedColor] =
+    useState<string>('')
 
   useEffect(() => {
     const discountedPrice = data?.originalPrice * data?.discountPercentage
@@ -628,7 +643,6 @@ export const AddProductPage = () => {
           Array(Number(colorCount))
             ?.fill(10)
             ?.map((item: any, index: number) => {
-              console.log('item color name', item.colorName)
               return (
                 <HStack key={index + item.name}>
                   <div>
@@ -646,12 +660,49 @@ export const AddProductPage = () => {
                         console.log(index, 'index')
                         console.log(selectedFiles, 'seelctedFiles+++++++++++++')
 
-                        setColorImage((prev: any) => ({
-                          ...prev,
-                          image: [...prev.image, ...selectedFiles]
-                        }))
+                        setColorImage((prev) => {
+                          const existingList = [...prev]
+                          const currentObject = existingList[index]
+
+                          console.log(existingList, 'existingList 2')
+
+                          console.log(currentObject, 'current object 2')
+
+                          existingList[index] = {
+                            ...currentObject,
+                            image: event.target.files,
+                            id: uuidv4()
+                          }
+
+                          // existingList.splice(index, 0, {
+                          //   ...currentObject,
+                          //   color: e.target.value
+                          // })
+
+                          return existingList
+                        })
+
+                        // setColorImage((prev: any) => {
+                        //   const existingList = [...prev]
+
+                        //   console.log(existingList, 'existingList')
+                        //   const currentObject = existingList[index]
+                        //   console.log(currentObject, 'current object')
+
+                        //   existingList.splice(index, 0, {
+                        //     ...currentObject,
+                        //     image: [...selectedFiles]
+                        //   })
+
+                        //   return existingList
+                        // })
+
+                        // setColorImage((prev: any) => ({
+                        //   ...prev,
+                        //   image: [...selectedFiles]
+                        // }))
                       }}
-                      // value={allColorVariant[index].image}
+                      value={colorImage[index]?.image ?? ''}
                       actionHandler={handleAction}
                     ></ImageUploader>
                   </div>
@@ -661,21 +712,45 @@ export const AddProductPage = () => {
                       type="color"
                       style={{width: '200px', height: '200px'}}
                       onChange={(e: any) => {
-                        setColorImage((prev: any) => ({
-                          ...prev,
-                          color: e.target.value
-                        }))
+                        // setColorImage((prev: any) => ({
+                        //   ...prev,
+                        //   color: e.target.value
+                        // }))
 
-                        setAllColorVariant((prev) => {
-                          const findItem = allColorVariant.map(
-                            (items, index) => {
-                              return item.id === items?.id
-                            }
-                          )
-                          return [...prev]
+                        // setAllColorVariant((prev) => {
+                        //   const findItem = allColorVariant.map(
+                        //     (items, index) => {
+                        //       return item.id === items?.id
+                        //     }
+                        //   )
+                        //   return [...prev]
+                        // })
+                        setColorImage((prev) => {
+                          setCurrentlySelectedColor(e.target.value)
+
+                          const existingList = [...prev]
+                          const currentObject = existingList[index]
+
+                          console.log(existingList, 'existingList 2')
+
+                          console.log(currentObject, 'current object 2')
+
+                          existingList[index] = {
+                            ...currentObject,
+                            color: e.target.value
+                          }
+
+                          // existingList.splice(index, 0, {
+                          //   ...currentObject,
+                          //   color: e.target.value
+                          // })
+
+                          return existingList
                         })
                       }}
-                      value={allColorVariant[index]?.colorName}
+                      value={colorImage[index]?.color ?? ''}
+
+                      // value="#a72020"
                       // value={productId && colorImage?.color}
 
                       // value={productDetailData?.images?.[index]?.colorName}

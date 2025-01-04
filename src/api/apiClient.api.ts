@@ -4,8 +4,7 @@ import {getCookie} from 'src/helpers'
 
 // MARK: - instance
 const instance: AxiosInstance = axios.create({
-  baseURL:'https://api.abhushangallery.com/api'
-,
+  baseURL: 'http://localhost:8000/api',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

@@ -180,7 +180,7 @@ export const ProductListPage = () => {
 
                       // src=`http://localhost:8000/products${datas.}`
 
-                      src={`https://api.abhushangallery.com/products/${datas?.[0]?.coloredImage[0]}`}
+                      src={`https://api.abhushangallery.com/products/${datas?.[0]?.coloredImage}`}
                       // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
                       style={{height: '70px', width: '100px'}}
                     ></img>
