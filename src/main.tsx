@@ -52,8 +52,6 @@ const App = () => {
 
   const media = useMedia()
 
-  console.log('hello app')
-
   const [containsDash, setContainsDash] = useState(false)
   const location = useLocation()
   const roles = getCookie('userRoles')

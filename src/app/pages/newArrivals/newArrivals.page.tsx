@@ -155,12 +155,12 @@ export const NewArrivalListPage = () => {
               name: 'Images',
               render: (datas) => (
                 <div>
-                  {
+                  {datas?.[0] && (
                     <img
-                      src={datas[0]?.url}
+                      src={datas?.[0]?.url}
                       style={{height: '70px', width: '100px'}}
                     ></img>
-                  }
+                  )}
                 </div>
               )
             }

@@ -54,7 +54,7 @@ export const AddSubCategoryPage = () => {
             subCategoryId: subCategoryId as string,
             onSuccess: (data: any) => {
               toast.success('subCategory Updated Successfully')
-              navigate('/subCategory')
+              navigate('/dash-subCategory')
             }
           })
         )

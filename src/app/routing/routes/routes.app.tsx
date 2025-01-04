@@ -65,6 +65,13 @@ export const Router: RouteObject[] = [
 
     element: <HomePage />
   },
+
+  {
+    path: '/',
+    // element: <PublicAuth />,/
+
+    element: <HomePage />
+  },
   {
     path: '/login',
     element: <ProtectedAuth />,

@@ -630,7 +630,7 @@ export const AddProductPage = () => {
             ?.map((item: any, index: number) => {
               console.log('item color name', item.colorName)
               return (
-                <HStack key={index}>
+                <HStack key={index + item.name}>
                   <div>
                     <ImageUploader
                       key={index}

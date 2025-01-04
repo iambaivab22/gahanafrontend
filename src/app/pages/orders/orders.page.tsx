@@ -15,7 +15,8 @@ import {
   Document,
   StyleSheet,
   PDFViewer,
-  Font
+  Font,
+  Image
 } from '@react-pdf/renderer'
 import {AiOutlineClose} from 'react-icons/ai'
 
@@ -217,30 +218,49 @@ const OrderPDf = ({data}) => {
     >
       <Document>
         <Page style={styles.body}>
-          <Text style={styles.header} fixed>
-            Order Details
-          </Text>
+          <View style={styles.orderDetailsContainer}>
+            <Image
+              style={styles.images}
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
+            ></Image>
+
+            <Text style={styles.header}>ORDER DETAILS</Text>
+          </View>
+          {/* </View> */}
+
           <View style={styles.viewContainer}>
             <View>
               <Text style={styles.origin} fixed>
                 Origin
               </Text>
-              <Text style={{fontSize: '16px', fontWeight: 800, lineHeight: 2}}>
+              <Text
+                style={{
+                  fontSize: '16px',
+                  fontWeight: 800,
+                  lineHeight: 2,
+                  marginLeft: '10px'
+                }}
+              >
                 KTM
               </Text>
             </View>
 
             <View>
               <Text style={styles.destination}>Destination</Text>
-              <Text style={{fontSize: '16px', fontWeight: 800}}>
+              <Text
+                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+              >
                 {data.shippingLocation}
               </Text>
             </View>
 
             <View>
               <Text style={styles.destination}>Product</Text>
-              <Text style={{fontSize: '16px', fontWeight: 800}}>
-                {data.quantity}
+
+              <Text
+                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+              >
+                {data?.name}
               </Text>
             </View>
           </View>
@@ -251,20 +271,40 @@ const OrderPDf = ({data}) => {
 
           <View style={styles.viewContainer}>
             <View style={{marginTop: '40px'}}>
-              <Text style={{fontSize: '16px', fontWeight: 600}}>COD Value</Text>
-              <Text style={{fontSize: '16px', fontWeight: 800}}>jflkdsf</Text>
+              <Text
+                style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
+              >
+                COD Value
+              </Text>
+              <Text
+                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+              >
+                COD@#$@E$123
+              </Text>
             </View>
 
             <View style={{marginTop: '40px'}}>
-              <Text style={{fontSize: '16px', fontWeight: 600}}>Quantity</Text>
-              <Text style={{fontSize: '16px', fontWeight: 800}}>
+              <Text
+                style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
+              >
+                Quantity
+              </Text>
+              <Text
+                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+              >
                 {data.products[0].quantity}
               </Text>
             </View>
 
             <View style={{marginTop: '40px'}}>
-              <Text style={{fontSize: '16px', fontWeight: 600}}>Price</Text>
-              <Text style={{fontSize: '16px', fontWeight: 800}}>
+              <Text
+                style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
+              >
+                Price
+              </Text>
+              <Text
+                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+              >
                 {data.products[0].price}
               </Text>
             </View>
@@ -273,23 +313,44 @@ const OrderPDf = ({data}) => {
           <View style={styles.viewContainer}>
             <View style={styles.viewContainer}>
               <View style={{marginTop: '40px'}}>
-                <Text style={{fontSize: '16px', fontWeight: 600}}>
+                <Text
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    fontFamily: 'Arvo'
+                  }}
+                >
                   Shipper details
                 </Text>
                 <Text
-                  style={{fontSize: '14px', fontWeight: 800, marginTop: '5px'}}
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 800,
+                    marginTop: '5px',
+                    marginLeft: '10px'
+                  }}
                 >
                   Aabhushan Gallery
                 </Text>
 
                 <Text
-                  style={{fontSize: '14px', fontWeight: 800, marginTop: '5px'}}
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 800,
+                    marginTop: '5px',
+                    marginLeft: '10px'
+                  }}
                 >
                   Lavi Prajapati
                 </Text>
 
                 <Text
-                  style={{fontSize: '14px', fontWeight: 800, marginTop: '5px'}}
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 800,
+                    marginTop: '5px',
+                    marginLeft: '10px'
+                  }}
                 >
                   Kathmandu,Nepal 44600
                 </Text>
@@ -302,8 +363,22 @@ const OrderPDf = ({data}) => {
                     marginTop: '5px'
                   }}
                 >
-                  <Text style={{fontSize: '16px', fontWeight: 800}}>Tel:</Text>
-                  <Text style={{fontSize: '14px', fontWeight: 800}}>
+                  <Text
+                    style={{
+                      fontSize: '16px',
+                      fontWeight: 800,
+                      marginLeft: '10px'
+                    }}
+                  >
+                    Tel:
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 800,
+                      marginLeft: '10px'
+                    }}
+                  >
                     9841934343
                   </Text>
                 </View>
@@ -312,11 +387,22 @@ const OrderPDf = ({data}) => {
 
             <View style={styles.viewContainer}>
               <View style={{marginTop: '40px'}}>
-                <Text style={{fontSize: '16px', fontWeight: 600}}>
+                <Text
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    fontFamily: 'Arvo'
+                  }}
+                >
                   Consignee Details
                 </Text>
                 <Text
-                  style={{fontSize: '14px', fontWeight: 800, marginTop: '5px'}}
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 800,
+                    marginTop: '5px',
+                    marginLeft: '10px'
+                  }}
                 >
                   {data.userId?.email}
                 </Text>
@@ -328,7 +414,11 @@ const OrderPDf = ({data}) => {
               </Text> */}
 
                 <Text
-                  style={{fontSize: '14px', fontWeight: 800, marginTop: '5px'}}
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 800,
+                    marginLeft: '10px'
+                  }}
                 >
                   {data.shippingLocation}
                 </Text>
@@ -337,14 +427,26 @@ const OrderPDf = ({data}) => {
                   style={{
                     ...styles.viewContainer,
                     justifyContent: 'flex-start',
-                    gap: '10px',
-                    marginTop: '5px'
+                    gap: '5px'
+                    // marginTop: '5px'
                   }}
                 >
-                  <Text style={{fontSize: '16px', fontWeight: 800}}>
-                    Mobile
+                  <Text
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 800,
+                      marginLeft: '10px'
+                    }}
+                  >
+                    Mobile:
                   </Text>
-                  <Text style={{fontSize: '14px', fontWeight: 800}}>
+                  <Text
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 800,
+                      marginLeft: '10px'
+                    }}
+                  >
                     9841934343
                   </Text>
                 </View>
@@ -352,16 +454,32 @@ const OrderPDf = ({data}) => {
             </View>
           </View>
 
-          <View style={styles.viewContainer}>
+          <View
+            style={{
+              width: '100%',
+
+              textAlign: 'right',
+              marginTop: '20px'
+            }}
+          >
             <Text></Text>
 
-            <View>
-              <Text style={{fontSize: '14px', fontWeight: 800}}>
+            <View style={{borderTop: '1px solid black'}}>
+              <Text
+                style={{
+                  fontSize: '14px',
+                  fontWeight: 800,
+                  fontFamily: 'Arvo',
+                  marginTop: '20px'
+                }}
+              >
                 Print Date:
                 {/* {date} */}
               </Text>
 
-              <Text style={{fontSize: '14px', fontWeight: 800}}>
+              <Text
+                style={{fontSize: '14px', fontWeight: 800, marginLeft: '10px'}}
+              >
                 {meroDate.toLocaleDateString()}
               </Text>
             </View>
@@ -381,31 +499,48 @@ const OrderPDf = ({data}) => {
 }
 
 Font.register({
-  family: 'Oswald',
-  src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
+  family: 'Arvo',
+  src: 'http://fonts.gstatic.com/s/arvo/v9/MViwy4K6e56oHcyeMzjbCQ.ttf'
 })
 
 const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
     paddingBottom: 65,
-    paddingHorizontal: 35
+    paddingHorizontal: 25
+    // border: '2px solid red'
   },
   origin: {
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Arvo'
     // fontFamily: 'Oswald',
     // float: 'left'
   },
   destination: {
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'Arvo'
+
+    // fontFamily: 'Roboto'
   },
   viewContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: '20px',
     width: '75vw'
+  },
+
+  orderDetailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: '0px',
+    // width: '100%',
+    borderBottom: '4px solid grey',
+    paddingBottom: '10px',
+    // padding: '1',
+    marginBottom: 20,
+    alignItems: 'center'
   },
   subtitle: {
     fontSize: 18,
@@ -418,15 +553,21 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     fontFamily: 'Times-Roman'
   },
-  image: {
+  images: {
     marginVertical: 15,
-    marginHorizontal: 100
+    // marginHorizontal: 100,
+    height: '60px',
+    width: '60px'
   },
   header: {
     fontSize: 22,
-    marginBottom: 20,
-    textAlign: 'center',
-    fontWeight: 800
+
+    // textAlign: 'center',
+    fontWeight: 800,
+    marginLeft: '10px'
+
+    // border: '2px solid grey'
+
     // color: 'grey'
   },
   pageNumber: {
@@ -437,5 +578,15 @@ const styles = StyleSheet.create({
     right: 0,
     textAlign: 'center',
     color: 'grey'
+  },
+  shippingLocation: {
+    fontSize: '14px',
+    fontWeight: 800,
+    marginTop: '5px'
+    // fontFamily: 'Playfair'
+  },
+
+  titleFont: {
+    fontFamily: 'Arvo'
   }
 })
