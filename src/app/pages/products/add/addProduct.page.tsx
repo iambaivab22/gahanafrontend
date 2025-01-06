@@ -120,6 +120,16 @@ export const AddProductPage = () => {
         })
       )
 
+      setColorImage(() => {
+        return productDetailData?.images?.map((item: any, index: number) => {
+          return {
+            id: item._id,
+            color: item.colorName,
+            image: item.coloredImage
+          }
+        })
+      })
+
       setData((prev: any) => ({
         ...prev,
         name: productDetailData?.name,
@@ -150,7 +160,7 @@ export const AddProductPage = () => {
       }))
 
       const videoUrl = productDetailData?.video
-        ? `https://api.abhushangallery.com/video/${productDetailData.video}`
+        ? `http://localhost:8000/video/${productDetailData.video}`
         : null
 
       if (videoUrl) {
@@ -190,6 +200,8 @@ export const AddProductPage = () => {
           : ''
       }))
     }
+
+    console.log(productDetailData, 'product detail data')
   }, [productDetailData])
 
   const [selectedCategory, setSelectedCategory] = useState<any>()
@@ -298,6 +310,8 @@ export const AddProductPage = () => {
     console.log(productDetailData, 'pr')
   }, [productDetailData])
 
+  console.log(colorImage, 'colored images')
+
   const handleAction = (imageId: string) => {
     console.log('product id called dfsdfsdfdf', productId)
     dispatch(
@@ -365,7 +379,7 @@ export const AddProductPage = () => {
     const minusCount = -colorCount
     // console.log(minusCount, 'minusCount')
     const productImageIds = productVariantIdList?.slice(minusCount)
-    // console.log(productImageIds, 'minusCount')
+    console.log(productImageIds, 'meroname')
     productImageIds?.forEach((value, index) => {
       formData.append('productVariants', value)
     })
@@ -489,7 +503,7 @@ export const AddProductPage = () => {
             })
           )
 
-          setColorImage((prev: any) => [])
+          // setColorImage((prev: any) => [])
         }
       })
     )
@@ -503,6 +517,8 @@ export const AddProductPage = () => {
   useEffect(() => {
     console.log(allColorVariant, 'allColorVariant')
   }, [allColorVariant])
+
+  console.log(colorImage, 'colorImages default')
 
   const [currentlySelectedColor, setCurrentlySelectedColor] =
     useState<string>('')
@@ -651,7 +667,7 @@ export const AddProductPage = () => {
                       uniqueKeys={index}
                       defaultImage={
                         productId && !!productDetailData
-                          ? productDetailData?.images[index]?.coloredImage
+                          ? [productDetailData?.images[index]]
                           : ''
                       }
                       onImageChange={(event) => {
@@ -818,7 +834,7 @@ export const AddProductPage = () => {
           <VideoUploader
             defaultVideo={
               productId && !!productDetailData
-                ? `https://api.abhushangallery.com/video/${productDetailData?.video}`
+                ? `http://localhost:8000/video/${productDetailData?.video}`
                 : ''
             }
             onVideoChange={handleVideo}

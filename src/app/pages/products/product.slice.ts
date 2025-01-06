@@ -193,6 +193,7 @@ const updateProductAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
+      console.log('productBody', productBody)
       const response = await productService.updateProduct(
         productBody,
         productId

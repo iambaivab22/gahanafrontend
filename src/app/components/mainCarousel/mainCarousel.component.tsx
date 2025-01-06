@@ -80,7 +80,7 @@ export const MainCarousel = () => {
             return (
               // <div className="image-container" key={index}>
               <img
-                src={`https://api.abhushangallery.com/${item}`}
+                src={`http://localhost:8000/${item}`}
                 alt="image"
                 placeholder="blur"
                 // blurDataURL={item}

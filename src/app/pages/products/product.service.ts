@@ -58,6 +58,7 @@ const getProductListByCategoryId = async (categoryId: string) => {
 
 // MARK: - createProduct
 const createProduct = async (body: any) => {
+  console.log(body, 'body')
   const response = await api<Api.Base<{}>>('post')(
     `/product/new`,
     undefined,

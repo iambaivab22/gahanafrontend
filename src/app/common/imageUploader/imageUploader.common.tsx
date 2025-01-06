@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {AiFillCamera, AiFillCloseCircle} from 'react-icons/ai'
 import {TbCameraPlus} from 'react-icons/tb'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
@@ -23,24 +23,34 @@ const ImageUploader = React.memo(
     const [selectedImages, setSelectedImages] = useState([])
     const [files, setFiles] = useState([])
 
+    const closeClickHandlerRef = useRef<any>(false)
+
     useEffect(() => {
-      if (!!defaultImage && defaultImage.length > 0) {
-        console.log(defaultImage, 'default Image')
-        const remappedFiles = defaultImage?.map((item: any, index: number) => ({
-          // file: isBanner
-          //   ? import.meta.env.REACT_APP_DEV_URL/$
+      if (!closeClickHandlerRef.current) {
+        if (!!defaultImage && defaultImage.length > 0) {
+          console.log(defaultImage, 'default Image')
+          const remappedFiles = defaultImage?.map(
+            (item: any, index: number) => ({
+              // file: isBanner
+              //   ? import.meta.env.REACT_APP_DEV_URL/$
 
-          //   `http://localehost:8000/${item}`
-          //   : `http://localhost:8000/products/${item}`,
-          // id: isBanner ? item : item._id
+              //   `http://localehost:8000/${item}`
+              //   : `http://localhost:8000/products/${item}`,
+              // id: isBanner ? item : item._id
 
-          file: isBanner
-            ? `https://api.abhushangallery.com/${item}`
-            : `https://api.abhushangallery.com/products/${item}`,
-          id: isBanner ? item : item._id
-        }))
+              file: isBanner
+                ? `http://localhost:8000/${item?.coloredImage}`
+                : `http://localhost:8000/products/${item?.coloredImage}`,
+              id: isBanner ? item : item?._id
+            })
+          )
 
-        setSelectedImages(remappedFiles)
+          console.log(remappedFiles, 'remapped files value')
+
+          console.log('selected image hai 2')
+          closeClickHandlerRef.current = true
+          setSelectedImages(remappedFiles)
+        }
       }
     }, [defaultImage])
 
@@ -61,6 +71,8 @@ const ImageUploader = React.memo(
 
       console.log(newImages, 'newImages from cmp')
 
+      closeClickHandlerRef.current = true
+
       setSelectedImages((prev: any) => [...prev, ...newImages])
     }
 
@@ -72,15 +84,19 @@ const ImageUploader = React.memo(
     const handleRemoveImage = (id: any, isNew: boolean) => {
       console.log(id, ' product id ')
 
-      console.log('handle remove image called')
+      console.log('handle remove image called', id, selectedImages)
 
       !isNew ? actionHandler && actionHandler(id) : null
 
       const updatedImages = selectedImages?.filter(
         (image: any) => image.id !== id
       )
+
+      console.log(updatedImages, 'updated images')
       setSelectedImages(updatedImages)
     }
+
+    console.log(selectedImages, 'selected images hai')
 
     useEffect(() => {
       console.log(selectedImages, 'seelcted images from upload image component')

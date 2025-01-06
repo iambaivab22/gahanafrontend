@@ -84,7 +84,7 @@ export const TestimonailSection = ({reviews}) => {
       <article className="review">
         <div className="img-container">
           <img
-            src={`https://api.abhushangallery.com/testimonial/${image?.[0]}`}
+            src={`http://localhost:8000/testimonial/${image?.[0]}`}
             className="person-img"
           />
           <span className="quote-icon">

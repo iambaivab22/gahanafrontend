@@ -4,6 +4,7 @@ import {useState, useRef, useEffect} from 'react'
 import ReactImageMagnify from 'react-image-magnify'
 
 export const ZoomSlider = ({data}: {data: any}) => {
+  console.log(data, 'data required')
   const [images, setImages] = useState([])
   // const images = [
   //   'src/assets/images/products/jewellery-1.jpg',
@@ -14,8 +15,10 @@ export const ZoomSlider = ({data}: {data: any}) => {
 
   useEffect(() => {
     const images = data?.map((item: any, index: number) => {
-      return `https://api.abhushangallery.com/products/${item}`
+      return `http://localhost:8000/products/${item}`
     })
+
+    console.log(images, 'images values')
 
     setImages(images)
 
@@ -27,7 +30,7 @@ export const ZoomSlider = ({data}: {data: any}) => {
   const hoverHandler = (image, i) => {
     setImg(image)
     refs.current[i].classList.add('active')
-    for (var j = 0; j < images.length; j++) {
+    for (var j = 0; j < images?.length; j++) {
       if (i !== j) {
         refs.current[j].classList.remove('active')
       }

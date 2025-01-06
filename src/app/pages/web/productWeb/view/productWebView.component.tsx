@@ -72,13 +72,17 @@ export const ProductWebDetail = () => {
     (state: any) => state.product
   )
 
-  const [productImageList, setProductImageList] = useState(
-    productDetailData?.images[0]?.coloredImage
-  )
-  useEffect(() => {
-    console.log(productDetailData, productDetailLoading, 'hiii')
+  const [productImageList, setProductImageList] = useState([])
 
-    setProductImageList(productDetailData?.images[0]?.coloredImage)
+  console.log(productImageList, 'il value')
+  useEffect(() => {
+    const requiredImageList = productDetailData?.images?.map(
+      (item: any, index: number) => {
+        return item.coloredImage
+      }
+    )
+
+    setProductImageList(requiredImageList)
   }, [productDetailData])
 
   const products = productDetailData?.image
@@ -86,7 +90,9 @@ export const ProductWebDetail = () => {
     console.log(value, 'rating value')
   }
 
-  const handleColorClicked = (id: string) => {
+  const [activeColorIndex, setActiveColorIndex] = useState(0)
+
+  const handleColorClicked = (id: string, index) => {
     const requiredImageList = productDetailData?.images?.find(
       (item: any, index: number) => {
         return item._id === id
@@ -96,7 +102,9 @@ export const ProductWebDetail = () => {
     console.log(requiredImageList, 'heee')
     console.log(productDetailData.video, 'heee')
 
-    setProductImageList(requiredImageList?.coloredImage)
+    setActiveColorIndex(index)
+
+    setProductImageList([requiredImageList?.coloredImage])
   }
 
   const handleAddToCart = (data: any) => {
@@ -153,8 +161,9 @@ export const ProductWebDetail = () => {
                   />
                 ))}
               </CarouselSlider> */}
-
-              <ZoomSlider data={productImageList}></ZoomSlider>
+              {productImageList && (
+                <ZoomSlider data={productImageList}></ZoomSlider>
+              )}
             </div>
 
             <VStack
@@ -206,10 +215,30 @@ export const ProductWebDetail = () => {
                     (item: any, index: number) => {
                       return (
                         <div
-                          style={{background: item.colorName}}
-                          className="productDetail-detailTop-color-item"
-                          onClick={() => handleColorClicked(item._id)}
-                        ></div>
+                          key={index}
+                          style={{
+                            border:
+                              activeColorIndex === index
+                                ? '2px solid hsl(353, 100%, 78%)'
+                                : 'none',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+
+                            borderRadius: '50%',
+                            boxSizing: 'border-box',
+                            padding: '3px'
+                          }}
+                        >
+                          <div
+                            style={{
+                              background: item.colorName
+                            }}
+                            className="productDetail-detailTop-color-item"
+                            onClick={() => handleColorClicked(item._id, index)}
+                            key={index}
+                          ></div>
+                        </div>
                       )
                     }
                   )}
@@ -290,7 +319,7 @@ export const ProductWebDetail = () => {
                       onMouseDown={handleMouseDown}
                     >
                       <CustomVideoPlayer
-                        videoUrl={`https://api.abhushangallery.com/video/${productDetailData?.video}`}
+                        videoUrl={`http://localhost:8000/video/${productDetailData?.video}`}
                         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
                       ></CustomVideoPlayer>
                     </div>

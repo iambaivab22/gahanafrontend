@@ -49,9 +49,7 @@ export const ProductCard = ({data}: {data: any}) => {
           {/* <img src={productImages[activeImage]}></img> */}
           {/* <img src="http://localhost:8000/1705164295377-htmlimage.jpg"></img> */}
 
-          <img
-            src={`https://api.abhushangallery.com/products/${productImages?.[0]}`}
-          />
+          <img src={`http://localhost:8000/products/${productImages?.[0]}`} />
         </div>
 
         <HStack className="productCard-tags" gap="$2">

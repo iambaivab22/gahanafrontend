@@ -85,7 +85,7 @@ export const Testimonial = () => {
 
                     // src=`http://localhost:8000/products${datas.}`
 
-                    src={`https://api.abhushangallery.com/testimonial/${datas}`}
+                    src={`http://localhost:8000/testimonial/${datas}`}
                     // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
                     style={{height: '70px', width: '100px'}}
                   ></img>
