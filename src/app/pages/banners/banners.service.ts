@@ -19,8 +19,41 @@ const deleteBannerImages = async (bannerName: string) => {
   const response = await api<any>('delete')(`/banner/${bannerName}`)
 }
 
+const getSocialLinks = async () => {
+  const response = await api<Api.Base<any>>('get')('socialIcons')
+  return response.data
+}
+export const createSocialLinks = async (body: any) => {
+  console.log(body, 'body from servie')
+  const response = await api<Api.Base<{}>>('post')(
+    `/socialLinks/new`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
+export const updateSocialLinks = async (body: any) => {
+  console.log(body, 'body from servie')
+  const response = await api<Api.Base<{}>>('post')(
+    `/socialLinks/new`,
+    undefined,
+    body
+  )
+  return response.data
+}
+
+const deleteSocialLinks = async (bannerName: string) => {
+  console.log(bannerName, 'productId from service')
+  const response = await api<any>('delete')(`/socialLinks/${bannerName}`)
+}
+
 export const BannerService = {
   createBanner,
   getBannerList,
-  deleteBannerImages
+  deleteBannerImages,
+  getSocialLinks,
+  createSocialLinks,
+  updateSocialLinks,
+  deleteSocialLinks
 }

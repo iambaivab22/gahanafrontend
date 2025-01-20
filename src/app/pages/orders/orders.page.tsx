@@ -78,7 +78,6 @@ export const OrderListPage = () => {
                 field: 'userId',
                 name: 'Customer Name',
                 render: (datas) => {
-                  console.log(datas, 'datasssssssssss')
                   return <div>{datas?.email}</div>
                 }
               },
@@ -87,7 +86,6 @@ export const OrderListPage = () => {
                 field: 'products',
                 name: 'Quantity',
                 render: (datas) => {
-                  console.log(datas, 'datasssssssssss')
                   return <div>{datas?.[0]?.quantity}</div>
                 }
               },
@@ -95,7 +93,6 @@ export const OrderListPage = () => {
                 field: 'products',
                 name: 'Price',
                 render: (datas) => {
-                  console.log(datas, 'datasssssssssss')
                   return <div>{getNprPrice(datas?.[0]?.price)}</div>
                 }
               },

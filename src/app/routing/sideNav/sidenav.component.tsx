@@ -127,6 +127,10 @@ const SideNavComponent = React.memo(() => {
           {getNav('Order List', '/dash-orders', () => (
             <MdReport size={18} />
           ))}
+
+          {getNav('Social Links', '/dash-social-links', () => (
+            <MdReport size={18} />
+          ))}
         </Box>
       </animated.div>
     </div>
@@ -134,6 +138,7 @@ const SideNavComponent = React.memo(() => {
 })
 
 const getNav = (route: string, url: string, icon: () => React.ReactNode) => {
+  console.log(route, 'route value')
   if (!route) return null
   const canAccess = useCanAccessRoute(url)
   const {sidenavExpand} = useAuth()

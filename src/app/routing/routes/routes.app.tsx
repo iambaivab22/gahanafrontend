@@ -19,6 +19,7 @@ import {
   RegisterPage,
   ReturnPolicy,
   ShippingPolicy,
+  SocialLinksPage,
   Testimonial
   // ProductWebSample
 } from 'src/app/pages'
@@ -31,6 +32,7 @@ import {AddTestimonialPage} from 'src/app/pages/testimonial/add/addTestimonial.c
 import {ShopByBudget} from 'src/app/pages/shopByBudget/shopByBudget.component'
 import {AddShopByBudget} from 'src/app/pages/shopByBudget/add/addShopByBudget.component'
 import {CartCard} from 'src/app/components'
+import {ResetPasswordPage} from 'src/app/pages/resetPassword/resetPassword.page'
 
 // import LoginPage from 'src/app/pages/login/login.page'
 
@@ -90,6 +92,17 @@ export const Router: RouteObject[] = [
       {
         path: '',
         element: <RegisterPage />
+      }
+    ]
+  },
+
+  {
+    path: '/reset-password',
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <ResetPasswordPage />
       }
     ]
   },
@@ -325,6 +338,17 @@ export const Router: RouteObject[] = [
       {
         path: '',
         element: <OrderListPage />
+      }
+    ]
+  },
+  {
+    path: '/dash-social-links',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <SocialLinksPage />
       }
     ]
   },

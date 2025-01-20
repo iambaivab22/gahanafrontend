@@ -1,6 +1,6 @@
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {CompWrapper, HStack, VStack} from 'src/app/common'
 import {
   CategoryContainer,
@@ -87,6 +87,13 @@ export const HomePage = () => {
       })
     )
   }, [])
+
+  const watchAndShopFilterData = useMemo(() => {
+    return watchandshopdata?.filter((item: any, index: number) => {
+      return item.isWatchAndShop === true
+    })
+  }, [watchandshopdata])
+
   return (
     <div className="home">
       <MainCarousel></MainCarousel>
@@ -111,34 +118,37 @@ export const HomePage = () => {
           {testimonialList?.length > 0 && (
             <TestimonailSection reviews={testimonialList}></TestimonailSection>
           )}
-          <VStack gap="$8">
-            <div className="jobsSectionContainer-header">WATCH AND SHOP</div>
-            <WatchAndShopSection
-              data={watchandshopdata?.filter((item: any, index: number) => {
-                return item.isWatchAndShop === true
-              })}
-            ></WatchAndShopSection>
 
-            <VStack gap="$3">
-              <div className="jobsSectionContainer-header">SHOP BY BUDGET</div>
+          {watchAndShopFilterData?.length > 0 && (
+            <VStack gap="$8">
+              <div className="jobsSectionContainer-header">WATCH AND SHOP</div>
+              <WatchAndShopSection
+                data={watchAndShopFilterData}
+              ></WatchAndShopSection>
 
-              <div
-                style={{
-                  width: '100%',
-                  marginBottom: '12px',
-                  columnGap: '20px',
-                  rowGap: '20px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexWrap: 'wrap'
-                }}
-              >
-                {shopByBudgetData?.map((item, index) => {
-                  return <ShopByBudgetWeb data={item}></ShopByBudgetWeb>
-                })}
-              </div>
+              <VStack gap="$3">
+                <div className="jobsSectionContainer-header">
+                  SHOP BY BUDGET
+                </div>
+
+                <div
+                  style={{
+                    width: '100%',
+                    marginBottom: '12px',
+                    columnGap: '20px',
+                    rowGap: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    flexWrap: 'wrap'
+                  }}
+                >
+                  {shopByBudgetData?.map((item, index) => {
+                    return <ShopByBudgetWeb data={item}></ShopByBudgetWeb>
+                  })}
+                </div>
+              </VStack>
             </VStack>
-          </VStack>
+          )}
         </VStack>
       </CompWrapper>
     </div>

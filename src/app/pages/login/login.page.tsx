@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import './_loginPage.scss'
 import {useDispatch} from 'src/store'
-import {LoginAction} from './login.slice'
+import {ForgotPasswordAction, LoginAction} from './login.slice'
 import toast from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 import {setCookie} from 'src/helpers'
@@ -55,6 +55,17 @@ export const LoginPage = () => {
     }
   }
 
+  const handleForgotPassword = () => {
+    dispatch(
+      ForgotPasswordAction({
+        userEmail: loginData.email,
+        onSuccess: () => {
+          toast.success('Password reset link has been sent to your email')
+        }
+      })
+    )
+  }
+
   return (
     <>
       <h2 className="login-title">Log in</h2>
@@ -100,6 +111,8 @@ export const LoginPage = () => {
           >
             Log in
           </button>
+
+          <p onClick={handleForgotPassword}>Forgot Password?</p>
         </div>
       </div>
     </>

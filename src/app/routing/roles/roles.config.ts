@@ -14,6 +14,7 @@ export const USER_ROLES: UserRoles = {
     access: [
       '/register',
       '/login',
+      '/reset-password',
       '/products/*',
       '/dash-category/*',
       '/dash-subCategory/*',
@@ -30,13 +31,15 @@ export const USER_ROLES: UserRoles = {
       '/dash-orders/*',
       '/product/*',
       '/return-policy',
-      '/shipping-policy'
+      '/shipping-policy',
+      '/dash-social-links'
     ]
   },
   USER: {
     access: [
       'register',
       '/login',
+      '/reset-password',
       '/sample',
       '/business/*',
       '/home/*',
