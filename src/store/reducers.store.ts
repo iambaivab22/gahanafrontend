@@ -8,6 +8,8 @@ import TestimonialReducer from 'src/app/pages/testimonial/testimonial.slice'
 import ShopByBudgetReducer from 'src/app/pages/shopByBudget/shopByBudget.slice'
 import CartReducer from 'src/app/pages/web/cart/cart.slice'
 
+import SocialLinksReducer from 'src/app/pages/socialLinks/socialLinks.slice'
+
 export const store = configureStore({
   reducer: {
     product: productReducer,
@@ -16,6 +18,7 @@ export const store = configureStore({
     banner: BannerReducer,
     testimonial: TestimonialReducer,
     shopByBudget: ShopByBudgetReducer,
-    cart: CartReducer
+    cart: CartReducer,
+    socialLinks: SocialLinksReducer
   }
 })

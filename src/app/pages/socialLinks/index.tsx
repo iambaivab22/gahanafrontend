@@ -1,9 +1,136 @@
-import React from 'react'
-
+import React, {useEffect, useState, useCallback} from 'react'
+import {useDispatch} from 'src/store'
+// import {delteProductAction, getProductListAction} from './product.slice'
+import {useSelector} from 'react-redux'
+import {Box, Button, HStack, SelectField, Table} from 'src/app/common'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-hot-toast'
+import {
+  deleteSubCategoryAction,
+  getSubCategoryListAction
+} from '../subCategory/subCategory.slice'
+import {getSocialLinksAction} from './socialLinks.slice'
 export const SocialLinksPage = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [category, setCategory] = useState<any>()
+  //   const [selectedCateory, setSelectedCategory] = useState<any>()
+  const {socialLinks}: any = useSelector((state: any) => state.socialLinks)
+
+  useEffect(() => {
+    dispatch(
+      getSocialLinksAction({
+        onSuccess: () => console.log('Sub categoryList fetch Successfully')
+      })
+    )
+  }, [])
+
+  //   useEffect(() => {
+  //     console.log(categoryData, 'caetgory data called')
+  //     const mappedSubCategory = categoryData?.map((item: any, index: number) => {
+  //       console.log(item, 'caetgory item')
+  //       return {
+  //         id: item.id,
+  //         label: item.name,
+  //         value: item.name,
+  //         subCategory: item.subCategories
+  //       }
+  //     })
+  //     console.log(mappedCategory, 'mapped category from products')
+  //     setCategory(mappedCategory)
+  //   }, [categoryData])
+
   return (
     <div>
-      <h1>Social Links</h1>
+      <Box>
+        <HStack justify="space-between" style={{margin: '20px 0'}}>
+          <Button
+            title="Add Social Links"
+            onClick={() => navigate('add')}
+          ></Button>
+        </HStack>
+
+        <Table
+          columns={[
+            {
+              field: 'specialSlogan',
+              name: 'Special Slogan',
+              render: (datas) => {
+                return <div style={{width: 'max-content'}}>{datas}</div>
+              }
+            },
+            {
+              field: 'offerText',
+              name: 'Offer Text',
+              render: (datas) => (
+                <div className="subCategoryButton">
+                  <p className="subCategoryButton-item">{datas}</p>
+                </div>
+              )
+            },
+
+            {
+              field: 'socialLinks',
+              name: 'Instagram',
+              render: (datas) => (
+                <div className="subCategoryButton">
+                  <p className="subCategoryButton-item">{datas.instagram}</p>
+                </div>
+              )
+            },
+            {
+              field: 'socialLinks',
+              name: 'Facebook',
+              render: (datas) => (
+                <div className="subCategoryButton">
+                  <p className="subCategoryButton-item">{datas.facebook}</p>
+                </div>
+              )
+            },
+            {
+              field: 'socialLinks',
+              name: 'Tiktok',
+              render: (datas) => (
+                <div className="subCategoryButton">
+                  <p className="subCategoryButton-item">{datas.tiktok}</p>
+                </div>
+              )
+            }
+          ]}
+          data={socialLinks}
+          actions={{
+            // onView: (item: any) => {
+            //   navigate(`view/${item.id}`)
+            // },
+
+            onEdit: (item: any) => {
+              console.log(item.id, 'item id to delete')
+              navigate(`update/${item._id}`)
+            }
+            // onDelete: (item: any, onCloseModalHandler) => {
+            //   dispatch(
+            //     deleteSubCategoryAction({
+            //       subCategoryId: item.id,
+            //       onSuccess: (data: any) => {
+            //         onCloseModalHandler()
+            //         toast.success('SubCategory deleted successfully')
+            //         dispatch(
+            //           getSubCategoryListAction({
+            //             onSuccess: () => {}
+            //           })
+            //         )
+            //       }
+            //     })
+            //   )
+            // }
+          }}
+          pagination={{
+            totalCount: Number(socialLinks?.length ?? 1)
+            // perPage: Number(import.meta.REACT_APP_TABLE_LIMIT || 10)
+          }}
+        />
+      </Box>
     </div>
   )
 }

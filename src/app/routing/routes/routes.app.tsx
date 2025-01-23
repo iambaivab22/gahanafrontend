@@ -33,6 +33,7 @@ import {ShopByBudget} from 'src/app/pages/shopByBudget/shopByBudget.component'
 import {AddShopByBudget} from 'src/app/pages/shopByBudget/add/addShopByBudget.component'
 import {CartCard} from 'src/app/components'
 import {ResetPasswordPage} from 'src/app/pages/resetPassword/resetPassword.page'
+import {AddSocialLinksPage} from 'src/app/pages/socialLinks/add/addSocialLinks.component'
 
 // import LoginPage from 'src/app/pages/login/login.page'
 
@@ -349,6 +350,15 @@ export const Router: RouteObject[] = [
       {
         path: '',
         element: <SocialLinksPage />
+      },
+      {
+        path: 'add',
+        element: <AddSocialLinksPage />
+      },
+
+      {
+        path: 'update/:socialLinksId',
+        element: <AddSocialLinksPage />
       }
     ]
   },

@@ -15,7 +15,7 @@ const getSocialLinksAction = createAsyncThunk(
       const response = await SocialLinkService.getSocialLinks()
       console.log('from slice')
       onSuccess?.(response)
-      return response
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue('Cannot get Social Links!')
     }
@@ -46,6 +46,29 @@ const updateSocialLinksAction = createAsyncThunk(
       return response
     } catch (error) {
       return thunkAPI.rejectWithValue('Cannot update Social Links !')
+    }
+  }
+)
+
+const getSocialLinksByIdAction = createAsyncThunk(
+  'socialLinksById/get',
+  async (
+    {
+      socialLinksId,
+      onSuccess
+    }: {
+      socialLinksId: string
+      onSuccess?: (data: any) => void
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await SocialLinkService.getSocialLinksById(socialLinksId)
+
+      onSuccess && onSuccess?.(response)
+      return response.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Cannot get Social Links by id action!')
     }
   }
 )
@@ -102,20 +125,32 @@ interface SocialLinksState {
       facebook: String
     }
     specialSlogan: string
-
     offerText: string
   }[]
+
+  individdualSocialLinks: {
+    socialLinks: {
+      instagram: String
+      tiktok: String
+      facebook: String
+    }
+    specialSlogan: string
+    offerText: string
+  }
   isGetLoading: boolean
   isCreateLoading: boolean
   isUpdateLoading: boolean
   isDeleteLoading: boolean
+  getDetailByIdLoading: boolean
 }
 const initialState: SocialLinksState = {
   socialLinks: [],
   isGetLoading: false,
   isCreateLoading: false,
   isUpdateLoading: false,
-  isDeleteLoading: false
+  isDeleteLoading: false,
+  getDetailByIdLoading: false,
+  individdualSocialLinks: undefined
 }
 export const socialLinksSlice = createSlice({
   name: 'socialLinks',
@@ -123,7 +158,7 @@ export const socialLinksSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getSocialLinksAction.pending, (state) => {
-      state.isLoading = true
+      state.isGetLoading = true
     })
     builder.addCase(getSocialLinksAction.fulfilled, (state, action) => {
       state.isGetLoading = false
@@ -134,7 +169,7 @@ export const socialLinksSlice = createSlice({
     })
 
     builder.addCase(updateSocialLinksAction.pending, (state) => {
-      state.isGetLoading = true
+      state.isUpdateLoading = true
     })
     builder.addCase(updateSocialLinksAction.fulfilled, (state, action) => {
       state.isUpdateLoading = false
@@ -165,5 +200,25 @@ export const socialLinksSlice = createSlice({
     builder.addCase(createSocialLinksAction.rejected, (state) => {
       state.isCreateLoading = false
     })
+    builder.addCase(getSocialLinksByIdAction.pending, (state) => {
+      state.getDetailByIdLoading = true
+    })
+    builder.addCase(getSocialLinksByIdAction.fulfilled, (state, action) => {
+      state.getDetailByIdLoading = false
+      state.individdualSocialLinks = action.payload as any
+    })
+    builder.addCase(getSocialLinksByIdAction.rejected, (state) => {
+      state.getDetailByIdLoading = false
+    })
   }
 })
+
+export {
+  getSocialLinksAction,
+  createSocialLinksAction,
+  deleteSocialLinksAction,
+  updateSocialLinksAction,
+  getSocialLinksByIdAction
+}
+
+export default socialLinksSlice.reducer

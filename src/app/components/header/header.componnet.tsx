@@ -617,6 +617,7 @@ import {useNavigate} from 'react-router-dom'
 import {SideNav} from 'src/app/routing/sideNav/sidenav.component'
 import {useAuth} from 'src/app/routing'
 import Cookies from 'universal-cookie'
+import {getSocialLinksAction} from 'src/app/pages/socialLinks/socialLinks.slice'
 
 export const DesktopHeader = () => {
   const [category, setCategory] = useState<any>()
@@ -1177,6 +1178,14 @@ export const TopHeader = () => {
   const [searchValue, setSearchValue] = useState<string>('')
   const debouncedSearchvalue = useDebounceValue(searchValue)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(
+      getSocialLinksAction({
+        onSuccess: () => console.log('Sub categoryList fetch Successfully')
+      })
+    )
+  }, [])
   // useEffect(() => {
   //   dispatch(
   //     getProductListAction({
@@ -1225,45 +1234,46 @@ export const TopHeader = () => {
 
   const {setAuth} = useAuth()
 
+  const {socialLinks}: any = useSelector((state: any) => state.socialLinks)
+  console.log(socialLinks, 'sociallinks value')
   return (
     <>
       <div className="header-top">
         <div className="container">
           <ul className="header-social-container">
             <li>
-              <a href="#" className="social-link">
+              <a
+                href={socialLinks[0]?.socialLinks?.facebook}
+                className="social-link"
+              >
                 {/* <ion-icon name="logo-facebook"></ion-icon> */}
                 <FaFacebook></FaFacebook>
               </a>
             </li>
 
             <li>
-              <a href="#" className="social-link">
+              <a
+                href={socialLinks[0]?.socialLinks?.tiktok}
+                className="social-link"
+              >
                 {/* <ion-icon name="logo-twitter"></ion-icon> */}
                 <FaTiktok></FaTiktok>
               </a>
             </li>
 
             <li>
-              <a href="#" className="social-link">
+              <a
+                href={socialLinks[0]?.socialLinks?.instagram}
+                className="social-link"
+              >
                 {/* <ion-icon name="logo-instagram"></ion-icon> */}
                 <FaInstagram></FaInstagram>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" className="social-link">
-                {/* <ion-icon name="logo-linkedin"></ion-icon> */}
-                <FaLinkedinIn></FaLinkedinIn>
               </a>
             </li>
           </ul>
 
           <div className="header-alert-news">
-            <p>
-              <b>Upto 50% off</b>
-            </p>
-            <p>This Week Order Over - $55</p>
+            <p>{socialLinks[0]?.offerText}</p>
           </div>
 
           <div className="header-top-actions">
@@ -1277,7 +1287,7 @@ export const TopHeader = () => {
               <option value="es-ES">Espa&ntilde;ol</option>
               <option value="fr">Fran&ccedil;ais</option>
             </select> */}
-            10 years of Trusted Jeweler
+            {socialLinks[0]?.specialSlogan}
           </div>
         </div>
       </div>

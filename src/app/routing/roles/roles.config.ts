@@ -32,7 +32,7 @@ export const USER_ROLES: UserRoles = {
       '/product/*',
       '/return-policy',
       '/shipping-policy',
-      '/dash-social-links'
+      '/dash-social-links/*'
     ]
   },
   USER: {

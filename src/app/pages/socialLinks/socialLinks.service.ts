@@ -7,7 +7,11 @@ const getSocialLinks = async () => {
 }
 
 const createSocialLinks = async (body: any) => {
-  const response = await api<Api.Base<any>>('post')(`/socialLinks`, body)
+  const response = await api<Api.Base<any>>('post')(
+    `/socialLinks`,
+    undefined,
+    body
+  )
   return response.data
 }
 
@@ -16,10 +20,19 @@ const deleteSocialLinks = async (socialLinksId: string) => {
 }
 
 const updateSocialLinks = async (body: any, socialLinksId: string) => {
-  const response = await api<Api.Base<{}>>('patch')(
+  const response = await api<Api.Base<{}>>('put')(
     `/socialLinks/${socialLinksId}`,
     undefined,
     body
+  )
+  return response.data
+}
+
+const getSocialLinksById = async (socialLinksId: string) => {
+  const response = await api<Api.Base<{}>>('get')(
+    `/socialLinks/${socialLinksId}`,
+    undefined,
+    undefined
   )
   return response.data
 }
@@ -27,5 +40,6 @@ export const SocialLinkService = {
   getSocialLinks,
   createSocialLinks,
   updateSocialLinks,
-  deleteSocialLinks
+  deleteSocialLinks,
+  getSocialLinksById
 }
