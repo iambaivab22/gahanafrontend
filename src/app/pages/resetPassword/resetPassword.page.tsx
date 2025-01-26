@@ -4,11 +4,25 @@ import './_resetPassword.scss'
 import {useDispatch} from 'src/store'
 
 import toast from 'react-hot-toast'
-import {useNavigate} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {setCookie} from 'src/helpers'
 import {useAuth} from 'src/app/routing'
+import {useParams} from 'src/hooks'
+
+import {ResetPasswordAction} from './resetPassword.slice'
 export const ResetPasswordPage = () => {
   const dispatch = useDispatch()
+
+  // const resetToken = useParams('resetToken')
+
+  const location = useLocation() // Access the current location object
+  const queryParams = new URLSearchParams(location.search) // Parse the query string
+
+  // Get individual query parameters
+  const resetToken = queryParams.get('resetToken')
+
+  console.log(resetToken, 'resetTokens')
+  // const age = queryParams.get('age')
 
   const [loginData, setLoginData] = useState({
     password: '',
@@ -20,40 +34,22 @@ export const ResetPasswordPage = () => {
     // console.log(loginData, 'logindatat')
 
     if (loginData.password.length > 0 && loginData.confirmpassword.length > 0) {
-      //   if (
-      //     loginData?.email === 'meromail123@gmail.com' &&
-      //     loginData?.password === '12345673'
-      //   ) {
-      //     setCookie('userRoles', 'ADMIN')
-      //   }
-      //   dispatch(
-      //     LoginAction({
-      //       loginBody: {email: loginData.email, password: loginData.password},
-      //       onSuccess: (data: any) => {
-      //         console.log(data?.user?._id, 'success login')
-      //         toast.success('Logged In successfully')
-      //         console.log('loginnnnnnnn')
-      //         setCookie('userId', data?.user?._id)
-      //         // setCookie('userRoles', data?.userRoles)
-      //         console.log(
-      //           loginData?.email,
-      //           loginData?.password,
-      //           'email and password'
-      //         )
-      //         if (
-      //           loginData?.email === 'adminemail12@gmail.com' &&
-      //           loginData?.password === '12345678'
-      //         ) {
-      //           setCookie('userRoles', 'ADMIN')
-      //           handleLogin(data.token, 'ADMIN')
-      //         } else {
-      //           setCookie('userRoles', 'USER')
-      //           handleLogin(data.token, 'USER')
-      //         }
-      //         navigate('/home')
-      //       }
-      //     })
-      //   )
+      console.log(resetToken, 'resetToken from ')
+      dispatch(
+        ResetPasswordAction({
+          loginBody: {
+            newPassword: loginData.confirmpassword,
+            resetToken: resetToken
+          },
+          onSuccess: (data: any) => {
+            console.log(data?.user?._id, 'success login')
+            toast.success('Password reset successfully')
+            console.log('loginnnnnnnn')
+            setCookie('userId', data?.user?._id)
+            // setCookie('userRoles', data?.userRoles)
+          }
+        })
+      )
     }
   }
 

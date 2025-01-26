@@ -73,6 +73,8 @@ const CustomVideoPlayerWatch = ({
     setIsFullScreen(false)
   }
 
+  console.log('data here', data)
+
   return (
     <div
       className="custom-video-players"
@@ -102,7 +104,7 @@ const CustomVideoPlayerWatch = ({
             <HStack gap="$3" className="custom-video-players-productDetail">
               <div className="productImage">
                 <img
-                  src={`http://localhost:8000/products/${data?.images[0]?.coloredImage[0]}`}
+                  src={`http://localhost:8000/products/${data?.images[0]?.coloredImage}`}
                   onError={(event) =>
                     (event.currentTarget.src =
                       'https://www.verizon.com/learning/_next/static/images/87c8be7b206ab401b295fd1d21620b79.jpg')
