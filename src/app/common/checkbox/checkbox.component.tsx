@@ -10,6 +10,7 @@ export const CheckBox = ({
   handleCheckboxChange,
   check,
   labelStyle,
+
   ...rest
 }: Com.CheckBoxProps) => {
   return (
@@ -34,7 +35,9 @@ export const CheckBox = ({
             name={name}
             type="checkbox"
             checked={check}
-            onChange={(e) => handleCheckboxChange(!check, e, name)}
+            onChange={(e) => {
+              handleCheckboxChange(!check, e, name)
+            }}
             style={{
               top: 0,
               left: 0,

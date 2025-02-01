@@ -68,10 +68,11 @@ declare namespace Com {
       e: React.ChangeEvent<HTMLInputElement>,
       name: string
     ) => void
-    check: boolean
+    check?: boolean
 
     labelStyle?: React.CSSProperties
     type?: 'checkbox'
+    itemvalue?: string
   }
 
   interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {

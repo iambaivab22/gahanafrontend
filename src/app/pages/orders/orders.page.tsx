@@ -2,7 +2,15 @@ import React, {useEffect, useState, useCallback, useMemo} from 'react'
 import {useDispatch} from 'src/store'
 // import {delteProductAction, getProductListAction} from './product.slice'
 import {useSelector} from 'react-redux'
-import {Box, Button, HStack, Modal, SelectField, Table} from 'src/app/common'
+import {
+  Box,
+  Button,
+  CheckBox,
+  HStack,
+  Modal,
+  SelectField,
+  Table
+} from 'src/app/common'
 import {useNavigate} from 'react-router-dom'
 // import {toast} from 'react-hot-toast'
 
@@ -19,6 +27,8 @@ import {
   Image
 } from '@react-pdf/renderer'
 import {AiOutlineClose} from 'react-icons/ai'
+import {MdCheckBoxOutlineBlank} from 'react-icons/md'
+import {IoCheckboxOutline} from 'react-icons/io5'
 
 export const OrderListPage = () => {
   const navigate = useNavigate()
@@ -28,7 +38,7 @@ export const OrderListPage = () => {
   const [selectedCateory, setSelectedCategory] = useState<any>()
   const orderData = useSelector((state: any) => state.cart)
 
-  console.log(orderData, 'order data')
+  console.log(orderData, 'order item')
 
   useEffect(() => {
     dispatch(
@@ -44,13 +54,39 @@ export const OrderListPage = () => {
 
   const [showDetails, setShowDetails] = useState<boolean>(false)
   const [activeOrderDetals, setActiveOrderDetails] = useState<any>(undefined)
+  const [activeData, setActiveData] = useState<any>([{}])
 
   const orderPdf = useMemo(() => {
-    console.log(activeOrderDetals, showDetails, 'sa')
+    console.log(activeData, 'sa')
     if (!!activeOrderDetals) {
-      return <OrderPDf data={activeOrderDetals} />
+      return <OrderPDf data={activeData} />
     }
   }, [activeOrderDetals, showDetails])
+
+  // useEffect(() => {
+  //   activeOrderDetals && setActiveData([activeOrderDetals])
+  // }, [activeOrderDetals])
+
+  const [dataToPrint, setDataToPrint] = useState<any>([])
+
+  const [isChecked, setIsChecked] = useState(false)
+
+  const BulkActionHandler = (value, ordersData) => {
+    console.log(value, 'ordersData', ordersData)
+    if (value) {
+      setDataToPrint((prev: any) => [
+        ...prev,
+        {data: ordersData, isPrinting: value}
+      ])
+    } else {
+    }
+  }
+
+  console.log(dataToPrint, 'data to print')
+
+  const [active, setActive] = useState(false)
+
+  console.log('active data item', activeData)
 
   return (
     <div>
@@ -60,11 +96,54 @@ export const OrderListPage = () => {
             title="Add Order list"
             onClick={() => console.log('add order list')}
           ></Button>
+
+          <Button
+            title="Print all orders"
+            onClick={() => {
+              console.log('acccc', activeData)
+              setShowDetails(true)
+              setActiveOrderDetails(activeData)
+            }}
+          ></Button>
         </HStack>
 
         {!showDetails && (
           <Table
             columns={[
+              {
+                field: 'products',
+                name: 'Print order Details',
+                render: (datas, itemvalue) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        {
+                          activeData?.find((item, index) => {
+                            return item._id === itemvalue._id
+                          }) !== undefined
+                            ? setActiveData(
+                                activeData.filter((item, index) => {
+                                  return item._id !== itemvalue._id
+                                })
+                              )
+                            : setActiveData((prev) => [...prev, itemvalue])
+
+                          BulkActionHandler(true, itemvalue)
+                        }
+                      }}
+                    >
+                      {activeData?.find((item, index) => {
+                        return item._id === itemvalue._id
+                      }) !== undefined ? (
+                        <IoCheckboxOutline size={22} />
+                      ) : (
+                        <MdCheckBoxOutlineBlank size={22} />
+                      )}
+                    </div>
+                  )
+                }
+              },
+              ,
               {
                 field: 'products',
                 name: 'Name',
@@ -132,6 +211,7 @@ export const OrderListPage = () => {
                         console.log('item', item)
                         setShowDetails(true)
                         setActiveOrderDetails(item)
+                        setActiveData([item])
                       }}
                     ></Button>
                   )
@@ -193,6 +273,8 @@ export const OrderListPage = () => {
           onClick={() => {
             setShowDetails(false)
             setActiveOrderDetails(undefined)
+            setActiveOrderDetails(undefined)
+            setActiveData([{}])
           }}
         />
       </Box>
@@ -200,296 +282,519 @@ export const OrderListPage = () => {
   )
 }
 
+// const OrderPDf = ({data}) => {
+//   const meroDate = new Date()
+
+//   return (
+//     <PDFViewer
+//       style={{
+//         height: '100vh',
+//         width: '75vw',
+//         position: 'absolute',
+//         top: 0,
+//         left: '0'
+//       }}
+//     >
+//       <Document>
+//         <Page style={styles.body}>
+//           <View style={styles.orderDetailsContainer}>
+//             <Image
+//               style={styles.images}
+//               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
+//             ></Image>
+
+//             <Text style={styles.header}>ORDER DETAILS</Text>
+//           </View>
+//           {/* </View> */}
+
+//           <View style={styles.viewContainer}>
+//             <View>
+//               <Text style={styles.origin} fixed>
+//                 Origin
+//               </Text>
+//               <Text
+//                 style={{
+//                   fontSize: '16px',
+//                   fontWeight: 800,
+//                   lineHeight: 2,
+//                   marginLeft: '10px'
+//                 }}
+//               >
+//                 KTM
+//               </Text>
+//             </View>
+
+//             <View>
+//               <Text style={styles.destination}>Destination</Text>
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+//               >
+//                 {data.shippingLocation}
+//               </Text>
+//             </View>
+
+//             <View>
+//               <Text style={styles.destination}>Product</Text>
+
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+//               >
+//                 {data?.name}
+//               </Text>
+//             </View>
+//           </View>
+//           {/* <Image
+//         style={styles.image}
+//         src="/images/quijote1.jpg"
+//       /> */}
+
+//           <View style={styles.viewContainer}>
+//             <View style={{marginTop: '40px'}}>
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
+//               >
+//                 COD Value
+//               </Text>
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+//               >
+//                 COD@#$@E$123
+//               </Text>
+//             </View>
+
+//             <View style={{marginTop: '40px'}}>
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
+//               >
+//                 Quantity
+//               </Text>
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+//               >
+//                 {data.products[0].quantity}
+//               </Text>
+//             </View>
+
+//             <View style={{marginTop: '40px'}}>
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
+//               >
+//                 Price
+//               </Text>
+//               <Text
+//                 style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
+//               >
+//                 {data.products[0].price}
+//               </Text>
+//             </View>
+//           </View>
+
+//           <View style={styles.viewContainer}>
+//             <View style={styles.viewContainer}>
+//               <View style={{marginTop: '40px'}}>
+//                 <Text
+//                   style={{
+//                     fontSize: '16px',
+//                     fontWeight: 600,
+//                     fontFamily: 'Arvo'
+//                   }}
+//                 >
+//                   Shipper details
+//                 </Text>
+//                 <Text
+//                   style={{
+//                     fontSize: '14px',
+//                     fontWeight: 800,
+//                     marginTop: '5px',
+//                     marginLeft: '10px'
+//                   }}
+//                 >
+//                   Aabhushan Gallery
+//                 </Text>
+
+//                 <Text
+//                   style={{
+//                     fontSize: '14px',
+//                     fontWeight: 800,
+//                     marginTop: '5px',
+//                     marginLeft: '10px'
+//                   }}
+//                 >
+//                   Lavi Prajapati
+//                 </Text>
+
+//                 <Text
+//                   style={{
+//                     fontSize: '14px',
+//                     fontWeight: 800,
+//                     marginTop: '5px',
+//                     marginLeft: '10px'
+//                   }}
+//                 >
+//                   Kathmandu,Nepal 44600
+//                 </Text>
+
+//                 <View
+//                   style={{
+//                     ...styles.viewContainer,
+//                     justifyContent: 'flex-start',
+//                     gap: '10px',
+//                     marginTop: '5px'
+//                   }}
+//                 >
+//                   <Text
+//                     style={{
+//                       fontSize: '16px',
+//                       fontWeight: 800,
+//                       marginLeft: '10px'
+//                     }}
+//                   >
+//                     Tel:
+//                   </Text>
+//                   <Text
+//                     style={{
+//                       fontSize: '14px',
+//                       fontWeight: 800,
+//                       marginLeft: '10px'
+//                     }}
+//                   >
+//                     9841934343
+//                   </Text>
+//                 </View>
+//               </View>
+//             </View>
+
+//             <View style={styles.viewContainer}>
+//               <View style={{marginTop: '40px'}}>
+//                 <Text
+//                   style={{
+//                     fontSize: '16px',
+//                     fontWeight: 600,
+//                     fontFamily: 'Arvo'
+//                   }}
+//                 >
+//                   Consignee Details
+//                 </Text>
+//                 <Text
+//                   style={{
+//                     fontSize: '14px',
+//                     fontWeight: 800,
+//                     marginTop: '5px',
+//                     marginLeft: '10px'
+//                   }}
+//                 >
+//                   {data.userId?.email}
+//                 </Text>
+//                 {/*
+//               <Text
+//                 style={{fontSize: '14px', fontWeight: 800, marginTop: '5px'}}
+//               >
+//                 {}
+//               </Text> */}
+
+//                 <Text
+//                   style={{
+//                     fontSize: '14px',
+//                     fontWeight: 800,
+//                     marginLeft: '10px'
+//                   }}
+//                 >
+//                   {data.shippingLocation}
+//                 </Text>
+
+//                 <View
+//                   style={{
+//                     ...styles.viewContainer,
+//                     justifyContent: 'flex-start',
+//                     gap: '5px'
+//                     // marginTop: '5px'
+//                   }}
+//                 >
+//                   <Text
+//                     style={{
+//                       fontSize: '14px',
+//                       fontWeight: 800,
+//                       marginLeft: '10px'
+//                     }}
+//                   >
+//                     Mobile:
+//                   </Text>
+//                   <Text
+//                     style={{
+//                       fontSize: '14px',
+//                       fontWeight: 800,
+//                       marginLeft: '10px'
+//                     }}
+//                   >
+//                     9841934343
+//                   </Text>
+//                 </View>
+//               </View>
+//             </View>
+//           </View>
+
+//           <View
+//             style={{
+//               width: '100%',
+
+//               textAlign: 'right',
+//               marginTop: '20px'
+//             }}
+//           >
+//             <Text></Text>
+
+//             <View style={{borderTop: '1px solid black'}}>
+//               <Text
+//                 style={{
+//                   fontSize: '14px',
+//                   fontWeight: 800,
+//                   fontFamily: 'Arvo',
+//                   marginTop: '20px'
+//                 }}
+//               >
+//                 Print Date:
+//                 {/* {date} */}
+//               </Text>
+
+//               <Text
+//                 style={{fontSize: '14px', fontWeight: 800, marginLeft: '10px'}}
+//               >
+//                 {meroDate.toLocaleDateString()}
+//               </Text>
+//             </View>
+//           </View>
+
+//           <Text
+//             style={styles.pageNumber}
+//             render={({pageNumber, totalPages}) =>
+//               `${pageNumber} / ${totalPages}`
+//             }
+//             fixed
+//           />
+//         </Page>
+//       </Document>
+//     </PDFViewer>
+//   )
+// }
+
 const OrderPDf = ({data}) => {
-  const meroDate = new Date()
+  const currentDate = new Date()
+
+  console.log(data, 'data value')
 
   return (
-    <PDFViewer
-      style={{
-        height: '100vh',
-        width: '75vw',
-        position: 'absolute',
-        top: 0,
-        left: '0'
-      }}
-    >
+    // <PDFViewer
+    //   style={{
+    //     height: '100vh',
+    //     width: '75vw',
+    //     position: 'absolute',
+    //     top: 0,
+    //     left: '0'
+    //   }}
+    // >
+    //   <Document>
+    //     {data
+    //       ?.filter((item, index) => {
+    //         return Object.keys(item).length !== 0
+    //       })
+
+    //       ?.map((item, index) => {
+    //         return (
+    //           <Page
+    //             size={{width: 216, height: 288}}
+    //             style={styles.body}
+    //             key={index}
+    //           >
+    //             <View style={styles.orderDetailsContainer}>
+    //               <Image
+    //                 style={styles.images}
+    //                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
+    //               ></Image>
+    //               <Text style={styles.header}>ORDER DETAILS</Text>
+    //             </View>
+
+    //             <View style={styles.viewContainer}>
+    //               <View>
+    //                 <Text style={styles.origin} fixed>
+    //                   Origin
+    //                 </Text>
+    //                 <Text style={styles.textValue}>KTM</Text>
+    //               </View>
+    //               <View>
+    //                 <Text style={styles.destination}>Destination</Text>
+    //                 <Text style={styles.textValue}>
+    //                   {item.shippingLocation}
+    //                 </Text>
+    //               </View>
+    //               <View>
+    //                 <Text style={styles.destination}>Product</Text>
+    //                 <Text style={styles.textValue}>
+    //                   {item?.products[0]?.productId?.name}
+    //                 </Text>
+    //               </View>
+    //             </View>
+
+    //             <View style={styles.viewContainer}>
+    //               <View style={styles.dataSection}>
+    //                 <Text style={styles.label}>COD Value</Text>
+    //                 <Text style={styles.textValue}>COD@#$@E$123</Text>
+    //               </View>
+    //               <View style={styles.dataSection}>
+    //                 <Text style={styles.label}>Quantity</Text>
+    //                 <Text style={styles.textValue}>
+    //                   {item?.products?.[0]?.quantity}
+    //                 </Text>
+    //               </View>
+    //               <View style={styles.dataSection}>
+    //                 <Text style={styles.label}>Price</Text>
+    //                 <Text style={styles.textValue}>
+    //                   {item?.products[0]?.price}
+    //                 </Text>
+    //               </View>
+    //             </View>
+
+    //             <View style={styles.viewContainer}>
+    //               <View style={styles.shipperDetails}>
+    //                 <Text style={styles.label}>Shipper details</Text>
+    //                 <Text style={styles.textValue}>Aabhushan Gallery</Text>
+    //                 {/* <Text style={styles.textValue}>Lavi Prajapati</Text> */}
+    //                 <Text style={styles.textValue}>Kathmandu, Nepal 44600</Text>
+    //                 <View style={styles.contactInfo}>
+    //                   <Text style={styles.label}>Tel:</Text>
+    //                   <Text style={styles.textValue}>9841934343</Text>
+    //                 </View>
+    //               </View>
+    //               <View style={styles.consigneeDetails}>
+    //                 <Text style={styles.label}>Consignee Details</Text>
+    //                 <Text style={styles.textValue}>{item.userId?.email}</Text>
+    //                 <Text style={styles.textValue}>
+    //                   {item.shippingLocation}
+    //                 </Text>
+    //                 <View style={styles.contactInfo}>
+    //                   <Text style={styles.label}>Mobile:</Text>
+    //                   <Text style={styles.textValue}>9841934343</Text>
+    //                 </View>
+    //               </View>
+    //             </View>
+
+    //             <View style={styles.footer}>
+    //               <Text style={styles.label}>Print Date:</Text>
+    //               <Text style={styles.textValue}>
+    //                 {meroDate.toLocaleDateString()}
+    //               </Text>
+    //             </View>
+
+    //             {/* <Text
+    //             style={styles.pageNumber}
+    //             render={({pageNumber, totalPages}) =>
+    //               `${pageNumber} / ${totalPages}`
+    //             }
+    //             fixed
+    //           /> */}
+    //           </Page>
+    //         )
+    //       })}
+    //   </Document>
+    // </PDFViewer>
+
+    <PDFViewer style={styles.viewer}>
       <Document>
-        <Page style={styles.body}>
-          <View style={styles.orderDetailsContainer}>
-            <Image
-              style={styles.images}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
-            ></Image>
+        {data
+          ?.filter((item) => Object.keys(item).length !== 0)
+          ?.map((item, index) => (
+            <Page
+              size={{width: 216, height: 288}}
+              style={styles.page}
+              key={index}
+            >
+              {/* Header */}
+              <View style={styles.header}>
+                <Image
+                  style={styles.logo}
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
+                />
+                <Text style={styles.headerTitle}>ORDER DETAILS</Text>
+              </View>
 
-            <Text style={styles.header}>ORDER DETAILS</Text>
-          </View>
-          {/* </View> */}
+              {/* Basic Info Section */}
+              <View style={styles.box}>
+                <View style={styles.row}>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>Origin</Text>
+                    <Text style={styles.value}>KTM</Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>Destination</Text>
+                    <Text style={styles.value}>{item.shippingLocation}</Text>
+                  </View>
+                </View>
 
-          <View style={styles.viewContainer}>
-            <View>
-              <Text style={styles.origin} fixed>
-                Origin
-              </Text>
-              <Text
-                style={{
-                  fontSize: '16px',
-                  fontWeight: 800,
-                  lineHeight: 2,
-                  marginLeft: '10px'
-                }}
-              >
-                KTM
-              </Text>
-            </View>
-
-            <View>
-              <Text style={styles.destination}>Destination</Text>
-              <Text
-                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
-              >
-                {data.shippingLocation}
-              </Text>
-            </View>
-
-            <View>
-              <Text style={styles.destination}>Product</Text>
-
-              <Text
-                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
-              >
-                {data?.name}
-              </Text>
-            </View>
-          </View>
-          {/* <Image
-        style={styles.image}
-        src="/images/quijote1.jpg"
-      /> */}
-
-          <View style={styles.viewContainer}>
-            <View style={{marginTop: '40px'}}>
-              <Text
-                style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
-              >
-                COD Value
-              </Text>
-              <Text
-                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
-              >
-                COD@#$@E$123
-              </Text>
-            </View>
-
-            <View style={{marginTop: '40px'}}>
-              <Text
-                style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
-              >
-                Quantity
-              </Text>
-              <Text
-                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
-              >
-                {data.products[0].quantity}
-              </Text>
-            </View>
-
-            <View style={{marginTop: '40px'}}>
-              <Text
-                style={{fontSize: '16px', fontWeight: 600, fontFamily: 'Arvo'}}
-              >
-                Price
-              </Text>
-              <Text
-                style={{fontSize: '16px', fontWeight: 800, marginLeft: '10px'}}
-              >
-                {data.products[0].price}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.viewContainer}>
-            <View style={styles.viewContainer}>
-              <View style={{marginTop: '40px'}}>
-                <Text
-                  style={{
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    fontFamily: 'Arvo'
-                  }}
-                >
-                  Shipper details
-                </Text>
-                <Text
-                  style={{
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    marginTop: '5px',
-                    marginLeft: '10px'
-                  }}
-                >
-                  Aabhushan Gallery
-                </Text>
-
-                <Text
-                  style={{
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    marginTop: '5px',
-                    marginLeft: '10px'
-                  }}
-                >
-                  Lavi Prajapati
-                </Text>
-
-                <Text
-                  style={{
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    marginTop: '5px',
-                    marginLeft: '10px'
-                  }}
-                >
-                  Kathmandu,Nepal 44600
-                </Text>
-
-                <View
-                  style={{
-                    ...styles.viewContainer,
-                    justifyContent: 'flex-start',
-                    gap: '10px',
-                    marginTop: '5px'
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: '16px',
-                      fontWeight: 800,
-                      marginLeft: '10px'
-                    }}
-                  >
-                    Tel:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: '14px',
-                      fontWeight: 800,
-                      marginLeft: '10px'
-                    }}
-                  >
-                    9841934343
-                  </Text>
+                <View style={styles.row}>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>Product</Text>
+                    <Text style={styles.smallValue}>
+                      {item?.products[0]?.productId?.name}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
 
-            <View style={styles.viewContainer}>
-              <View style={{marginTop: '40px'}}>
-                <Text
-                  style={{
-                    fontSize: '16px',
-                    fontWeight: 600,
-                    fontFamily: 'Arvo'
-                  }}
-                >
-                  Consignee Details
-                </Text>
-                <Text
-                  style={{
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    marginTop: '5px',
-                    marginLeft: '10px'
-                  }}
-                >
-                  {data.userId?.email}
-                </Text>
-                {/* 
-              <Text
-                style={{fontSize: '14px', fontWeight: 800, marginTop: '5px'}}
-              >
-                {}
-              </Text> */}
-
-                <Text
-                  style={{
-                    fontSize: '14px',
-                    fontWeight: 800,
-                    marginLeft: '10px'
-                  }}
-                >
-                  {data.shippingLocation}
-                </Text>
-
-                <View
-                  style={{
-                    ...styles.viewContainer,
-                    justifyContent: 'flex-start',
-                    gap: '5px'
-                    // marginTop: '5px'
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: '14px',
-                      fontWeight: 800,
-                      marginLeft: '10px'
-                    }}
-                  >
-                    Mobile:
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: '14px',
-                      fontWeight: 800,
-                      marginLeft: '10px'
-                    }}
-                  >
-                    9841934343
-                  </Text>
+              {/* Order Details Section */}
+              <View style={[styles.box, {backgroundColor: '#f0f7ff'}]}>
+                <View style={styles.row}>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>COD Value</Text>
+                    <Text style={styles.value}>COD@#$</Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>Quantity</Text>
+                    <Text style={styles.value}>
+                      {item?.products?.[0]?.quantity}
+                    </Text>
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>Price</Text>
+                    <Text style={styles.value}>{item?.products[0]?.price}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
 
-          <View
-            style={{
-              width: '100%',
+              {/* Contact Details Section */}
+              <View style={styles.section}>
+                <View style={styles.row}>
+                  <View style={[styles.column, styles.box]}>
+                    <Text style={styles.label}>Shipper Details</Text>
+                    <Text style={styles.value}>Aabhushan Gallery</Text>
+                    <Text style={styles.smallValue}>
+                      Kathmandu, Nepal 44600
+                    </Text>
+                    <View style={styles.contactInfo}>
+                      <Text style={styles.contactLabel}>Tel:</Text>
+                      <Text style={styles.contactValue}>9841934343</Text>
+                    </View>
+                  </View>
+                  <View style={[styles.column, styles.box]}>
+                    <Text style={styles.label}>Consignee Details</Text>
+                    <Text style={styles.smallValue}>{item.userId?.email}</Text>
+                    <Text style={styles.smallValue}>
+                      {item.shippingLocation}
+                    </Text>
+                    <View style={styles.contactInfo}>
+                      <Text style={styles.contactLabel}>Mobile:</Text>
+                      <Text style={styles.contactValue}>9841934343</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
 
-              textAlign: 'right',
-              marginTop: '20px'
-            }}
-          >
-            <Text></Text>
-
-            <View style={{borderTop: '1px solid black'}}>
-              <Text
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 800,
-                  fontFamily: 'Arvo',
-                  marginTop: '20px'
-                }}
-              >
-                Print Date:
-                {/* {date} */}
-              </Text>
-
-              <Text
-                style={{fontSize: '14px', fontWeight: 800, marginLeft: '10px'}}
-              >
-                {meroDate.toLocaleDateString()}
-              </Text>
-            </View>
-          </View>
-
-          <Text
-            style={styles.pageNumber}
-            render={({pageNumber, totalPages}) =>
-              `${pageNumber} / ${totalPages}`
-            }
-            fixed
-          />
-        </Page>
+              {/* Footer */}
+              <View style={styles.footer}>
+                <Text style={styles.printDate}>
+                  Print Date: {currentDate.toLocaleDateString()}
+                </Text>
+              </View>
+            </Page>
+          ))}
       </Document>
     </PDFViewer>
   )
@@ -501,89 +806,91 @@ Font.register({
 })
 
 const styles = StyleSheet.create({
-  body: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 25
-    // border: '2px solid red'
+  viewer: {
+    height: '100vh',
+    width: '75vw',
+    position: 'absolute',
+    top: 0,
+    left: '0'
   },
-  origin: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontFamily: 'Arvo'
-    // fontFamily: 'Oswald',
-    // float: 'left'
-  },
-  destination: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontFamily: 'Arvo'
-
-    // fontFamily: 'Roboto'
-  },
-  viewContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: '20px',
-    width: '75vw'
-  },
-
-  orderDetailsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    gap: '0px',
-    // width: '100%',
-    borderBottom: '4px solid grey',
-    paddingBottom: '10px',
-    // padding: '1',
-    marginBottom: 20,
-    alignItems: 'center'
-  },
-  subtitle: {
-    fontSize: 18,
-    margin: 12,
-    fontFamily: 'Oswald'
-  },
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'Times-Roman'
-  },
-  images: {
-    marginVertical: 15,
-    // marginHorizontal: 100,
-    height: '60px',
-    width: '60px'
+  page: {
+    padding: 12,
+    backgroundColor: 'white'
   },
   header: {
-    fontSize: 22,
-
-    // textAlign: 'center',
-    fontWeight: 800,
-    marginLeft: '10px'
-
-    // border: '2px solid grey'
-
-    // color: 'grey'
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    paddingBottom: 4,
+    borderBottom: '0.5px solid #666'
   },
-  pageNumber: {
-    position: 'absolute',
+  logo: {
+    width: 24,
+    height: 24,
+    marginRight: 8
+  },
+  headerTitle: {
     fontSize: 12,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    color: 'grey'
+    fontFamily: 'Arvo',
+    fontWeight: 'bold'
   },
-  shippingLocation: {
-    fontSize: '14px',
-    fontWeight: 800,
-    marginTop: '5px'
-    // fontFamily: 'Playfair'
+  section: {
+    marginBottom: 8
   },
-
-  titleFont: {
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 6
+  },
+  column: {
+    flex: 1,
+    paddingRight: 4
+  },
+  label: {
+    fontSize: 7,
+    color: '#444',
+    marginBottom: 2,
     fontFamily: 'Arvo'
+  },
+  value: {
+    fontSize: 8,
+    fontWeight: 'bold'
+  },
+  smallValue: {
+    fontSize: 7,
+    fontWeight: 'bold'
+  },
+  divider: {
+    borderBottom: '0.5px solid #eee',
+    marginVertical: 6
+  },
+  contactInfo: {
+    flexDirection: 'row',
+    marginTop: 2,
+    alignItems: 'center'
+  },
+  contactLabel: {
+    fontSize: 7,
+    marginRight: 2
+  },
+  contactValue: {
+    fontSize: 7,
+    fontWeight: 'bold'
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 12,
+    right: 12,
+    textAlign: 'right'
+  },
+  printDate: {
+    fontSize: 7,
+    color: '#666'
+  },
+  box: {
+    padding: 6,
+    backgroundColor: '#f8f8f8',
+    borderRadius: 2,
+    marginBottom: 6
   }
 })
