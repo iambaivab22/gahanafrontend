@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useCallback, useMemo} from 'react'
 import {useDispatch} from 'src/store'
+import ReactDOM from 'react-dom/client'
 // import {delteProductAction, getProductListAction} from './product.slice'
 import {useSelector} from 'react-redux'
 import {
@@ -16,6 +17,8 @@ import {useNavigate} from 'react-router-dom'
 
 import {getOrderListAction} from '../web/cart/cart.slice'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
+import QRCode from 'qrcode'
+
 import {
   Page,
   Text,
@@ -29,6 +32,8 @@ import {
 import {AiOutlineClose} from 'react-icons/ai'
 import {MdCheckBoxOutlineBlank} from 'react-icons/md'
 import {IoCheckboxOutline} from 'react-icons/io5'
+
+import {QRCodeCanvas, QRCodeSVG} from 'qrcode.react'
 
 export const OrderListPage = () => {
   const navigate = useNavigate()
@@ -580,123 +585,23 @@ export const OrderListPage = () => {
 const OrderPDf = ({data}) => {
   const currentDate = new Date()
 
-  console.log(data, 'data value')
+  const [qrImages, setQrImages] = useState([])
+
+  const generateQrCodeUrl = async (text: string) => {
+    try {
+      const image = await QRCode.toDataURL(text, {
+        width: 280, // Set the width and height to 200px
+
+        errorCorrectionLevel: 'M'
+      })
+      console.log(image, 'image value')
+      return image
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
-    // <PDFViewer
-    //   style={{
-    //     height: '100vh',
-    //     width: '75vw',
-    //     position: 'absolute',
-    //     top: 0,
-    //     left: '0'
-    //   }}
-    // >
-    //   <Document>
-    //     {data
-    //       ?.filter((item, index) => {
-    //         return Object.keys(item).length !== 0
-    //       })
-
-    //       ?.map((item, index) => {
-    //         return (
-    //           <Page
-    //             size={{width: 216, height: 288}}
-    //             style={styles.body}
-    //             key={index}
-    //           >
-    //             <View style={styles.orderDetailsContainer}>
-    //               <Image
-    //                 style={styles.images}
-    //                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
-    //               ></Image>
-    //               <Text style={styles.header}>ORDER DETAILS</Text>
-    //             </View>
-
-    //             <View style={styles.viewContainer}>
-    //               <View>
-    //                 <Text style={styles.origin} fixed>
-    //                   Origin
-    //                 </Text>
-    //                 <Text style={styles.textValue}>KTM</Text>
-    //               </View>
-    //               <View>
-    //                 <Text style={styles.destination}>Destination</Text>
-    //                 <Text style={styles.textValue}>
-    //                   {item.shippingLocation}
-    //                 </Text>
-    //               </View>
-    //               <View>
-    //                 <Text style={styles.destination}>Product</Text>
-    //                 <Text style={styles.textValue}>
-    //                   {item?.products[0]?.productId?.name}
-    //                 </Text>
-    //               </View>
-    //             </View>
-
-    //             <View style={styles.viewContainer}>
-    //               <View style={styles.dataSection}>
-    //                 <Text style={styles.label}>COD Value</Text>
-    //                 <Text style={styles.textValue}>COD@#$@E$123</Text>
-    //               </View>
-    //               <View style={styles.dataSection}>
-    //                 <Text style={styles.label}>Quantity</Text>
-    //                 <Text style={styles.textValue}>
-    //                   {item?.products?.[0]?.quantity}
-    //                 </Text>
-    //               </View>
-    //               <View style={styles.dataSection}>
-    //                 <Text style={styles.label}>Price</Text>
-    //                 <Text style={styles.textValue}>
-    //                   {item?.products[0]?.price}
-    //                 </Text>
-    //               </View>
-    //             </View>
-
-    //             <View style={styles.viewContainer}>
-    //               <View style={styles.shipperDetails}>
-    //                 <Text style={styles.label}>Shipper details</Text>
-    //                 <Text style={styles.textValue}>Aabhushan Gallery</Text>
-    //                 {/* <Text style={styles.textValue}>Lavi Prajapati</Text> */}
-    //                 <Text style={styles.textValue}>Kathmandu, Nepal 44600</Text>
-    //                 <View style={styles.contactInfo}>
-    //                   <Text style={styles.label}>Tel:</Text>
-    //                   <Text style={styles.textValue}>9841934343</Text>
-    //                 </View>
-    //               </View>
-    //               <View style={styles.consigneeDetails}>
-    //                 <Text style={styles.label}>Consignee Details</Text>
-    //                 <Text style={styles.textValue}>{item.userId?.email}</Text>
-    //                 <Text style={styles.textValue}>
-    //                   {item.shippingLocation}
-    //                 </Text>
-    //                 <View style={styles.contactInfo}>
-    //                   <Text style={styles.label}>Mobile:</Text>
-    //                   <Text style={styles.textValue}>9841934343</Text>
-    //                 </View>
-    //               </View>
-    //             </View>
-
-    //             <View style={styles.footer}>
-    //               <Text style={styles.label}>Print Date:</Text>
-    //               <Text style={styles.textValue}>
-    //                 {meroDate.toLocaleDateString()}
-    //               </Text>
-    //             </View>
-
-    //             {/* <Text
-    //             style={styles.pageNumber}
-    //             render={({pageNumber, totalPages}) =>
-    //               `${pageNumber} / ${totalPages}`
-    //             }
-    //             fixed
-    //           /> */}
-    //           </Page>
-    //         )
-    //       })}
-    //   </Document>
-    // </PDFViewer>
-
     <PDFViewer style={styles.viewer}>
       <Document>
         {data
@@ -715,7 +620,6 @@ const OrderPDf = ({data}) => {
                 />
                 <Text style={styles.headerTitle}>ORDER DETAILS</Text>
               </View>
-
               {/* Basic Info Section */}
               <View style={styles.box}>
                 <View style={styles.row}>
@@ -728,7 +632,6 @@ const OrderPDf = ({data}) => {
                     <Text style={styles.value}>{item.shippingLocation}</Text>
                   </View>
                 </View>
-
                 <View style={styles.row}>
                   <View style={styles.column}>
                     <Text style={styles.label}>Product</Text>
@@ -737,8 +640,13 @@ const OrderPDf = ({data}) => {
                     </Text>
                   </View>
                 </View>
+                <View style={styles.qrcode}>
+                  <Image
+                    style={styles.qrCode}
+                    src={generateQrCodeUrl(item.shippingLocation ?? '')}
+                  />
+                </View>
               </View>
-
               {/* Order Details Section */}
               <View style={[styles.box, {backgroundColor: '#f0f7ff'}]}>
                 <View style={styles.row}>
@@ -758,7 +666,6 @@ const OrderPDf = ({data}) => {
                   </View>
                 </View>
               </View>
-
               {/* Contact Details Section */}
               <View style={styles.section}>
                 <View style={styles.row}>
@@ -786,7 +693,6 @@ const OrderPDf = ({data}) => {
                   </View>
                 </View>
               </View>
-
               {/* Footer */}
               <View style={styles.footer}>
                 <Text style={styles.printDate}>
@@ -823,6 +729,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     paddingBottom: 4,
     borderBottom: '0.5px solid #666'
+  },
+  qrcode: {
+    height: 20,
+    width: 20
   },
   logo: {
     width: 24,
@@ -892,5 +802,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
     borderRadius: 2,
     marginBottom: 6
+  },
+  qrContainer: {
+    alignItems: 'center',
+    marginTop: 10
+  },
+  qrCode: {
+    width: 300,
+    objectFit: 'contain'
   }
 })
