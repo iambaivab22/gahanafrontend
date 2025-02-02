@@ -37,6 +37,7 @@ import {AiFillPlayCircle, AiOutlineClose} from 'react-icons/ai'
 import {color} from 'html2canvas/dist/types/css/types/color'
 
 import {v4 as uuidv4} from 'uuid'
+import {FILE_URL} from 'src/config'
 
 export const AddProductPage = () => {
   const navigate = useNavigate()
@@ -160,7 +161,7 @@ export const AddProductPage = () => {
       }))
 
       const videoUrl = productDetailData?.video
-        ? `http://localhost:8000/video/${productDetailData.video}`
+        ? `${FILE_URL}/video/${productDetailData.video}`
         : null
 
       if (videoUrl) {
@@ -834,7 +835,7 @@ export const AddProductPage = () => {
           <VideoUploader
             defaultVideo={
               productId && !!productDetailData
-                ? `http://localhost:8000/video/${productDetailData?.video}`
+                ? `${FILE_URL}/video/${productDetailData?.video}`
                 : ''
             }
             onVideoChange={handleVideo}

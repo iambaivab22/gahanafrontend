@@ -9,6 +9,7 @@ import {useMedia, useQuery} from 'src/hooks'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
 import {WatchAndShopCard} from '../watchAndShop/watchAndShop.component'
 import {IoClose} from 'react-icons/io5'
+import {FILE_URL} from 'src/config'
 
 export const ProductCarousel = ({data}: {data: any}) => {
   const query = useQuery()
@@ -94,7 +95,7 @@ export const ProductCarousel = ({data}: {data: any}) => {
                   <IoClose size={20} color="red" stroke="white"></IoClose>
                 </button>
                 <video
-                  src={`http://localhost:8000/video/${data[activeVideoIndex]?.video}`}
+                  src={`${FILE_URL}/video/${data[activeVideoIndex]?.video}`}
                   controls
                   autoPlay
                   className="activeVideo"

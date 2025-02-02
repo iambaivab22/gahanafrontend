@@ -29,6 +29,7 @@ import toast from 'react-hot-toast'
 import {getCookie} from 'src/helpers'
 import {useMedia} from 'src/hooks'
 import {useAuth} from 'src/app/routing'
+import {FILE_URL} from 'src/config'
 
 export const ProductWebDetail = () => {
   const media = useMedia()
@@ -319,7 +320,7 @@ export const ProductWebDetail = () => {
                       onMouseDown={handleMouseDown}
                     >
                       <CustomVideoPlayer
-                        videoUrl={`http://localhost:8000/video/${productDetailData?.video}`}
+                        videoUrl={`${FILE_URL}/video/${productDetailData?.video}`}
                         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
                       ></CustomVideoPlayer>
                     </div>

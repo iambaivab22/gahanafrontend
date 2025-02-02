@@ -6,6 +6,7 @@ import {
   delteProductFromCartAction,
   getCartlistAction
 } from 'src/app/pages/web/cart/cart.slice'
+import {FILE_URL} from 'src/config'
 import {getCookie} from 'src/helpers'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
 import {useDispatch} from 'src/store'
@@ -40,7 +41,7 @@ export const CartCard = ({
         <HStack className="cartCard-left" gap="$3">
           <HStack className="cartCard-left-image">
             <img
-              src={`http://localhost:8000/products/${data?.productId?.images[0]?.coloredImage[0]}`}
+              src={`${FILE_URL}/products/${data?.productId?.images[0]?.coloredImage[0]}`}
             />
           </HStack>
           <VStack className="cartCard-left-detail">

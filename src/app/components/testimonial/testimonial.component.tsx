@@ -37,6 +37,7 @@ import React, {useState} from 'react'
 
 import {FaChevronLeft, FaChevronRight, FaQuoteRight} from 'react-icons/fa'
 import {Text, Title} from 'src/app/common'
+import {FILE_URL} from 'src/config'
 
 export const TestimonailSection = ({reviews}) => {
   const [index, setIndex] = useState(0)
@@ -84,7 +85,7 @@ export const TestimonailSection = ({reviews}) => {
       <article className="review">
         <div className="img-container">
           <img
-            src={`http://localhost:8000/testimonial/${image?.[0]}`}
+            src={`${FILE_URL}/testimonial/${image?.[0]}`}
             className="person-img"
           />
           <span className="quote-icon">

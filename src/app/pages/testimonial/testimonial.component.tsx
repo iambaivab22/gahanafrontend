@@ -13,6 +13,7 @@ import {
   deleteTestimonialAction,
   getTestimonialListAction
 } from './testimonial.slice'
+import {FILE_URL} from 'src/config'
 export const Testimonial = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -85,7 +86,7 @@ export const Testimonial = () => {
 
                     // src=`http://localhost:8000/products${datas.}`
 
-                    src={`http://localhost:8000/testimonial/${datas}`}
+                    src={`${FILE_URL}/testimonial/${datas}`}
                     // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
                     style={{height: '70px', width: '100px'}}
                   ></img>

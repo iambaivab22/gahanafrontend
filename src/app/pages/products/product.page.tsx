@@ -16,6 +16,7 @@ import {getCategoryListAction} from '../category/category.slice'
 import {useDebounceValue} from 'src/hooks'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
+import {FILE_URL} from 'src/config'
 export const ProductListPage = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -180,7 +181,7 @@ export const ProductListPage = () => {
 
                       // src=`http://localhost:8000/products${datas.}`
 
-                      src={`http://localhost:8000/products/${datas?.[0]?.coloredImage}`}
+                      src={`${FILE_URL}/products/${datas?.[0]?.coloredImage}`}
                       // src=`https://localhost:8000/products/${datas?[0].coloredImage[0]}`
                       style={{height: '70px', width: '100px'}}
                     ></img>

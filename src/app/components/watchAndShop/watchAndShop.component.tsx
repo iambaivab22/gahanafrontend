@@ -35,7 +35,7 @@ export const WatchAndShopCard = ({
         setActiveVideoIndex={setActiveIndex}
         data={data}
         index={index}
-        videoUrl={`http://localhost:8000/video/${data?.video}`}
+        videoUrl={`${FILE_URL}/video/${data?.video}`}
         thumbnailUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfcz8nhghqfpLH6iYrPyz6_U9fqSdujGVmrezxtryOpI0cxnLFzwSHklg5csZgs8K1QMU&usqp=CAU"
       ></CustomVideoPlayerWatch>
     </div>
@@ -49,6 +49,7 @@ import {IoClose, IoCloseCircle} from 'react-icons/io5'
 import {HStack, VStack} from 'src/app/common'
 import {ProductCarousel} from '../productCarousel'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
+import {FILE_URL} from 'src/config'
 
 const CustomVideoPlayerWatch = ({
   videoUrl,
@@ -104,7 +105,7 @@ const CustomVideoPlayerWatch = ({
             <HStack gap="$3" className="custom-video-players-productDetail">
               <div className="productImage">
                 <img
-                  src={`http://localhost:8000/products/${data?.images[0]?.coloredImage}`}
+                  src={`${FILE_URL}/products/${data?.images[0]?.coloredImage}`}
                   onError={(event) =>
                     (event.currentTarget.src =
                       'https://www.verizon.com/learning/_next/static/images/87c8be7b206ab401b295fd1d21620b79.jpg')

@@ -2,6 +2,7 @@
 import {useStepContext} from '@mui/material'
 import {useState, useRef, useEffect} from 'react'
 import ReactImageMagnify from 'react-image-magnify'
+import {FILE_URL} from 'src/config'
 
 export const ZoomSlider = ({data}: {data: any}) => {
   console.log(data, 'data required')
@@ -15,7 +16,7 @@ export const ZoomSlider = ({data}: {data: any}) => {
 
   useEffect(() => {
     const images = data?.map((item: any, index: number) => {
-      return `http://localhost:8000/products/${item}`
+      return `${FILE_URL}/products/${item}`
     })
 
     console.log(images, 'images values')

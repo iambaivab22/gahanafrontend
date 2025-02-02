@@ -1,10 +1,11 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
+import {BASE_URL} from 'src/config'
 
 import {getCookie} from 'src/helpers'
 
 // MARK: - instance
 const instance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

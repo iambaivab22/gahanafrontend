@@ -17,6 +17,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import {useDispatch, useSelector} from 'src/store'
 import {useCallback, useEffect, useState} from 'react'
 import {getBannerListAction} from 'src/app/pages/banners/banners.slice'
+import {FILE_URL} from 'src/config'
 
 export const MainCarousel = () => {
   const dispatch = useDispatch()
@@ -80,7 +81,7 @@ export const MainCarousel = () => {
             return (
               // <div className="image-container" key={index}>
               <img
-                src={`http://localhost:8000/${item}`}
+                src={`${FILE_URL}/${item}`}
                 alt="image"
                 placeholder="blur"
                 // blurDataURL={item}

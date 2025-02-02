@@ -10,6 +10,7 @@ import {getCookie} from 'src/helpers'
 import toast from 'react-hot-toast'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
 import {FiEye} from 'react-icons/fi'
+import {FILE_URL} from 'src/config'
 
 const productImages = [
   // 'src/assets/images/products/jewellery-1.jpg',
@@ -49,7 +50,7 @@ export const ProductCard = ({data}: {data: any}) => {
           {/* <img src={productImages[activeImage]}></img> */}
           {/* <img src="http://localhost:8000/1705164295377-htmlimage.jpg"></img> */}
 
-          <img src={`http://localhost:8000/products/${productImages?.[0]}`} />
+          <img src={`${FILE_URL}/products/${productImages?.[0]}`} />
         </div>
 
         <HStack className="productCard-tags" gap="$2">

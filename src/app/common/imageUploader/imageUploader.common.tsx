@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import {AiFillCamera, AiFillCloseCircle} from 'react-icons/ai'
 import {TbCameraPlus} from 'react-icons/tb'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
+import {FILE_URL} from 'src/config'
 
 const ImageUploader = React.memo(
   ({
@@ -39,8 +40,8 @@ const ImageUploader = React.memo(
               // id: isBanner ? item : item._id
 
               file: isBanner
-                ? `http://localhost:8000/${item?.coloredImage}`
-                : `http://localhost:8000/products/${item?.coloredImage}`,
+                ? `${FILE_URL}/${item?.coloredImage}`
+                : `${FILE_URL}/products/${item?.coloredImage}`,
               id: isBanner ? item : item?._id
             })
           )
