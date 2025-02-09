@@ -706,10 +706,10 @@ const OrderPDf = ({data}) => {
   )
 }
 
-Font.register({
-  family: 'Arvo',
-  src: 'http://fonts.gstatic.com/s/arvo/v9/MViwy4K6e56oHcyeMzjbCQ.ttf'
-})
+// Font.register({
+//   family: 'Arvo',
+//   src: 'http://fonts.gstatic.com/s/arvo/v9/MViwy4K6e56oHcyeMzjbCQ.ttf'
+// })
 
 const styles = StyleSheet.create({
   viewer: {
@@ -741,7 +741,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 12,
-    fontFamily: 'Arvo',
+    // fontFamily: 'Arvo',
     fontWeight: 'bold'
   },
   section: {
@@ -759,8 +759,8 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 7,
     color: '#444',
-    marginBottom: 2,
-    fontFamily: 'Arvo'
+    marginBottom: 2
+    // fontFamily: 'Arvo'
   },
   value: {
     fontSize: 8,

@@ -10,7 +10,9 @@ import {
   getCartlistAction,
   updatedCartByProductIdAction
 } from './cart.slice'
-import {HStack, InputField, SelectField, VStack} from 'src/app/common'
+
+import {districtArray} from 'src/utils/districtArray'
+import {HStack, InputField, Label, SelectField, VStack} from 'src/app/common'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
 import toast from 'react-hot-toast'
 import {useMeasure, useMedia} from 'src/hooks'
@@ -40,6 +42,9 @@ export const CartPage = () => {
   }, [datas?.cartData?.[0]?.products])
 
   const userId = getCookie('userId')
+
+  const [selectedDistrict, setSelectedDistrict] = useState<any>()
+  const [selectedMunicipality, setSelectedMunicipality] = useState<any>()
 
   const changeQuantity = (countQuantity, data) => {
     console.log('data chaiyo', countQuantity, data)
@@ -78,6 +83,8 @@ export const CartPage = () => {
   // useEffect(() => {
 
   // }, [upatedcartData])
+
+  console.log(selectedDistrict, 'selectedDistrict')
 
   const checkoutHandler = () => {
     console.log(userId, 'userID')
@@ -122,8 +129,31 @@ export const CartPage = () => {
       )
   }
 
+  const [selectedArea, setSelectedArea] = useState<any>()
+
   console.log(upatedcartData, 'upatedCarddata hai')
 
+  const [isHomeDelivery, setisHomeDelivery] = useState<any>(false)
+  const [shippingPrice, setShippingPrice] = useState(200)
+  console.log(isHomeDelivery, 'isHomeDelivery')
+  useEffect(() => {
+    const shippingCharges = districtArray
+      .find((item) => {
+        return item.district === selectedDistrict
+      })
+      ?.municipalities.find((item) => {
+        return item.name === selectedMunicipality
+      })?.areas[selectedArea]
+
+    console.log(shippingCharges, isHomeDelivery, 'shipping charges')
+
+    const finalShippingCost = isHomeDelivery.value
+      ? shippingCharges?.homeDelivery
+      : shippingCharges?.officeDelivery
+    setShippingPrice(finalShippingCost)
+  }, [isHomeDelivery, selectedDistrict, selectedMunicipality])
+
+  console.log(shippingPrice, 'shipping  price')
   return (
     <div className="cartPage">
       <VStack gap="$3" style={{width: media.md ? '60%' : '100%'}}>
@@ -172,7 +202,7 @@ export const CartPage = () => {
           <HStack justify="space-between" align="center">
             <p>Shipping Area</p>
 
-            <SelectField
+            {/* <SelectField
               options={[
                 {
                   id: 1,
@@ -185,12 +215,92 @@ export const CartPage = () => {
                   value: 'Outside Kathmandu Valley'
                 }
               ]}
-              // value={selectedCateory}
               width="100%"
               onChangeValue={(data) => setIsInsideValley((prev) => !prev)}
               placeholder={'Where from'}
-            />
+            /> */}
           </HStack>
+
+          <SelectField
+            options={districtArray?.map((item, index) => {
+              return {
+                id: index,
+                label: item.district,
+                value: item.district
+              }
+            })}
+            // value={selectedCateory}
+            width="100%"
+            onChangeValue={(data) => {
+              console.log(data, 'data value')
+              setSelectedDistrict(data.value)
+            }}
+            placeholder={'District'}
+          />
+
+          <SelectField
+            options={districtArray
+              ?.find((item, index) => {
+                return item.district === selectedDistrict
+              })
+              ?.municipalities.map((items, index) => {
+                return {
+                  id: index,
+                  label: items.name,
+                  value: items.name
+                }
+              })}
+            // value={selectedCateory}
+            width="100%"
+            onChangeValue={(data) => setSelectedMunicipality(data.value)}
+            placeholder={'Municipality'}
+          />
+
+          <SelectField
+            options={
+              districtArray
+                ?.find((item) => {
+                  return item.district === selectedDistrict
+                })
+                ?.municipalities.find(
+                  (item) => item.name === selectedMunicipality
+                )?.areas
+                ? Object.keys(
+                    districtArray
+                      ?.find((item) => item.district === selectedDistrict)
+                      ?.municipalities.find(
+                        (item) => item.name === selectedMunicipality
+                      )?.areas
+                  ).map((key, index) => ({
+                    id: index,
+                    label: key.replace(/_/g, ' '), // Optional: Replace underscores with spaces
+                    value: key
+                  }))
+                : []
+            }
+            width="100%"
+            onChangeValue={(data) => setSelectedArea(data.value)}
+            placeholder={'Area'}
+          />
+
+          <SelectField
+            // defaultValue={category?.[0]}
+            options={[
+              {
+                id: 1,
+                label: 'Home Delivery',
+                value: true
+              },
+              {
+                id: 2,
+                label: 'Office Delivery',
+                value: false
+              }
+            ]}
+            width="320px"
+            onChangeValue={(data) => setisHomeDelivery(data)}
+            placeholder={'Delivery Type'}
+          />
           <HStack justify="space-between" align="center">
             <p>Shipping Location</p>
 
@@ -205,7 +315,7 @@ export const CartPage = () => {
             align="center"
           >
             <p>Shipping Cost</p>
-            <p>10</p>
+            <p>{shippingPrice}</p>
           </HStack>
 
           <HStack
