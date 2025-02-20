@@ -12,16 +12,27 @@ import {
 } from './cart.slice'
 
 import {districtArray} from 'src/utils/districtArray'
-import {HStack, InputField, Label, SelectField, VStack} from 'src/app/common'
+import {
+  CheckBox,
+  HStack,
+  InputField,
+  Label,
+  SelectField,
+  VStack
+} from 'src/app/common'
 import {getNprPrice} from 'src/helpers/nprPrice.helper'
 import toast from 'react-hot-toast'
 import {useMeasure, useMedia} from 'src/hooks'
+import {HiDatabase} from 'react-icons/hi'
+import {TextArea} from 'src/app/common/textArea'
 export const CartPage = () => {
   const dispatch = useDispatch()
   const datas = useSelector((state: any) => state.cart)
   const [upatedcartData, setUpdatedCartData] = useState(
     datas?.cartData?.[0]?.products ?? []
   )
+
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const [isInsideValley, setIsInsideValley] = useState<boolean>(true)
 
@@ -36,7 +47,7 @@ export const CartPage = () => {
   }, [])
 
   console.log(datas, 'data')
-
+  const [isShippingSame, setIsShippingSame] = useState(true)
   useEffect(() => {
     setUpdatedCartData(datas?.cartData?.[0]?.products)
   }, [datas?.cartData?.[0]?.products])
@@ -45,6 +56,8 @@ export const CartPage = () => {
 
   const [selectedDistrict, setSelectedDistrict] = useState<any>()
   const [selectedMunicipality, setSelectedMunicipality] = useState<any>()
+
+  const [orderNote, setOrderNote] = useState('')
 
   const changeQuantity = (countQuantity, data) => {
     console.log('data chaiyo', countQuantity, data)
@@ -156,7 +169,7 @@ export const CartPage = () => {
   console.log(shippingPrice, 'shipping  price')
   return (
     <div className="cartPage">
-      <VStack gap="$3" style={{width: media.md ? '60%' : '100%'}}>
+      <VStack gap="$3" style={{width: media.md ? '55%' : '100%'}}>
         {datas?.cartData?.[0]?.products?.length > 0 ? (
           datas?.cartData?.[0]?.products?.map((item: any, index: number) => {
             return (
@@ -174,7 +187,7 @@ export const CartPage = () => {
           ></img>
         )}
       </VStack>
-      <VStack style={{width: media.md ? '30%' : '100%'}} gap="$3">
+      <VStack style={{width: media.md ? '40%' : '100%'}} gap="$3">
         <VStack className="cartPage-orderSummary" gap="$5">
           <p className="cartPage-orderSummary-itemCount">
             Total Items:{upatedcartData?.length}
@@ -200,9 +213,9 @@ export const CartPage = () => {
           </HStack>
 
           <HStack justify="space-between" align="center">
-            <p>Shipping Area</p>
+            <p>Is it Outside Valley?</p>
 
-            {/* <SelectField
+            <SelectField
               options={[
                 {
                   id: 1,
@@ -217,8 +230,8 @@ export const CartPage = () => {
               ]}
               width="100%"
               onChangeValue={(data) => setIsInsideValley((prev) => !prev)}
-              placeholder={'Where from'}
-            /> */}
+              placeholder={'Is Outside Kathmandu Valley?'}
+            />
           </HStack>
 
           <SelectField
@@ -297,7 +310,7 @@ export const CartPage = () => {
                 value: false
               }
             ]}
-            width="320px"
+            width="100%"
             onChangeValue={(data) => setisHomeDelivery(data)}
             placeholder={'Delivery Type'}
           />
@@ -309,6 +322,11 @@ export const CartPage = () => {
               placeholder="Enter full address"
             ></InputField>
           </HStack>
+
+          <InputField
+            onChange={(e: any) => setPhoneNumber(e.target.value)}
+            placeholder="Enter Phone Number"
+          ></InputField>
           <HStack
             style={{width: '100%'}}
             justify="space-between"
@@ -316,6 +334,19 @@ export const CartPage = () => {
           >
             <p>Shipping Cost</p>
             <p>{shippingPrice}</p>
+          </HStack>
+
+          <HStack>
+            <CheckBox
+              value="best selling"
+              label="Shipping Address is same as billing address"
+              name="bestselling"
+              check={isShippingSame}
+              handleCheckboxChange={(data) => {
+                console.log('isShippingSame', data)
+                setIsShippingSame(data)
+              }}
+            />
           </HStack>
 
           <HStack
@@ -333,10 +364,18 @@ export const CartPage = () => {
                   })
                   ?.reduce((acc, curr) => {
                     return acc + curr
-                  }, 0) + shoppingCost
+                  }, 0) + shippingPrice
               )}
             </p>
           </HStack>
+
+          <VStack style={{width: '100%'}}>
+            <p>Order Note</p>
+            <TextArea
+              onChange={(e: any) => setOrderNote(e.target.value)}
+              style={{width: '100%'}}
+            />
+          </VStack>
         </VStack>
         <HStack
           align="center"
