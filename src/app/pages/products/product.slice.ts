@@ -225,6 +225,25 @@ const getProductDetailByIdAction = createAsyncThunk(
   }
 )
 
+const getOrderDetailByIdAction = createAsyncThunk(
+  'productOrder/detail',
+  async (
+    {
+      orderId
+    }: {
+      orderId: string
+    },
+    thunkAPI
+  ) => {
+    try {
+      const response = await productService.getOrderDetailById(orderId)
+      return response
+    } catch (error) {
+      return thunkAPI.rejectWithValue('Error fetching Product Detail!')
+    }
+  }
+)
+
 const getProductListByCategoryIdAction = createAsyncThunk(
   'product/category',
   async (
@@ -311,6 +330,9 @@ const initialState: {
   deleteProductLoading: boolean
   productDetailData?: any
   productDetailLoading?: boolean
+
+  orderDetailData?: any
+  orderDetailLoading?: boolean
   createProductLoading?: boolean
   updateProductLoading?: boolean
   deleteProductImageLoading?: boolean
@@ -336,6 +358,8 @@ const initialState: {
   createProductLoading: false,
   updateProductLoading: false,
   deleteProductImageLoading: false,
+  orderDetailData: undefined,
+  orderDetailLoading: false,
 
   deleteProductVariantLoading: false,
   getProductVariantListLoading: false,
@@ -396,6 +420,17 @@ const productSlice = createSlice({
     })
     builder.addCase(getProductDetailByIdAction.rejected, (state) => {
       state.productDetailLoading = false
+    })
+
+    builder.addCase(getOrderDetailByIdAction.pending, (state) => {
+      state.orderDetailLoading = true
+    })
+    builder.addCase(getOrderDetailByIdAction.fulfilled, (state, action) => {
+      state.orderDetailLoading = false
+      state.orderDetailData = action.payload.data
+    })
+    builder.addCase(getOrderDetailByIdAction.rejected, (state) => {
+      state.orderDetailLoading = false
     })
 
     builder.addCase(delteProductAction.pending, (state) => {
@@ -502,6 +537,7 @@ export {
   createProductImageAction,
   getProductListByCategoryIdAction,
   delteProductImageAction,
-  getAllProductVariantImagesAction
+  getAllProductVariantImagesAction,
+  getOrderDetailByIdAction
 }
 export default productSlice.reducer

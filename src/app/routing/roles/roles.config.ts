@@ -32,7 +32,8 @@ export const USER_ROLES: UserRoles = {
       '/product/*',
       '/return-policy',
       '/shipping-policy',
-      '/dash-social-links/*'
+      '/dash-social-links/*',
+      'orderDetails/*'
     ]
   },
   USER: {
@@ -51,7 +52,8 @@ export const USER_ROLES: UserRoles = {
       // '/dash-product/*',
       '/product/*',
       '/return-policy',
-      '/shipping-policy'
+      '/shipping-policy',
+      'orderDetails/*'
     ]
   }
 }

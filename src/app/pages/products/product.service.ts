@@ -49,6 +49,13 @@ const getProductDetailById = async (productId: string) => {
   return response.data
 }
 
+const getOrderDetailById = async (orderId: string) => {
+  const response = await api<Api.Base<any>>('get')(
+    `/order/orderDetails/${orderId}`
+  )
+  return response.data
+}
+
 const getProductListByCategoryId = async (categoryId: string) => {
   const response = await api<Api.Base<any>>('get')(
     `/product/category/${categoryId}`
@@ -123,5 +130,6 @@ export const productService = {
   deleteProductImages,
   deleteProductColorVariantImages,
   getAllProductVariantImages,
-  CreateProductImage
+  CreateProductImage,
+  getOrderDetailById
 }

@@ -606,101 +606,113 @@ const OrderPDf = ({data}) => {
       <Document>
         {data
           ?.filter((item) => Object.keys(item).length !== 0)
-          ?.map((item, index) => (
-            <Page
-              size={{width: 216, height: 288}}
-              style={styles.page}
-              key={index}
-            >
-              {/* Header */}
-              <View style={styles.header}>
-                <Image
-                  style={styles.logo}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
-                />
-                <Text style={styles.headerTitle}>ORDER DETAILS</Text>
-              </View>
-              {/* Basic Info Section */}
-              <View style={styles.box}>
-                <View style={styles.row}>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>Origin</Text>
-                    <Text style={styles.value}>KTM</Text>
-                  </View>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>Destination</Text>
-                    <Text style={styles.value}>{item.shippingLocation}</Text>
-                  </View>
-                </View>
-                <View style={styles.row}>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>Product</Text>
-                    <Text style={styles.smallValue}>
-                      {item?.products[0]?.productId?.name}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.qrcode}>
+          ?.map((item, index) => {
+            console.log(item, 'itemsssssss')
+
+            return (
+              <Page
+                size={{width: 216, height: 288}}
+                style={styles.page}
+                key={index}
+              >
+                {/* Header */}
+                <View style={styles.header}>
                   <Image
-                    style={styles.qrCode}
-                    src={generateQrCodeUrl(item.shippingLocation ?? '')}
+                    style={styles.logo}
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSNyE_y63CdiQwrOyaUDsNWmntsXiuAm4Izg&s"
                   />
+                  <Text style={styles.headerTitle}>ORDER DETAILS</Text>
                 </View>
-              </View>
-              {/* Order Details Section */}
-              <View style={[styles.box, {backgroundColor: '#f0f7ff'}]}>
-                <View style={styles.row}>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>COD Value</Text>
-                    <Text style={styles.value}>COD@#$</Text>
-                  </View>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>Quantity</Text>
-                    <Text style={styles.value}>
-                      {item?.products?.[0]?.quantity}
-                    </Text>
-                  </View>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>Price</Text>
-                    <Text style={styles.value}>{item?.products[0]?.price}</Text>
-                  </View>
-                </View>
-              </View>
-              {/* Contact Details Section */}
-              <View style={styles.section}>
-                <View style={styles.row}>
-                  <View style={[styles.column, styles.box]}>
-                    <Text style={styles.label}>Shipper Details</Text>
-                    <Text style={styles.value}>Aabhushan Gallery</Text>
-                    <Text style={styles.smallValue}>
-                      Kathmandu, Nepal 44600
-                    </Text>
-                    <View style={styles.contactInfo}>
-                      <Text style={styles.contactLabel}>Tel:</Text>
-                      <Text style={styles.contactValue}>9841934343</Text>
+                {/* Basic Info Section */}
+                <View style={styles.box}>
+                  <View style={styles.row}>
+                    <View style={styles.column}>
+                      <Text style={styles.label}>Origin</Text>
+                      <Text style={styles.value}>KTM</Text>
+                    </View>
+                    <View style={styles.column}>
+                      <Text style={styles.label}>Destination</Text>
+                      <Text style={styles.value}>{item.shippingLocation}</Text>
                     </View>
                   </View>
-                  <View style={[styles.column, styles.box]}>
-                    <Text style={styles.label}>Consignee Details</Text>
-                    <Text style={styles.smallValue}>{item.userId?.email}</Text>
-                    <Text style={styles.smallValue}>
-                      {item.shippingLocation}
-                    </Text>
-                    <View style={styles.contactInfo}>
-                      <Text style={styles.contactLabel}>Mobile:</Text>
-                      <Text style={styles.contactValue}>9841934343</Text>
+                  <View style={styles.row}>
+                    <View style={styles.column}>
+                      <Text style={styles.label}>Product</Text>
+                      <Text style={styles.smallValue}>
+                        {item?.products[0]?.productId?.name}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.qrcode}>
+                    <Image
+                      style={styles.qrCode}
+                      // src={generateQrCodeUrl(item.shippingLocation ?? '')}
+
+                      src={generateQrCodeUrl(
+                        `http://localhost:3000/orderDetails?orderId=${item?._id}&isForOrder=true`
+                      )}
+                    />
+                  </View>
+                </View>
+                {/* Order Details Section */}
+                <View style={[styles.box, {backgroundColor: '#f0f7ff'}]}>
+                  <View style={styles.row}>
+                    <View style={styles.column}>
+                      <Text style={styles.label}>COD Value</Text>
+                      <Text style={styles.value}>COD@#$</Text>
+                    </View>
+                    <View style={styles.column}>
+                      <Text style={styles.label}>Quantity</Text>
+                      <Text style={styles.value}>
+                        {item?.products?.[0]?.quantity}
+                      </Text>
+                    </View>
+                    <View style={styles.column}>
+                      <Text style={styles.label}>Price</Text>
+                      <Text style={styles.value}>
+                        {item?.products[0]?.price}
+                      </Text>
                     </View>
                   </View>
                 </View>
-              </View>
-              {/* Footer */}
-              <View style={styles.footer}>
-                <Text style={styles.printDate}>
-                  Print Date: {currentDate.toLocaleDateString()}
-                </Text>
-              </View>
-            </Page>
-          ))}
+                {/* Contact Details Section */}
+                <View style={styles.section}>
+                  <View style={styles.row}>
+                    <View style={[styles.column, styles.box]}>
+                      <Text style={styles.label}>Shipper Details</Text>
+                      <Text style={styles.value}>Aabhushan Gallery</Text>
+                      <Text style={styles.smallValue}>
+                        Kathmandu, Nepal 44600
+                      </Text>
+                      <View style={styles.contactInfo}>
+                        <Text style={styles.contactLabel}>Tel:</Text>
+                        <Text style={styles.contactValue}>9841934343</Text>
+                      </View>
+                    </View>
+                    <View style={[styles.column, styles.box]}>
+                      <Text style={styles.label}>Consignee Details</Text>
+                      <Text style={styles.smallValue}>
+                        {item.userId?.email}
+                      </Text>
+                      <Text style={styles.smallValue}>
+                        {item.shippingLocation}
+                      </Text>
+                      <View style={styles.contactInfo}>
+                        <Text style={styles.contactLabel}>Mobile:</Text>
+                        <Text style={styles.contactValue}>9841934343</Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                {/* Footer */}
+                <View style={styles.footer}>
+                  <Text style={styles.printDate}>
+                    Print Date: {currentDate.toLocaleDateString()}
+                  </Text>
+                </View>
+              </Page>
+            )
+          })}
       </Document>
     </PDFViewer>
   )

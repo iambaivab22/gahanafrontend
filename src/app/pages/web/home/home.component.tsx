@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from 'src/store'
 import {getTestimonialListAction} from '../../testimonial/testimonial.slice'
 import {getShopByBudgetListAction} from '../../shopByBudget/shopByBudget.slice'
 import {getProductListAction} from '../../products/product.slice'
+import ProductDisplay from 'src/app/components/productDisplay/productDisplay.component'
 
 export const HomePage = () => {
   const dispatch = useDispatch()
@@ -94,6 +95,11 @@ export const HomePage = () => {
     })
   }, [watchandshopdata])
 
+  useEffect(() => {
+    console.log('api hit')
+    dispatch(getProductListAction({}))
+  }, [])
+
   return (
     <div className="home">
       <MainCarousel></MainCarousel>
@@ -149,6 +155,8 @@ export const HomePage = () => {
               </VStack>
             </VStack>
           )}
+
+          <ProductDisplay product={data?.[1]}></ProductDisplay>
         </VStack>
       </CompWrapper>
     </div>
