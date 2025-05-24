@@ -356,7 +356,7 @@ export const AddProductPage = () => {
 
   const addProductHandler = (event: any) => {
     event.preventDefault()
-    console.log('addProduct called')
+    console.log('addProduct called to updated', data)
     console.log(isNewArrivalOrBestSelling, 'is new arrival or best selling')
     const formData = new FormData()
 
@@ -530,6 +530,8 @@ export const AddProductPage = () => {
     const actualDiscountedPrice = data?.originalPrice - finalPrice
     setData((prev) => ({...prev, discountedPrice: actualDiscountedPrice}))
   }, [data?.discountPercentage, data?.originalPrice])
+
+  console.log(productDetailData?.images, productDetailData, 'images data value')
 
   return (
     <div className="addProductContainer">

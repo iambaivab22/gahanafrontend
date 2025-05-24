@@ -100,7 +100,7 @@ export const CartPage = () => {
   console.log(selectedDistrict, 'selectedDistrict')
 
   const checkoutHandler = () => {
-    console.log(userId, 'userID')
+    console.log(userId, 'userID value', new Date(Date.now()).toLocaleString())
     userId &&
       dispatch(
         createOrderByUserIdAction({
@@ -117,8 +117,8 @@ export const CartPage = () => {
             }),
 
             isInsideValley: JSON.stringify(isInsideValley),
-            orderedAt: Date.now().toLocaleString(),
-            shippingLocation: shippingLocation
+            OrderedAt: new Date(Date.now()).toLocaleString(),
+            shippingLocation: `${selectedDistrict}, ${selectedMunicipality}-${selectedArea}`
           },
           onSuccess: (data: any) => {
             toast.success('Ordered placed successfully done')
@@ -133,10 +133,16 @@ export const CartPage = () => {
                   onSuccess: () => {
                     dispatch(getCartlistAction({userId: userId}))
                     toast.success('Product Deleted from cart Successfully')
+
+                    clearShippingDetails()
                   }
                 })
               )
             })
+          },
+
+          onFailure: (error: any) => {
+            toast.error('Could not place order')
           }
         })
       )
@@ -167,6 +173,17 @@ export const CartPage = () => {
   }, [isHomeDelivery, selectedDistrict, selectedMunicipality])
 
   console.log(shippingPrice, 'shipping  price')
+
+  const clearShippingDetails = () => {
+    setIsShippingSame(true)
+    setIsInsideValley(true)
+    setShippingLocation('')
+    setSelectedDistrict('')
+    setSelectedMunicipality('')
+    setSelectedArea('')
+    setOrderNote('')
+    setisHomeDelivery(false)
+  }
   return (
     <div className="cartPage">
       <VStack gap="$3" style={{width: media.md ? '55%' : '100%'}}>

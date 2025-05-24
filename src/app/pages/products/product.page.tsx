@@ -191,9 +191,9 @@ export const ProductListPage = () => {
             ]}
             data={data}
             actions={{
-              onView: (item: any) => {
-                navigate(`view/${item.id}`)
-              },
+              // onView: (item: any) => {
+              //   navigate(`view/${item.id}`)
+              // },
 
               onEdit: (item: any) => {
                 navigate(`update/${item.id}`)

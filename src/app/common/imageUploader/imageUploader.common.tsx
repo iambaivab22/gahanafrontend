@@ -25,11 +25,16 @@ const ImageUploader = React.memo(
     const [files, setFiles] = useState([])
 
     const closeClickHandlerRef = useRef<any>(false)
-
+    console.log(defaultImage, 'default Imagesssssss outside')
     useEffect(() => {
+      console.log(
+        defaultImage,
+        !!defaultImage && defaultImage.length > 0,
+        !closeClickHandlerRef.current,
+        'default Imagesssssss'
+      )
       if (!closeClickHandlerRef.current) {
         if (!!defaultImage && defaultImage.length > 0) {
-          console.log(defaultImage, 'default Image')
           const remappedFiles = defaultImage?.map(
             (item: any, index: number) => ({
               // file: isBanner
@@ -46,14 +51,16 @@ const ImageUploader = React.memo(
             })
           )
 
-          console.log(remappedFiles, 'remapped files value')
+          console.log(defaultImage, remappedFiles, 'remapped files value')
 
-          console.log('selected image hai 2')
-          closeClickHandlerRef.current = true
+          console.log('selected image hai 2', remappedFiles)
+          // closeClickHandlerRef.current = true
           setSelectedImages(remappedFiles)
         }
       }
     }, [defaultImage])
+
+    console.log('default images data value', defaultImage)
 
     const handleImageUpload = (e: any) => {
       e.stopPropagation()

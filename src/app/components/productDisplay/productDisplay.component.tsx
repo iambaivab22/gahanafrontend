@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react'
+import {
+  createCartByUserIdAction,
+  getCartlistAction
+} from 'src/app/pages/web/cart/cart.slice'
 import {FILE_URL} from 'src/config'
+import {getCookie} from 'src/helpers'
+import toast from 'react-hot-toast'
+import {useDispatch} from 'src/store'
+import {useAuth} from 'src/app/routing'
 // import './ProductDisplay.scss'
 
 const ProductDisplay = ({product}) => {
@@ -38,6 +46,7 @@ const ProductDisplay = ({product}) => {
   const displayProduct = product || defaultProduct
 
   const [productImages, setProductImages] = useState([])
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const ProductImages = product?.images?.map((item: any, index: number) => {
@@ -47,6 +56,41 @@ const ProductDisplay = ({product}) => {
 
     setProductImages(ProductImages)
   }, [product])
+
+  const handleAddToCart = (data: any) => {
+    const userId = getCookie('userId')
+
+    const roles = getCookie('userRoles')
+
+    if (!!userId && !!roles) {
+      const cartData = {
+        userId,
+        products: [
+          {
+            productId: data?.id,
+            quantity: 1,
+            price: data?.discountedPrice
+          }
+        ]
+      }
+
+      dispatch(
+        createCartByUserIdAction({
+          userId: userId,
+          data: cartData,
+          onSuccess: () => {
+            toast.success('Product added to cart Successfully!')
+            const userId = getCookie('userId')
+            userId && dispatch(getCartlistAction({userId: userId}))
+          }
+        })
+      )
+    } else {
+      toast.error('Please login first to add product')
+    }
+  }
+
+  const {auth} = useAuth()
   return (
     <div className="product-display">
       {/* Product Image */}
@@ -63,7 +107,9 @@ const ProductDisplay = ({product}) => {
 
       {/* Product Details */}
       <div className="product-details">
-        <h1 className="product-title">{product?.name}</h1>
+        <h1 className="product-title" style={{fontSize: '18px'}}>
+          {product?.name}
+        </h1>
         <div className="price-container">
           <span className="price-original">₹{product?.originalPrice}</span>
           <span className="price-discounted">₹{product?.discountedPrice}</span>
@@ -89,7 +135,16 @@ const ProductDisplay = ({product}) => {
           </button>
         </div>
 
-        <button className="add-to-cart-button">ADD TO CART</button>
+        <button
+          className="add-to-cart-button"
+          onClick={() => {
+            !!auth.isLoggedin
+              ? handleAddToCart(product)
+              : toast.success('Product Updated SuccessFully')
+          }}
+        >
+          ADD TO CART
+        </button>
       </div>
     </div>
   )

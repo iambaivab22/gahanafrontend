@@ -13,6 +13,7 @@ import {createCartByUserIdAction, getCartlistAction} from '../cart/cart.slice'
 import toast from 'react-hot-toast'
 import {getCookie} from 'src/helpers'
 import {useAuth} from 'src/app/routing'
+import {getNprPrice} from 'src/helpers/nprPrice.helper'
 
 export const OrderDetailsPage = () => {
   const dispatch = useDispatch()
@@ -45,11 +46,11 @@ export const OrderDetailsPage = () => {
   useEffect(() => {
     const requiredImageList = productDetailData?.images?.map(
       (item: any, index: number) => {
-        return item
+        return item.coloredImage
       }
     )
 
-    console.log(requiredImageList, productDetailData, 'requiredImageList')
+    console.log(requiredImageList, productDetailData, 'requiredImageList data')
 
     setProductImageList(requiredImageList)
   }, [productDetailData])
@@ -130,6 +131,9 @@ export const OrderDetailsPage = () => {
   const {auth} = useAuth()
 
   console.log(productImageList, 'product image list value')
+  const total = orderDetailData?.products?.reduce((acc, item) => {
+    return acc + item.price * item.quantity
+  }, 0)
 
   return (
     <div>
@@ -319,6 +323,30 @@ export const OrderDetailsPage = () => {
                   </VStack>
                 </VStack>
               </VStack>
+            </div>
+
+            <div>
+              <div className="productDetail-detailBottom-description">
+                <div className="productDetail-detailBottom-description-text">
+                  Order Details ,please do the following steps to pay the
+                  amount:
+                </div>
+                <div className="amountToPay">
+                  <p>Total Amount due</p>
+                  <p>{getNprPrice(total || 0)}</p>
+                </div>
+
+                <p>
+                  Please scan the qr code below and pay{' '}
+                  {getNprPrice(total || 0)}
+                </p>
+
+                <img
+                  src="src/assets/images/bankqr.png"
+                  alt="image"
+                  className="qrImage"
+                />
+              </div>
             </div>
           </VStack>
         </div>

@@ -25,6 +25,8 @@ export const ProductCard = ({data}: {data: any}) => {
   const dispatch = useDispatch()
   const [productImages, setProductImages] = useState([])
 
+  console.log(productImages?.[0], data, 'product images value')
+
   useEffect(() => {
     const ProductImages = data?.images?.map((item: any, index: number) => {
       console.log(item.coloredImage, 'coloredimage')
@@ -33,6 +35,7 @@ export const ProductCard = ({data}: {data: any}) => {
 
     setProductImages(ProductImages)
   }, [data])
+
   // const ProductImages = data?.images?.map((item: any, index: number) => {
   //   console.log(item.coloredImage[0], 'coloredimage')
   //   return item.coloredImage[0]
@@ -50,7 +53,13 @@ export const ProductCard = ({data}: {data: any}) => {
           {/* <img src={productImages[activeImage]}></img> */}
           {/* <img src="http://localhost:8000/1705164295377-htmlimage.jpg"></img> */}
 
-          <img src={`${FILE_URL}/products/${productImages?.[0]}`} />
+          <img
+            src={
+              productImages.length > 0
+                ? `${FILE_URL}/products/${productImages?.[0]}`
+                : '/assets/images/defaultProduct.jpeg'
+            }
+          />
         </div>
 
         <HStack className="productCard-tags" gap="$2">

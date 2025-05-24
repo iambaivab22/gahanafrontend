@@ -10,6 +10,7 @@ import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
 import {WatchAndShopCard} from '../watchAndShop/watchAndShop.component'
 import {IoClose} from 'react-icons/io5'
 import {FILE_URL} from 'src/config'
+import {useBodyOverflowHiddenOnClassInView} from 'src/hooks/useBodyScrollOverlay.hook'
 
 export const ProductCarousel = ({data}: {data: any}) => {
   const query = useQuery()
@@ -36,6 +37,8 @@ export const ProductCarousel = ({data}: {data: any}) => {
   const handleCarouselClick = (item) => {
     setActiveItem(item)
   }
+
+  useBodyOverflowHiddenOnClassInView(['video-container-fullScreen'])
 
   return (
     <div className="productCarouselContainer">

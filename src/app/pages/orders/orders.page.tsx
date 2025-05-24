@@ -180,6 +180,24 @@ export const OrderListPage = () => {
                   return <div>{getNprPrice(datas?.[0]?.price)}</div>
                 }
               },
+
+              {
+                field: 'OrderedAt',
+                name: 'Ordered At',
+                render: (datas) => {
+                  const value = new Date(datas?.replace(/,/g, ''))
+                  console.log(datas, value, 'datas to date')
+
+                  // function convertUnixToISO(unixMs) {
+                  //   return new Date(unixMs).toISOString()
+                  // }
+
+                  // const data = convertUnixToISO(value)
+                  // console.log('pani paryo hai finaly', data)
+                  // console.log(datas, 'datas to date value')
+                  return <div>{datas ?? '-'}</div>
+                }
+              },
               {
                 field: 'isInsideValley',
                 name: 'Is Inside Valley?',
@@ -775,11 +793,11 @@ const styles = StyleSheet.create({
     // fontFamily: 'Arvo'
   },
   value: {
-    fontSize: 8,
+    fontSize: 6,
     fontWeight: 'bold'
   },
   smallValue: {
-    fontSize: 7,
+    fontSize: 6,
     fontWeight: 'bold'
   },
   divider: {

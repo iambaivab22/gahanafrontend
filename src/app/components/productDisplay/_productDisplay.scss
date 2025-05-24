@@ -85,7 +85,7 @@ $breakpoints: (
   background-color: map-get($colors, background-alt);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  // box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 
   @include respond-to(md) {
     width: 40%;
@@ -224,8 +224,8 @@ $breakpoints: (
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border: 1px solid map-get($colors, border);
   background-color: map-get($colors, background);
   cursor: pointer;
@@ -251,8 +251,8 @@ $breakpoints: (
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 48px;
+  width: 48px;
+  height: 30px;
   border-top: 1px solid map-get($colors, border);
   border-bottom: 1px solid map-get($colors, border);
   background-color: map-get($colors, background);

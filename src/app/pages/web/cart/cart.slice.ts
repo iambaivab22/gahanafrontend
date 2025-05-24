@@ -384,11 +384,13 @@ const createOrderByUserIdAction = createAsyncThunk(
     {
       userId,
       data,
-      onSuccess
+      onSuccess,
+      onFailure
     }: {
       userId: any
       data: any
       onSuccess?: (data: any) => void
+      onFailure?: (data: any) => void
     },
     thunkAPI
   ) => {
@@ -399,6 +401,8 @@ const createOrderByUserIdAction = createAsyncThunk(
       onSuccess && onSuccess(response)
       return response
     } catch (error) {
+      console.log('hello error', error)
+      onFailure && onFailure(error)
       return thunkAPI.rejectWithValue('Cannot create Order!')
     }
   }

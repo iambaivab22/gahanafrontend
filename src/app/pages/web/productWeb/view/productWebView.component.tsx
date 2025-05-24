@@ -23,7 +23,8 @@ import CustomVideoPlayer from 'src/app/common/customVideoPlayer/customVideoPlaye
 import html2canvas from 'html2canvas'
 import {
   createCartByUserIdAction,
-  getCartlistAction
+  getCartlistAction,
+  updatedCartByProductIdAction
 } from '../../cart/cart.slice'
 import toast from 'react-hot-toast'
 import {getCookie} from 'src/helpers'
@@ -107,6 +108,7 @@ export const ProductWebDetail = () => {
 
     setProductImageList([requiredImageList?.coloredImage])
   }
+  const datas = useSelector((state: any) => state.cart)
 
   const handleAddToCart = (data: any) => {
     const userId = getCookie('userId')
@@ -114,28 +116,76 @@ export const ProductWebDetail = () => {
     const roles = getCookie('userRoles')
 
     if (!!userId && !!roles) {
-      const cartData = {
-        userId,
-        products: [
-          {
-            productId: data?.id,
-            quantity: 1,
-            price: data?.discountedPrice
-          }
-        ]
-      }
+      //        if(datas?.cartData?.[0]?.products?.includ){
 
-      dispatch(
-        createCartByUserIdAction({
-          userId: userId,
-          data: cartData,
-          onSuccess: () => {
-            toast.success('Product added to cart Successfully!')
-            const userId = getCookie('userId')
-            userId && dispatch(getCartlistAction({userId: userId}))
-          }
-        })
+      //  }
+
+      const isAlreadyExist = datas?.cartData?.[0]?.products?.some(
+        (item: any) => {
+          console.log(
+            // datas?.cartData?.[0]?.products,
+            // data.id,
+            // item?.productId?.id,
+            // data?.id,
+            // data?.name,
+            item,
+            data,
+
+            'helo details dataaaaaaaa'
+          )
+          return item?.productId?.id === data?.id
+        }
       )
+
+      if (!isAlreadyExist) {
+        const cartData = {
+          userId,
+          products: [
+            {
+              productId: data?.id,
+              quantity: 1,
+              price: data?.discountedPrice
+            }
+          ]
+        }
+
+        dispatch(
+          createCartByUserIdAction({
+            userId: userId,
+            data: cartData,
+            onSuccess: () => {
+              toast.success('Product added to cart Successfully!')
+              const userId = getCookie('userId')
+              userId && dispatch(getCartlistAction({userId: userId}))
+            }
+          })
+        )
+      } else {
+        const isAlreadyExistData = datas?.cartData?.[0]?.products?.find(
+          (item: any) => {
+            return item?.productId?.id === data?.id
+          }
+        )
+
+        console.log(isAlreadyExistData, 'isAlreadyExistData valuessssssssss')
+        dispatch(
+          updatedCartByProductIdAction({
+            data: {
+              userId: userId,
+              productId: isAlreadyExistData?.productId?.id,
+              quantity: isAlreadyExistData?.quantity + 1,
+              price: Number(
+                isAlreadyExistData?.productId?.discountedPrice *
+                  (isAlreadyExistData?.quantity + 1)
+              )
+            },
+            onSuccess: () => {
+              toast.success('Product on cart updated successfully')
+              userId && dispatch(getCartlistAction({userId: userId}))
+            }
+          })
+        )
+      }
     } else {
       toast.error('Please login first to add product')
     }

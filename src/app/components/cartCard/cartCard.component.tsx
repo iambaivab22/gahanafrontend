@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import toast from 'react-hot-toast'
 import {AiOutlineClose, AiOutlineMinus, AiOutlinePlus} from 'react-icons/ai'
 import {HStack, InputField, VStack} from 'src/app/common'
@@ -35,13 +35,20 @@ export const CartCard = ({
       })
     )
   }
+
+  console.log(data, 'cart data value')
+
+  useEffect(() => {
+    setQuantity(data?.quantity)
+  }, [data])
+
   return (
     <div className="cartCard-container">
       <div className="cartCard">
         <HStack className="cartCard-left" gap="$3">
           <HStack className="cartCard-left-image">
             <img
-              src={`${FILE_URL}/products/${data?.productId?.images[0]?.coloredImage[0]}`}
+              src={`${FILE_URL}/products/${data?.productId?.images[0]?.coloredImage}`}
             />
           </HStack>
           <VStack className="cartCard-left-detail">
