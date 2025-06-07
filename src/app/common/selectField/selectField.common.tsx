@@ -26,6 +26,7 @@ interface SelectFieldProps {
   onFocus?: any
   fontSize?: any
   width?: string
+  containerStyle?: any
 }
 
 export const SelectField = ({
@@ -49,6 +50,7 @@ export const SelectField = ({
   onFocus,
   fontSize = 14,
   width,
+  containerStyle,
   ...props
 }: SelectFieldProps) => {
   const selectStyles = {
@@ -116,8 +118,10 @@ export const SelectField = ({
     optionValue = getOptionValue
   }
 
+  console.log(value, 'value data hai')
+
   return (
-    <div>
+    <div style={{...containerStyle}}>
       <Select
         formatOptionLabel={formatOptionLabel}
         isOptionDisabled={isOptionDisabled}

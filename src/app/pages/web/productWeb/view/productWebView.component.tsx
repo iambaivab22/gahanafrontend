@@ -299,6 +299,10 @@ export const ProductWebDetail = () => {
               <div
                 className="productDetail-detailTop-addToCart"
                 onClick={() => {
+                  if (productDetailData?.stockQuantity === 0) {
+                    toast.error('Product is out of stock')
+                    return
+                  }
                   !!auth.isLoggedin
                     ? handleAddToCart(productDetailData)
                     : toast.success('Product Updated SuccessFully')

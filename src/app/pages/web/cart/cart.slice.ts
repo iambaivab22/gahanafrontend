@@ -395,7 +395,7 @@ const createOrderByUserIdAction = createAsyncThunk(
     thunkAPI
   ) => {
     try {
-      // console.log('bannerData', bannerData)
+      console.log('bannerData values')
       const response = await CartService.createOrderByUserId(data, userId)
       console.log('hello success')
       onSuccess && onSuccess(response)

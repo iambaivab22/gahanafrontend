@@ -180,7 +180,7 @@ $breakpoints: (
 
 .shipping-text {
   color: map-get($colors, text-secondary);
-  font-size: map-get($font-sizes, small);
+  font-size: 16px;
   margin-bottom: 24px;
   // font-style: italic;
 }
