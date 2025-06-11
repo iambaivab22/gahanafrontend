@@ -67,7 +67,7 @@
 }
 .sortModalContainer {
   background-color: white;
-  padding: map-get($space, 3);
+  padding: 0px;
   border-radius: map-get($radius, default);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   z-index: 20;
@@ -82,6 +82,7 @@
 
 .filterItem {
   cursor: pointer;
+  padding: 6px 12px;
   transition: all 0.2s ease-in-out;
   &:hover {
     background-color: #fcedeb;

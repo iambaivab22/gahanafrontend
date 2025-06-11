@@ -321,3 +321,10 @@ $breakpoints: (
   font-size: map-get($font-sizes, small);
   margin-right: 6px;
 }
+
+.category-info {
+  display: flex;
+  // border: 2px solid red;
+  gap: 10px;
+  margin-bottom: 20px;
+}

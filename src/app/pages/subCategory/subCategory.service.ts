@@ -33,6 +33,7 @@ const deleteSubCategory = async (subCategoryId: string) => {
 }
 
 const createSubCategory = async (body: any) => {
+  console.log('create subcategory called', body)
   const response = await api<Api.Base<{}>>('post')(
     `/subCategory/new`,
     undefined,

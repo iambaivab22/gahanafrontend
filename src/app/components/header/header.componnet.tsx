@@ -1232,9 +1232,11 @@ export const TopHeader = () => {
     console.log(sortVisible, 'sortVisible')
   }, [sortVisible])
 
-  const {setAuth} = useAuth()
+  const {setAuth, auth} = useAuth()
 
   const {socialLinks}: any = useSelector((state: any) => state.socialLinks)
+
+  console.log(auth.isLoggedin, 'auth logged in value')
   console.log(socialLinks, 'sociallinks value')
   return (
     <>
@@ -1368,27 +1370,53 @@ export const TopHeader = () => {
                       <p>My Profile</p>
                     </HStack>
 
-                    <HStack
-                      align="center"
-                      gap="$3"
-                      className="filterItem"
-                      onClick={() => {
-                        // handleLogout()
-                        navigate('/login')
-                        setSortVisible(false)
-                        removeCookie('userId')
-                        removeCookie('userRoles')
+                    {!!auth.isLoggedin && (
+                      <HStack
+                        align="center"
+                        gap="$3"
+                        className="filterItem"
+                        onClick={() => {
+                          // handleLogout()
+                          navigate('/login')
+                          setSortVisible(false)
+                          removeCookie('userId')
+                          removeCookie('userRoles')
 
-                        cookies.remove('userRoles')
-                        cookies.remove('userId')
-                        // setAuth({
-                        //   isLoggedin: false,
-                        //   role: 'USER'
-                        // })
-                      }}
-                    >
-                      <p>Logout</p>
-                    </HStack>
+                          cookies.remove('userRoles')
+                          cookies.remove('userId')
+                          setAuth({
+                            isLoggedin: false,
+                            role: ''
+                          })
+                        }}
+                      >
+                        <p>Logout</p>
+                      </HStack>
+                    )}
+
+                    {!!!auth.isLoggedin && (
+                      <HStack
+                        align="center"
+                        gap="$3"
+                        className="filterItem"
+                        onClick={() => {
+                          // handleLogout()
+                          navigate('/register')
+                          setSortVisible(false)
+                          removeCookie('userId')
+                          removeCookie('userRoles')
+
+                          cookies.remove('userRoles')
+                          cookies.remove('userId')
+                          // setAuth({
+                          //   isLoggedin: false,
+                          //   role: 'USER'
+                          // })
+                        }}
+                      >
+                        <p>Register</p>
+                      </HStack>
+                    )}
                   </VStack>
                 </div>
               </VStack>

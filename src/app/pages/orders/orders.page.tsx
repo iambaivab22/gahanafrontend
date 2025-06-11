@@ -198,6 +198,24 @@ export const OrderListPage = () => {
                   return <div>{datas ?? '-'}</div>
                 }
               },
+
+              {
+                field: 'productOrderId',
+                name: 'Ordered Id',
+                render: (datas) => {
+                  const value = new Date(datas?.replace(/,/g, ''))
+                  console.log(datas, value, 'datas to date')
+
+                  // function convertUnixToISO(unixMs) {
+                  //   return new Date(unixMs).toISOString()
+                  // }
+
+                  // const data = convertUnixToISO(value)
+                  // console.log('pani paryo hai finaly', data)
+                  // console.log(datas, 'datas to date value')
+                  return <div>{datas ?? '-'}</div>
+                }
+              },
               {
                 field: 'isInsideValley',
                 name: 'Is Inside Valley?',

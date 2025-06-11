@@ -121,8 +121,8 @@ const ProductDisplay = ({product}) => {
 
         {/* Category and Subcategory */}
         <div className="category-info">
-          <p>Category: {product?.category?.name}</p>
-          <p>Subcategory: {product?.subCategory?.name}</p>
+          <p>{product?.category?.name}</p>
+          <p>{product?.subCategory?.name}</p>
         </div>
 
         <div className="quantity-container">

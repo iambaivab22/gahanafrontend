@@ -34,6 +34,9 @@ import {AddShopByBudget} from 'src/app/pages/shopByBudget/add/addShopByBudget.co
 import {CartCard} from 'src/app/components'
 import {ResetPasswordPage} from 'src/app/pages/resetPassword/resetPassword.page'
 import {AddSocialLinksPage} from 'src/app/pages/socialLinks/add/addSocialLinks.component'
+import {SubCategoryListPageNested} from 'src/app/pages/subCategoryNested'
+import {AddSubCategoryPageNested} from 'src/app/pages/subCategoryNested/add'
+import SubCategoryDetailPageNested from 'src/app/pages/subCategoryNested/view/[subCategoryId]/subCategoryid.page'
 
 // import LoginPage from 'src/app/pages/login/login.page'
 
@@ -244,6 +247,30 @@ export const Router: RouteObject[] = [
       },
       {
         path: 'view/:subCategoryId',
+        element: <SubCategoryDetailPageNested />
+      }
+    ]
+  },
+
+  {
+    path: '/dash-subCategorynested',
+
+    element: <ProtectedAuth />,
+    children: [
+      {
+        path: '',
+        element: <SubCategoryListPageNested />
+      },
+      {
+        path: 'add',
+        element: <AddSubCategoryPageNested />
+      },
+      {
+        path: 'update/:subCategoryIdnested',
+        element: <AddSubCategoryPageNested />
+      },
+      {
+        path: 'view/:subCategoryIdnested',
         element: <CategoryDetailPage />
       }
     ]

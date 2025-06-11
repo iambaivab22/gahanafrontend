@@ -33,12 +33,13 @@ export const USER_ROLES: UserRoles = {
       '/return-policy',
       '/shipping-policy',
       '/dash-social-links/*',
-      'orderDetails/*'
+      'orderDetails/*',
+      '/dash-subCategorynested/*'
     ]
   },
   USER: {
     access: [
-      'register',
+      '/register',
       '/login',
       '/reset-password',
       '/sample',
@@ -53,7 +54,8 @@ export const USER_ROLES: UserRoles = {
       '/product/*',
       '/return-policy',
       '/shipping-policy',
-      'orderDetails/*'
+      'orderDetails/*',
+      '/dash-subCategorynested/*'
     ]
   }
 }

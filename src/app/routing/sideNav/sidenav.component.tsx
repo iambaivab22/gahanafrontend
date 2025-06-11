@@ -105,6 +105,10 @@ const SideNavComponent = React.memo(() => {
             <MdWork size={18} />
           ))}
 
+          {getNav('Nested SubCategory', '/dash-subCategorynested', () => (
+            <MdWork size={18} />
+          ))}
+
           {getNav('New Arrivals', '/dash-new-arrivals', () => (
             <MdReport size={18} />
           ))}
