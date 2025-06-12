@@ -96,10 +96,12 @@ const createCategoryAction = createAsyncThunk(
   async (
     {
       categoryBody,
-      onSuccess
+      onSuccess,
+      onError
     }: {
       categoryBody: any
       onSuccess?: (data: any) => void
+      onError?: (error: any) => void
     },
     thunkAPI
   ) => {

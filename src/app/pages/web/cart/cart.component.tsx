@@ -163,11 +163,11 @@ export const CartPage = () => {
   const [shippingPrice, setShippingPrice] = useState(200)
   console.log(isHomeDelivery, 'isHomeDelivery')
   useEffect(() => {
-    const shippingCharges = districtArray
+    const shippingCharges = (districtArray as any)
       .find((item) => {
         return item.district === selectedDistrict
       })
-      ?.municipalities.find((item) => {
+      ?.municipalities?.find((item) => {
         return item.name === selectedMunicipality
       })?.areas[selectedArea]
 
@@ -322,11 +322,11 @@ export const CartPage = () => {
             />
 
             <SelectField
-              options={districtArray
+              options={(districtArray as any)
                 ?.find((item, index) => {
                   return item.district === selectedDistrict
                 })
-                ?.municipalities.map((items, index) => {
+                ?.municipalities?.map((items, index) => {
                   return {
                     id: index,
                     label: items.name,
@@ -350,17 +350,17 @@ export const CartPage = () => {
           >
             <SelectField
               options={
-                districtArray
+                (districtArray as any)
                   ?.find((item) => {
                     return item.district === selectedDistrict
                   })
-                  ?.municipalities.find(
+                  ?.municipalities?.find(
                     (item) => item.name === selectedMunicipality
                   )?.areas
                   ? Object.keys(
-                      districtArray
+                      (districtArray as any)
                         ?.find((item) => item.district === selectedDistrict)
-                        ?.municipalities.find(
+                        ?.municipalities?.find(
                           (item) => item.name === selectedMunicipality
                         )?.areas
                     ).map((key, index) => ({

@@ -7,7 +7,7 @@ const CategorryContainers = ({
 }: {
   imgSrc: string
   name: string
-  linkVallue: string
+  linkValue: string
 }) => {
   const navigate = useNavigate()
   return (

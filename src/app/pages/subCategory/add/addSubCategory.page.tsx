@@ -96,7 +96,7 @@ export const AddSubCategoryPage = () => {
         )
   }
 
-  const [subCategoryOption, setSubCategoryOption] = useState()
+  const [subCategoryOption, setSubCategoryOption] = useState<any>()
 
   console.log(selectedSubCategoryOption, 'option value data')
   console.log(

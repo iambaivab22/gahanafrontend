@@ -18,7 +18,7 @@ export const AddSubCategoryPageNested = () => {
     subCategoryDetailDataNested
   }: any = useSelector((state: any) => state.subCategoryNested)
   const navigate = useNavigate()
-  const id = useParams()
+  const id: any = useParams()
   console.log(id, 'id value final')
 
   // const subCategoryId = useParams('subCategoryIdNested')

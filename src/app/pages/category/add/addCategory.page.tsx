@@ -369,7 +369,7 @@ export const AddCategoryPage = () => {
         ></Button>
       </VStack>
 
-      <style jsx>{`
+      <style>{`
         .image-uploader {
           width: 100%;
         }
