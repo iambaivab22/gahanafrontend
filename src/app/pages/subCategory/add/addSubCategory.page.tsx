@@ -23,7 +23,7 @@ export const AddSubCategoryPage = () => {
     subCategoryDetailData
   }: any = useSelector((state: any) => state.subCategory)
 
-  const {subCategoryDataNested} = useSelector(
+  const {subCategoryDataNested, subCategoryDetailDataNested} = useSelector(
     (state: any) => state.subCategoryNested
   )
 
@@ -53,18 +53,30 @@ export const AddSubCategoryPage = () => {
   const [selectedSubCategoryId, setSelectedSubCategoryId] = useState([])
 
   // const categoryId = useParams('subCategoryId')
+  // console.log(
+  //   selectedSubCategoryId,
+  //   selectedSubCategoryOption,
+  //   'subCategoryId value data outside'
+  // )
 
+  const [selectedSubCategoryOption, setSelectedSubCategoryOption] = useState([])
+
+  console.log(selectedSubCategoryOption, 'selected sub category option')
   const addSubCategoryHandler = () => {
-    console.log(subCategoryId, 'subCategoryId value data')
+    console.log(
+      selectedSubCategoryId,
+      selectedSubCategoryOption,
+      'subCategoryId value data'
+    )
     !subCategoryId
       ? dispatch(
           createSubCategoryAction({
             subCategoryBody: {
               name: data.name,
-              subCategories: selectedSubCategoryId
+              subCategories: [selectedSubCategoryOption[0]?.id]
             },
             onSuccess: (data: any) => {
-              navigate('/subCategory')
+              navigate('/dash-subCategory')
               toast.success('Sub Category Created')
             }
           })
@@ -83,7 +95,7 @@ export const AddSubCategoryPage = () => {
           })
         )
   }
-  const [selectedSubCategoryOption, setSelectedSubCategoryOption] = useState([])
+
   const [subCategoryOption, setSubCategoryOption] = useState()
 
   console.log(selectedSubCategoryOption, 'option value data')
@@ -111,7 +123,7 @@ export const AddSubCategoryPage = () => {
 
     subCategoryId &&
       setData((prev: any) => ({...prev, name: subCategoryDetailData?.name}))
-    const remappedCategoryDetail = subCategoryDetailData?.subCategories?.map(
+    const remappedCategoryDetail = selectedSubCategoryOption.map(
       (item: any, index: number) => {
         return {
           id: item.id,
@@ -121,9 +133,13 @@ export const AddSubCategoryPage = () => {
       }
     )
 
-    console.log(remappedCategoryDetail, 'remappedcategory detail')
+    console.log(
+      subCategoryDetailDataNested,
+      remappedCategoryDetail,
+      'remappedcategory detail'
+    )
 
-    subCategoryId && setSelectedSubCategoryOption(remappedCategoryDetail)
+    // subCategoryId && setSelectedSubCategoryOption(remappedCategoryDetail)
 
     // console.log(subCategories, 'subCategorydata from useEffect')
   }, [subCategoryDataNeseted, subCategoryDetailData])
@@ -139,20 +155,44 @@ export const AddSubCategoryPage = () => {
       )
   }, [])
 
+  console.log(data, 'data value data')
+
   useEffect(() => {
-    console.clear()
     console.log(
-      selectedSubCategoryOption,
-      'selectedSub Category Option changed'
-    )
-    const selectedSubCategoryId = selectedSubCategoryOption?.map(
-      (item: any) => {
-        return item.id
-      }
+      subCategoryOption,
+      data?.subCategories,
+      'subCategoryOption value data'
     )
 
+    if (!!subCategoryId) {
+      if (!!subCategoryOption) {
+        const selectedSubCategoryId = subCategoryOption?.find((item: any) => {
+          return item.id === data?.subCategories?.[0]
+        }) || {
+          id: '',
+          label: '',
+          value: ''
+        }
+
+        console.log(
+          selectedSubCategoryOption,
+          'selectedSub Category Option changed'
+        )
+      }
+    }
+
     setSelectedSubCategoryId(selectedSubCategoryId)
-  }, [selectedSubCategoryOption])
+  }, [subCategoryOption, data, subCategoryId])
+
+  useEffect(() => {
+    dispatch(getSubCategoryListActionNested({}))
+    subCategoryId &&
+      dispatch(
+        getSubCategoryDetailByIdActionNested({
+          subCategoryId: subCategoryId as string
+        })
+      )
+  }, [])
 
   console.log(subCategoryDataNested, 'subCategoryDataNested data value y ')
   return (

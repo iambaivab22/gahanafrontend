@@ -650,7 +650,17 @@ export const DesktopHeader = () => {
               name: itemSub.name,
               id: itemSub.id,
               link: item.name / itemSub.name,
-              type: 'page'
+              type: 'page',
+              hasChildren: itemSub.subCategories.length > 0,
+              children: itemSub.subCategories?.map(
+                (itemSubSub, indexSubSub) => {
+                  return {
+                    key: indexSubSub + indexSub + index,
+                    name: itemSubSub.name,
+                    id: itemSubSub.id
+                  }
+                }
+              )
             }
           })
         }

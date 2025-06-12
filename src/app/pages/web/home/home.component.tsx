@@ -100,11 +100,13 @@ export const HomePage = () => {
     dispatch(getProductListAction({}))
   }, [])
 
+  const {categoryData} = useSelector((state: any) => state.category)
+
   return (
     <div className="home">
       <MainCarousel></MainCarousel>
       <CompWrapper>
-        <CategoryContainer data={[1, 2, 3, 4, 5, 6, 7]}></CategoryContainer>
+        <CategoryContainer data={categoryData}></CategoryContainer>
       </CompWrapper>
 
       <CompWrapper>

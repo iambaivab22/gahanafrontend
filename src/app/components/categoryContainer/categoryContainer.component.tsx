@@ -2,13 +2,21 @@ import React from 'react'
 
 const CategorryContainers = ({
   imgSrc,
-  name
+  name,
+  linkValue
 }: {
   imgSrc: string
   name: string
+  linkVallue: string
 }) => {
+  const navigate = useNavigate()
   return (
-    <div className="CategoryContainer">
+    <div
+      className="CategoryContainer"
+      onClick={() => {
+        navigate(linkValue)
+      }}
+    >
       <div className="categoryCont">
         <div className="categoryImageContainer">
           <div className="categoryImage">
@@ -35,6 +43,8 @@ import {useMedia, useQuery} from 'src/hooks'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
 import {WatchAndShopCard} from '../watchAndShop/watchAndShop.component'
 import {IoClose} from 'react-icons/io5'
+import {FILE_URL} from 'src/config'
+import {useNavigate} from 'react-router-dom'
 
 export const CategoryContainer = ({data}: {data: any}) => {
   const query = useQuery()
@@ -92,12 +102,15 @@ export const CategoryContainer = ({data}: {data: any}) => {
             }}
             modules={[Pagination, Navigation]}
           >
-            {data.map((item: any, index: number) => {
+            {data?.map((item: any, index: number) => {
+              const mainImage = item?.image?.replace('uploads/', '')
+              console.log(item.name, item, mainImage, 'item.image')
               return (
                 <SwiperSlide key={item.id}>
                   <CategorryContainers
-                    imgSrc="src/assets/images/banner1.webp"
-                    name="New Arrivals"
+                    imgSrc={`${FILE_URL}/${mainImage}`}
+                    name={item.name}
+                    linkValue={`/products?categoryId=${item.id}&categoryname=${item.name}`}
                   />
                 </SwiperSlide>
               )
